@@ -1,0 +1,92 @@
+[gd_scene load_steps=13 format=3 uid="uid://5sewixaw5qvv"]
+
+[ext_resource type="Texture2D" uid="uid://bhwvv4kfrjw2e" path="res://assets/Filler graphics/CyanKnight.png" id="1_2khcx"]
+[ext_resource type="Script" path="res://Enemy.gd" id="1_sdjx7"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hgrnx"]
+radius = 7.0
+height = 22.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t021g"]
+atlas = ExtResource("1_2khcx")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kuem"]
+atlas = ExtResource("1_2khcx")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abq6a"]
+atlas = ExtResource("1_2khcx")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l33gy"]
+atlas = ExtResource("1_2khcx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sj183"]
+atlas = ExtResource("1_2khcx")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ruiek"]
+atlas = ExtResource("1_2khcx")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3o46"]
+atlas = ExtResource("1_2khcx")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8s8ql"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t021g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5kuem")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abq6a")
+}],
+"loop": true,
+"name": &"Charge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l33gy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sj183")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ruiek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3o46")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_loc4j"]
+size = Vector2(9, 20)
+
+[node name="Enemy" type="Area2D"]
+script = ExtResource("1_sdjx7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_hgrnx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8s8ql")
+animation = &"Walk"
+autoplay = "Walk"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 20)
+shape = SubResource("RectangleShape2D_loc4j")
+
+[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]
