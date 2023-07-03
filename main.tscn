@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://donecacfvxfvl"]
+
+[ext_resource type="PackedScene" uid="uid://cya6y7chdu2l3" path="res://wall_segment.tscn" id="2_mxhuj"]
+[ext_resource type="PackedScene" uid="uid://b51h17oetcm33" path="res://enemy.tscn" id="2_oof1n"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Enemy" parent="." instance=ExtResource("2_oof1n")]
+position = Vector2(-32, 288)
+
+[node name="wall_segment" parent="." instance=ExtResource("2_mxhuj")]
+position = Vector2(864, 32)
+
+[node name="wall_segment2" parent="." instance=ExtResource("2_mxhuj")]
+position = Vector2(864, 96)
+
+[node name="wall_segment3" parent="." instance=ExtResource("2_mxhuj")]
+position = Vector2(864, 160)
+
+[node name="wall_segment4" parent="." instance=ExtResource("2_mxhuj")]
+position = Vector2(864, 224)
+
+[node name="wall_segment5" parent="." instance=ExtResource("2_mxhuj")]
+position = Vector2(864, 288)
+
+[node name="wall_segment6" parent="." instance=ExtResource("2_mxhuj")]
+position = Vector2(864, 352)
+
+[node name="wall_segment7" parent="." instance=ExtResource("2_mxhuj")]
+position = Vector2(864, 416)
+
+[node name="wall_segment8" parent="." instance=ExtResource("2_mxhuj")]
+position = Vector2(864, 480)
+
+[node name="wall_segment9" parent="." instance=ExtResource("2_mxhuj")]
+position = Vector2(864, 544)
