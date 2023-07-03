@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://5sewixaw5qvv"]
+[gd_scene load_steps=15 format=3 uid="uid://5sewixaw5qvv"]
 
 [ext_resource type="Texture2D" uid="uid://bhwvv4kfrjw2e" path="res://assets/Filler graphics/CyanKnight.png" id="1_2khcx"]
 [ext_resource type="Script" path="res://Enemy.gd" id="1_sdjx7"]
@@ -18,6 +18,10 @@ region = Rect2(64, 64, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_abq6a"]
 atlas = ExtResource("1_2khcx")
 region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0vikp"]
+atlas = ExtResource("1_2khcx")
+region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l33gy"]
 atlas = ExtResource("1_2khcx")
@@ -48,7 +52,15 @@ animations = [{
 "texture": SubResource("AtlasTexture_abq6a")
 }],
 "loop": true,
-"name": &"Charge",
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0vikp")
+}],
+"loop": true,
+"name": &"Dead",
 "speed": 5.0
 }, {
 "frames": [{
@@ -72,7 +84,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_loc4j"]
 size = Vector2(9, 20)
 
-[node name="Enemy" type="Area2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_wxh2q"]
+radius = 500.0
+
+[node name="Enemy" type="Area2D" groups=["enemy"]]
 script = ExtResource("1_sdjx7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -80,7 +95,7 @@ shape = SubResource("CapsuleShape2D_hgrnx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8s8ql")
-animation = &"Walk"
+animation = &"Dead"
 autoplay = "Walk"
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -89,4 +104,14 @@ autoplay = "Walk"
 position = Vector2(-0.5, 20)
 shape = SubResource("RectangleShape2D_loc4j")
 
-[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]
+[node name="hit_cooldown" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="Undead_targeting system" type="Area2D" parent="."]
+
+[node name="Undead collider" type="CollisionShape2D" parent="Undead_targeting system"]
+shape = SubResource("CircleShape2D_wxh2q")
+disabled = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="hit_cooldown" to="." method="_on_hit_cooldown_timeout"]
