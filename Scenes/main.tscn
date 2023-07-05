@@ -1,14 +1,14 @@
-[gd_scene load_steps=22 format=3 uid="uid://bk5lvhm3glvv1"]
+[gd_scene load_steps=20 format=3 uid="uid://bk5lvhm3glvv1"]
 
 [ext_resource type="Texture2D" uid="uid://5idop04fgyda" path="res://assets/Filler graphics/Cliff.png" id="1_sf0au"]
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_t1qme"]
 [ext_resource type="Texture2D" uid="uid://bjvk1yf1plyxi" path="res://assets/Filler graphics/Tower.png" id="2_5127w"]
 [ext_resource type="Texture2D" uid="uid://bryo8bvbchpb" path="res://assets/Filler graphics/Tower2.png" id="3_icfuh"]
 [ext_resource type="PackedScene" uid="uid://5sewixaw5qvv" path="res://Scenes/enemy.tscn" id="5_itepp"]
-[ext_resource type="Script" path="res://Scenes/LDragon.gd" id="6_7d3j4"]
+[ext_resource type="PackedScene" uid="uid://dh45gqpapy2me" path="res://Scenes/dragon.tscn" id="6_qhfwj"]
 [ext_resource type="Texture2D" uid="uid://biuysmb3ied04" path="res://assets/Filler graphics/WhiteDragon.png" id="7_20qrl"]
 [ext_resource type="Script" path="res://Scenes/RDragon.gd" id="8_5g2j1"]
-[ext_resource type="Script" path="res://Scenes/Walls.gd" id="9_n1hp4"]
+[ext_resource type="PackedScene" uid="uid://cb3vvhp4od8ye" path="res://Scenes/walls.tscn" id="9_7medg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qjn86"]
 texture = ExtResource("1_sf0au")
@@ -146,12 +146,6 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ywxhr"]
 radius = 291.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hiam"]
-size = Vector2(128, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_48poc"]
-size = Vector2(157, 20)
-
 [node name="Main" type="Node2D"]
 script = ExtResource("1_t1qme")
 
@@ -186,23 +180,7 @@ position = Vector2(492, 419)
 [node name="Enemy2" parent="Enemies" instance=ExtResource("5_itepp")]
 position = Vector2(526, 424)
 
-[node name="LDragon" type="Area2D" parent="."]
-position = Vector2(281, 650)
-script = ExtResource("6_7d3j4")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LDragon"]
-
-[node name="Dragon" type="AnimatedSprite2D" parent="LDragon"]
-sprite_frames = SubResource("SpriteFrames_1374g")
-animation = &"Idle"
-autoplay = "Idle"
-
-[node name="Muzzle" type="Marker2D" parent="LDragon/Dragon"]
-
-[node name="targetting_system" type="Area2D" parent="LDragon"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LDragon/targetting_system"]
-shape = SubResource("CircleShape2D_ywxhr")
+[node name="LDragon" parent="." instance=ExtResource("6_qhfwj")]
 
 [node name="RDragon" type="Area2D" parent="."]
 position = Vector2(746, 649)
@@ -222,35 +200,6 @@ autoplay = "Idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RDragon/targetting_system"]
 shape = SubResource("CircleShape2D_ywxhr")
 
-[node name="Walls" type="Node2D" parent="."]
-script = ExtResource("9_n1hp4")
+[node name="Walls" parent="." instance=ExtResource("9_7medg")]
 
-[node name="Wall_segment 1" type="Area2D" parent="Walls" groups=["wall"]]
-position = Vector2(335, 649)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall_segment 1" groups=["wall"]]
-position = Vector2(36.5, 0)
-shape = SubResource("RectangleShape2D_3hiam")
-
-[node name="Sprite2D" type="Sprite2D" parent="Walls/Wall_segment 1"]
-
-[node name="Wall_segment 2" type="Area2D" parent="Walls" groups=["wall"]]
-position = Vector2(456, 649)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall_segment 2" groups=["wall"]]
-position = Vector2(55.5, 0)
-shape = SubResource("RectangleShape2D_48poc")
-
-[node name="Sprite2D" type="Sprite2D" parent="Walls/Wall_segment 2"]
-
-[node name="Wall_segment 3" type="Area2D" parent="Walls" groups=["wall"]]
-position = Vector2(616, 648)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall_segment 3" groups=["wall"]]
-position = Vector2(37, 0)
-shape = SubResource("RectangleShape2D_3hiam")
-
-[node name="Sprite2D" type="Sprite2D" parent="Walls/Wall_segment 3"]
-
-[connection signal="area_entered" from="LDragon/targetting_system" to="LDragon" method="_on_targetting_system_area_entered"]
 [connection signal="area_entered" from="RDragon/targetting_system" to="RDragon" method="_on_targetting_system_area_entered"]

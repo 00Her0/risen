@@ -1,11 +1,21 @@
 extends Node
 
+var souls := 0
+var soul_list = []
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func add_soul(amount):
+	souls += amount
+	
+func use_soul(amount):
+	if amount <= souls:
+		souls -= amount
+		return true
+	else: return false
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func add_dead(dead_soul):
+	soul_list.append(dead_soul)
+	
+func remove_dead(dead_soul):
+	for soul in soul_list:
+		if soul == dead_soul:
+			soul_list.remove_at(soul_list.find(soul))

@@ -10,15 +10,15 @@ var targeted
 @onready var attack_delay = $hit_cooldown
 @onready var undead_targetting = $"Undead_targeting system"
 var state
-signal i_died
+signal i_died(Node2D)
 func _ready():
 	state = "attack"
 
 
 
 func _process(delta):
-	if position.y < 768:
-		position.y += speed * delta
+	if position.x < 960:
+		position.x += speed * delta
 	if Input.is_action_just_pressed("ui_accept"):
 		speed = 0
 
@@ -39,17 +39,19 @@ func _on_area_2d_area_entered(area):
 		attack_delay.start()
 		speed = 0
 
+#
 func take_damage(damage):
 	if health >= damage:
 		health -= damage
 		if health <= 0:
 			die()
-				
-				
+
+#  function on death to add to a list of revivable
 func die():
 	#Currency.dead_list.append(self.position)
 	state = "dead"
-	emit_signal("i_died")
+	Currency.add_dead(self)
+	i_died.emit(self)
 	anim.play("Dead")
 	attack_power = 0
 	speed = 0

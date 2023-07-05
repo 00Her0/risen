@@ -1,55 +1,63 @@
-[gd_scene load_steps=15 format=3 uid="uid://5sewixaw5qvv"]
+[gd_scene load_steps=17 format=3 uid="uid://5sewixaw5qvv"]
 
 [ext_resource type="Texture2D" uid="uid://bhwvv4kfrjw2e" path="res://assets/Filler graphics/CyanKnight.png" id="1_2khcx"]
 [ext_resource type="Script" path="res://Enemy.gd" id="1_sdjx7"]
+[ext_resource type="Texture2D" uid="uid://cyvqnph0snnkd" path="res://assets/Filler graphics/Tombstones.png" id="3_t4hes"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hgrnx"]
 radius = 7.0
 height = 22.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t021g"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ige3x"]
 atlas = ExtResource("1_2khcx")
-region = Rect2(32, 64, 32, 32)
+region = Rect2(0, 160, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5kuem"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6odup"]
 atlas = ExtResource("1_2khcx")
-region = Rect2(64, 64, 32, 32)
+region = Rect2(32, 160, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_abq6a"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0t3es"]
 atlas = ExtResource("1_2khcx")
-region = Rect2(96, 64, 32, 32)
+region = Rect2(64, 160, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0vikp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbpme"]
 atlas = ExtResource("1_2khcx")
-region = Rect2(0, 32, 32, 32)
+region = Rect2(96, 160, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l33gy"]
-atlas = ExtResource("1_2khcx")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3njv"]
+atlas = ExtResource("3_t4hes")
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sj183"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_apvof"]
 atlas = ExtResource("1_2khcx")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(0, 96, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ruiek"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5u0ta"]
 atlas = ExtResource("1_2khcx")
-region = Rect2(64, 0, 32, 32)
+region = Rect2(32, 96, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i3o46"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_outk4"]
 atlas = ExtResource("1_2khcx")
-region = Rect2(96, 0, 32, 32)
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7gbo"]
+atlas = ExtResource("1_2khcx")
+region = Rect2(96, 96, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8s8ql"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_t021g")
+"texture": SubResource("AtlasTexture_ige3x")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5kuem")
+"texture": SubResource("AtlasTexture_6odup")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_abq6a")
+"texture": SubResource("AtlasTexture_0t3es")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dbpme")
 }],
 "loop": true,
 "name": &"Attack",
@@ -57,7 +65,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0vikp")
+"texture": SubResource("AtlasTexture_k3njv")
 }],
 "loop": true,
 "name": &"Dead",
@@ -65,16 +73,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l33gy")
+"texture": SubResource("AtlasTexture_apvof")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sj183")
+"texture": SubResource("AtlasTexture_5u0ta")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ruiek")
+"texture": SubResource("AtlasTexture_outk4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_i3o46")
+"texture": SubResource("AtlasTexture_y7gbo")
 }],
 "loop": true,
 "name": &"Walk",
@@ -82,7 +90,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_loc4j"]
-size = Vector2(9, 20)
+size = Vector2(18.5, 12)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wxh2q"]
 radius = 500.0
@@ -101,7 +109,7 @@ autoplay = "Walk"
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-0.5, 20)
+position = Vector2(19.75, -1)
 shape = SubResource("RectangleShape2D_loc4j")
 
 [node name="hit_cooldown" type="Timer" parent="."]
