@@ -1,28 +1,16 @@
 [gd_scene load_steps=5 format=3 uid="uid://donecacfvxfvl"]
 
-[ext_resource type="PackedScene" uid="uid://5sewixaw5qvv" path="res://Scenes/enemy.tscn" id="1_m0eri"]
-[ext_resource type="PackedScene" uid="uid://cb3vvhp4od8ye" path="res://Scenes/walls.tscn" id="2_8wgpb"]
-[ext_resource type="PackedScene" uid="uid://dh45gqpapy2me" path="res://Scenes/dragon.tscn" id="3_3pd6f"]
+[ext_resource type="Script" path="res://Enemies.gd" id="1_qx6jg"]
+[ext_resource type="PackedScene" path="res://Scenes/walls.tscn" id="2_8wgpb"]
+[ext_resource type="PackedScene" path="res://Scenes/dragon.tscn" id="3_3pd6f"]
 [ext_resource type="PackedScene" uid="uid://dx1okvfblqpxj" path="res://Scenes/control.tscn" id="4_s24bf"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Enemies" type="Node2D" parent="."]
+script = ExtResource("1_qx6jg")
 
-[node name="Enemy" parent="Enemies" instance=ExtResource("1_m0eri")]
-position = Vector2(329, 476)
-
-[node name="Enemy2" parent="Enemies" instance=ExtResource("1_m0eri")]
-position = Vector2(287, 417)
-
-[node name="Enemy3" parent="Enemies" instance=ExtResource("1_m0eri")]
-position = Vector2(171, 198)
-
-[node name="Enemy4" parent="Enemies" instance=ExtResource("1_m0eri")]
-position = Vector2(195, 69)
-
-[node name="Enemy5" parent="Enemies" instance=ExtResource("1_m0eri")]
-position = Vector2(56, 353)
+[node name="spawn_cooldown" type="Timer" parent="Enemies"]
 
 [node name="Walls" parent="." instance=ExtResource("2_8wgpb")]
 
@@ -53,6 +41,8 @@ offset_left = 480.0
 offset_top = 540.0
 offset_right = 480.0
 offset_bottom = 540.0
+
+[connection signal="timeout" from="Enemies/spawn_cooldown" to="Enemies" method="_on_spawn_cooldown_timeout"]
 
 [editable path="Walls"]
 [editable path="Walls/Wall_segment 1"]
