@@ -1,16 +1,32 @@
-[gd_scene load_steps=6 format=3 uid="uid://b51h17oetcm33"]
+[gd_scene load_steps=8 format=3 uid="uid://b51h17oetcm33"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_bio02"]
-[ext_resource type="Texture2D" uid="uid://c23t3nvq7un4g" path="res://icon.svg" id="2_8ahph"]
+[ext_resource type="Texture2D" uid="uid://bhwvv4kfrjw2e" path="res://assets/Filler graphics/CyanKnight.png" id="2_kwiug"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w41ap"]
+atlas = ExtResource("2_kwiug")
+region = Rect2(96, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pi12x"]
+atlas = ExtResource("2_kwiug")
+region = Rect2(96, 160, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_etd3x"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_8ahph")
+"texture": SubResource("AtlasTexture_w41ap")
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pi12x")
+}],
+"loop": true,
+"name": &"die",
 "speed": 5.0
 }]
 
@@ -24,8 +40,8 @@ size = Vector2(63, 16)
 script = ExtResource("1_bio02")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_etd3x")
+animation = &"die"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_wu7qp")

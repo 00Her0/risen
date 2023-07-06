@@ -1,36 +1,49 @@
-[gd_scene load_steps=3 format=3 uid="uid://donecacfvxfvl"]
+[gd_scene load_steps=5 format=3 uid="uid://donecacfvxfvl"]
 
-[ext_resource type="PackedScene" uid="uid://cya6y7chdu2l3" path="res://wall_segment.tscn" id="2_mxhuj"]
-[ext_resource type="PackedScene" uid="uid://b51h17oetcm33" path="res://enemy.tscn" id="2_oof1n"]
+[ext_resource type="Script" path="res://Enemies.gd" id="1_qx6jg"]
+[ext_resource type="PackedScene" path="res://Scenes/walls.tscn" id="2_8wgpb"]
+[ext_resource type="PackedScene" path="res://Scenes/dragon.tscn" id="3_3pd6f"]
+[ext_resource type="PackedScene" uid="uid://dx1okvfblqpxj" path="res://Scenes/control.tscn" id="4_s24bf"]
 
 [node name="Main" type="Node2D"]
 
-[node name="Enemy" parent="." instance=ExtResource("2_oof1n")]
-position = Vector2(-32, 288)
+[node name="Enemies" type="Node2D" parent="."]
+script = ExtResource("1_qx6jg")
 
-[node name="wall_segment" parent="." instance=ExtResource("2_mxhuj")]
-position = Vector2(864, 32)
+[node name="spawn_cooldown" type="Timer" parent="Enemies"]
+wait_time = 10.0
 
-[node name="wall_segment2" parent="." instance=ExtResource("2_mxhuj")]
-position = Vector2(864, 96)
+[node name="Walls" parent="." instance=ExtResource("2_8wgpb")]
 
-[node name="wall_segment3" parent="." instance=ExtResource("2_mxhuj")]
-position = Vector2(864, 160)
+[node name="Wall_segment 1" parent="Walls" index="0"]
+position = Vector2(330, 661)
 
-[node name="wall_segment4" parent="." instance=ExtResource("2_mxhuj")]
-position = Vector2(864, 224)
+[node name="CollisionShape2D" parent="Walls/Wall_segment 1" index="0"]
+position = Vector2(544, -587)
 
-[node name="wall_segment5" parent="." instance=ExtResource("2_mxhuj")]
-position = Vector2(864, 288)
+[node name="CollisionShape2D" parent="Walls/Wall_segment 2" index="0"]
+position = Vector2(419, -390)
 
-[node name="wall_segment6" parent="." instance=ExtResource("2_mxhuj")]
-position = Vector2(864, 352)
+[node name="CollisionShape2D" parent="Walls/Wall_segment 3" index="0"]
+position = Vector2(258, -199)
 
-[node name="wall_segment7" parent="." instance=ExtResource("2_mxhuj")]
-position = Vector2(864, 416)
+[node name="Dragons" type="Node2D" parent="."]
 
-[node name="wall_segment8" parent="." instance=ExtResource("2_mxhuj")]
-position = Vector2(864, 480)
+[node name="LDragon" parent="Dragons" instance=ExtResource("3_3pd6f")]
+position = Vector2(869, 483)
+rotation = 4.71239
 
-[node name="wall_segment9" parent="." instance=ExtResource("2_mxhuj")]
-position = Vector2(864, 544)
+[node name="LDragon2" parent="Dragons" instance=ExtResource("3_3pd6f")]
+position = Vector2(870, 34)
+rotation = 4.71239
+
+[node name="UI" parent="." instance=ExtResource("4_s24bf")]
+offset_left = 480.0
+offset_top = 540.0
+offset_right = 480.0
+offset_bottom = 540.0
+
+[connection signal="timeout" from="Enemies/spawn_cooldown" to="Enemies" method="_on_spawn_cooldown_timeout"]
+
+[editable path="Walls"]
+[editable path="Walls/Wall_segment 1"]

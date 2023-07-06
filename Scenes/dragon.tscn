@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://dh45gqpapy2me"]
+
+[ext_resource type="Script" path="res://Scenes/LDragon.gd" id="1_eeudr"]
+[ext_resource type="Texture2D" uid="uid://biuysmb3ied04" path="res://assets/Filler graphics/WhiteDragon.png" id="2_niawh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6cme"]
+atlas = ExtResource("2_niawh")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4e3l0"]
+atlas = ExtResource("2_niawh")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xju2k"]
+atlas = ExtResource("2_niawh")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gegtw"]
+atlas = ExtResource("2_niawh")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1374g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6cme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4e3l0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xju2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gegtw")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_unwic"]
+radius = 500.0
+
+[node name="LDragon" type="Area2D"]
+script = ExtResource("1_eeudr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Dragon" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1374g")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="Muzzle" type="Marker2D" parent="Dragon"]
+
+[node name="targetting_system" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="targetting_system"]
+shape = SubResource("CircleShape2D_unwic")
+
+[connection signal="area_entered" from="targetting_system" to="." method="_on_targetting_system_area_entered"]
