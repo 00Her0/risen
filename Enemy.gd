@@ -11,6 +11,8 @@ var targeted
 @onready var undead_targetting = $"Undead_targeting system"
 var state
 signal i_died(Node2D)
+var temp_attack_power
+var temp_health := health
 func _ready():
 	state = "attack"
 
@@ -53,6 +55,7 @@ func die():
 	Currency.add_dead(self)
 	i_died.emit(self)
 	anim.play("Dead")
+	temp_attack_power = attack_power
 	attack_power = 0
 	speed = 0
 	rotation = 90
