@@ -1,19 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://donecacfvxfvl"]
+[gd_scene load_steps=8 format=3 uid="uid://donecacfvxfvl"]
 
-[ext_resource type="Script" path="res://Enemies.gd" id="1_qx6jg"]
-[ext_resource type="PackedScene" path="res://Scenes/walls.tscn" id="2_8wgpb"]
-[ext_resource type="PackedScene" path="res://Scenes/dragon.tscn" id="3_3pd6f"]
-[ext_resource type="PackedScene" uid="uid://dx1okvfblqpxj" path="res://Scenes/control.tscn" id="4_s24bf"]
+[ext_resource type="Script" path="res://Scripts/Enemies.gd" id="1_hiq61"]
+[ext_resource type="PackedScene" uid="uid://cb3vvhp4od8ye" path="res://Scenes/walls.tscn" id="2_8wgpb"]
+[ext_resource type="PackedScene" uid="uid://dh45gqpapy2me" path="res://Scenes/dragon.tscn" id="3_3pd6f"]
+[ext_resource type="Script" path="res://Scripts/Walls.gd" id="3_5q56a"]
+[ext_resource type="PackedScene" uid="uid://dx1okvfblqpxj" path="res://UI/control.tscn" id="4_s24bf"]
+[ext_resource type="Script" path="res://Scripts/LDragon.gd" id="5_6g5y1"]
+[ext_resource type="Script" path="res://UI/UI.gd" id="7_xi82y"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Enemies" type="Node2D" parent="."]
-script = ExtResource("1_qx6jg")
+script = ExtResource("1_hiq61")
 
 [node name="spawn_cooldown" type="Timer" parent="Enemies"]
-wait_time = 10.0
+wait_time = 5.0
 
 [node name="Walls" parent="." instance=ExtResource("2_8wgpb")]
+script = ExtResource("3_5q56a")
+wall_1_health = 100
+wall_2_health = 100
+wall_3_health = 100
 
 [node name="Wall_segment 1" parent="Walls" index="0"]
 position = Vector2(330, 661)
@@ -32,16 +39,23 @@ position = Vector2(258, -199)
 [node name="LDragon" parent="Dragons" instance=ExtResource("3_3pd6f")]
 position = Vector2(869, 483)
 rotation = 4.71239
+script = ExtResource("5_6g5y1")
+rotation_speed = 3.14159
+cooldown = 0.5
 
 [node name="LDragon2" parent="Dragons" instance=ExtResource("3_3pd6f")]
 position = Vector2(870, 34)
 rotation = 4.71239
+script = ExtResource("5_6g5y1")
+rotation_speed = 3.14159
+cooldown = 0.5
 
 [node name="UI" parent="." instance=ExtResource("4_s24bf")]
 offset_left = 480.0
 offset_top = 540.0
 offset_right = 480.0
 offset_bottom = 540.0
+script = ExtResource("7_xi82y")
 
 [connection signal="timeout" from="Enemies/spawn_cooldown" to="Enemies" method="_on_spawn_cooldown_timeout"]
 

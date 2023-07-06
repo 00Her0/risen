@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var e = preload("res://enemy.tscn")
+@onready var e = preload("res://Scenes/enemy.tscn")
 @onready var waves = [ # I made it this way so we can add different types of enemies leter more easily
 	[[e]],
 	[[e,e]],
@@ -19,13 +19,13 @@ func wave(num):
 			enemies_alive += 1
 			var enemy = x.instantiate()
 			enemy.position.x = 32 # to make spawning visible for debugging
-			enemy.position.y = rng.randf_range(32, 736)
+			enemy.position.y = rng.randf_range(32, 508)
 			enemy.i_died.connect(enemy_died)
 			add_child(enemy)
 			enemy = null
 		await(get_tree().create_timer(1).timeout)
 
-func enemy_died():
+func enemy_died(_enemy):
 	enemies_alive -= 1
 
 func _process(_delta):

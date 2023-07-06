@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cb3vvhp4od8ye"]
 
-[ext_resource type="Script" path="res://Scenes/Walls.gd" id="1_ddg3h"]
+[ext_resource type="Script" path="res://Scripts/Walls.gd" id="1_fouwv"]
 [ext_resource type="PackedScene" uid="uid://bkxj5oj728t4g" path="res://Scenes/wall_segment.tscn" id="2_sgtjh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_48poc"]
@@ -10,7 +10,7 @@ size = Vector2(50, 187)
 size = Vector2(50, 187)
 
 [node name="Walls" type="Node2D"]
-script = ExtResource("1_ddg3h")
+script = ExtResource("1_fouwv")
 
 [node name="Wall_segment 1" parent="." instance=ExtResource("2_sgtjh")]
 position = Vector2(787, 10)

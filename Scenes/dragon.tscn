@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dh45gqpapy2me"]
 
-[ext_resource type="Script" path="res://Scenes/LDragon.gd" id="1_eeudr"]
+[ext_resource type="Script" path="res://Scripts/LDragon.gd" id="1_pv04f"]
 [ext_resource type="Texture2D" uid="uid://biuysmb3ied04" path="res://assets/Filler graphics/WhiteDragon.png" id="2_niawh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f6cme"]
@@ -43,7 +43,7 @@ animations = [{
 radius = 500.0
 
 [node name="LDragon" type="Area2D"]
-script = ExtResource("1_eeudr")
+script = ExtResource("1_pv04f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 

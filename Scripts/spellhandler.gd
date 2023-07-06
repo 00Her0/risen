@@ -1,8 +1,7 @@
-extends Area2D
+extends Node
 
-var health = 100
-var broken = false
-
+var current_spell = ""
+var mouse_pos
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -10,6 +9,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if health <= 0:
-		broken = true
-		$AnimatedSprite2D.visible = false
+	mouse_pos = get_viewport().get_mouse_position()
+	if Input.is_action_just_pressed("left click"):
+		print(mouse_pos)
+
+func steal_soul():
+	pass
+	

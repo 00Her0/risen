@@ -10,7 +10,7 @@ var targeted
 @onready var attack_delay = $hit_cooldown
 @onready var undead_targetting = $"Undead_targeting system"
 var state
-signal i_died(Node2D)
+signal i_died(enemy_node)
 var temp_attack_power
 var temp_health := health
 func _ready():

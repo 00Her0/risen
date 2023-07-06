@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://5sewixaw5qvv"]
 
 [ext_resource type="Texture2D" uid="uid://bhwvv4kfrjw2e" path="res://assets/Filler graphics/CyanKnight.png" id="1_2khcx"]
-[ext_resource type="Script" path="res://Enemy.gd" id="1_sdjx7"]
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_ha54x"]
 [ext_resource type="Texture2D" uid="uid://cyvqnph0snnkd" path="res://assets/Filler graphics/Tombstones.png" id="3_t4hes"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hgrnx"]
@@ -96,14 +96,14 @@ size = Vector2(18.5, 12)
 radius = 500.0
 
 [node name="Enemy" type="Area2D" groups=["enemy"]]
-script = ExtResource("1_sdjx7")
+script = ExtResource("1_ha54x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_hgrnx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8s8ql")
-animation = &"Dead"
+animation = &"Walk"
 autoplay = "Walk"
 
 [node name="Area2D" type="Area2D" parent="."]

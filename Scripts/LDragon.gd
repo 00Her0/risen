@@ -39,8 +39,8 @@ func _on_targetting_system_area_entered(area):
 #add target to list and connect targets death signal
 func add_target(enemy):
 	target_list.append(enemy)
-
-	enemy.i_died.connect(remove_target)
+	if enemy.has_signal("i_died"):
+		enemy.i_died.connect(remove_target)
 
 
 # Keep list sorted by nearest to wall and remove a target if it dies
@@ -51,6 +51,7 @@ func manage_targets():
 
 # remove targets on death
 func remove_target(enemy):
+	print(enemy)
 	if target_list.has(enemy):
 		if enemy.state == "dead":
 			target_list.remove_at(target_list.find(enemy))
