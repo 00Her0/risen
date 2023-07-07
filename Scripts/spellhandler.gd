@@ -1,6 +1,7 @@
 extends Node
 
 var current_spell = ""
+var explode_cooldown = false # is explode spell on cooldown
 var mouse_pos
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,5 +18,6 @@ func steal_soul():
 	pass
 
 func target(enemy):
-	if current_spell == "explode":
+	if current_spell == "explode" and explode_cooldown == false:
+		explode_cooldown = true
 		enemy.explode()

@@ -17,29 +17,23 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	soul_count_label.text = str(Currency.souls)
-
-
-
-func _on_soulsteal_cooldown_timeout():
-	Currency.add_soul(1)
-
-
-func _on_raise_cooldown_timeout():
-	pass # Replace with function body.
-
-
-func _on_explode_cooldown_timeout():
-	pass
-
+	soul_steal_shade.value = soul_steal_cooldown.time_left
+	raise_shade.value = raise_cooldown.time_left
+	explode_shade.value = explode_cooldown.time_left
+	if Spellhandler.explode_cooldown and explode_cooldown.is_stopped():
+		explode_cooldown.start()
 
 func _on_soulstealbutton_pressed():
-	soul_steal_cooldown.start()
-	$Spellpanel/Infohbox/Soulstealbutton/CooldownShade.value = soul_steal_cooldown.time_left
-
+	if soul_steal_cooldown.is_stopped():
+		Currency.add_soul(1)
+		soul_steal_cooldown.start()
 
 func _on_raisebutton_pressed():
 	pass # Replace with function body.
 
-
 func _on_explodebutton_pressed():
 	Spellhandler.current_spell = "explode"
+
+
+func _on_explode_cooldown_timeout():
+	Spellhandler.explode_cooldown = false

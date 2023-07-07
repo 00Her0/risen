@@ -52,7 +52,6 @@ layout_mode = 2
 texture_normal = ExtResource("3_a0lo7")
 
 [node name="CooldownShade" type="TextureProgressBar" parent="Spellpanel/Infohbox/Soulstealbutton"]
-visible = false
 layout_mode = 0
 offset_right = 31.0
 offset_bottom = 31.0
@@ -62,7 +61,7 @@ value = 3.0
 fill_mode = 5
 texture_under = ExtResource("4_pfv82")
 texture_progress = ExtResource("4_pfv82")
-tint_under = Color(0.231373, 0.231373, 0.231373, 0.588235)
+tint_under = Color(0.231373, 0.231373, 0.231373, 0)
 tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
 [node name="SoulstealCooldown" type="Timer" parent="Spellpanel/Infohbox/Soulstealbutton"]
@@ -75,7 +74,6 @@ tooltip_text = "Send a captured soul into a body to animate it"
 texture_normal = ExtResource("3_a0lo7")
 
 [node name="CooldownShade" type="TextureProgressBar" parent="Spellpanel/Infohbox/Raisebutton"]
-visible = false
 layout_mode = 0
 offset_right = 31.0
 offset_bottom = 31.0
@@ -85,7 +83,7 @@ value = 3.0
 fill_mode = 5
 texture_under = ExtResource("4_pfv82")
 texture_progress = ExtResource("4_pfv82")
-tint_under = Color(0.231373, 0.231373, 0.231373, 0.588235)
+tint_under = Color(1, 1, 1, 0)
 tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
 [node name="RaiseCooldown" type="Timer" parent="Spellpanel/Infohbox/Raisebutton"]
@@ -98,7 +96,6 @@ tooltip_text = "Fill a dead body with so many souls it explodes!"
 texture_normal = ExtResource("3_a0lo7")
 
 [node name="CooldownShade" type="TextureProgressBar" parent="Spellpanel/Infohbox/Explodebutton"]
-visible = false
 layout_mode = 0
 offset_right = 31.0
 offset_bottom = 31.0
@@ -108,7 +105,7 @@ value = 3.0
 fill_mode = 5
 texture_under = ExtResource("4_pfv82")
 texture_progress = ExtResource("4_pfv82")
-tint_under = Color(0.231373, 0.231373, 0.231373, 0.588235)
+tint_under = Color(0.231373, 0.231373, 0.231373, 0)
 tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
 [node name="ExplodeCooldown" type="Timer" parent="Spellpanel/Infohbox/Explodebutton"]
@@ -116,8 +113,6 @@ wait_time = 10.0
 one_shot = true
 
 [connection signal="pressed" from="Spellpanel/Infohbox/Soulstealbutton" to="." method="_on_soulstealbutton_pressed"]
-[connection signal="timeout" from="Spellpanel/Infohbox/Soulstealbutton/SoulstealCooldown" to="." method="_on_soulsteal_cooldown_timeout"]
 [connection signal="pressed" from="Spellpanel/Infohbox/Raisebutton" to="." method="_on_raisebutton_pressed"]
-[connection signal="timeout" from="Spellpanel/Infohbox/Raisebutton/RaiseCooldown" to="." method="_on_raise_cooldown_timeout"]
 [connection signal="pressed" from="Spellpanel/Infohbox/Explodebutton" to="." method="_on_explodebutton_pressed"]
 [connection signal="timeout" from="Spellpanel/Infohbox/Explodebutton/ExplodeCooldown" to="." method="_on_explode_cooldown_timeout"]
