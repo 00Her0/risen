@@ -9,6 +9,7 @@ var targeted
 @onready var anim = $AnimatedSprite2D
 @onready var attack_delay = $hit_cooldown
 @onready var undead_targetting = $"Undead_targeting system"
+@onready var hp_bar = $"Hp bar"
 @onready var explosion = preload("res://Scenes/explosion.tscn")
 var state
 signal i_died(enemy_node)
@@ -16,10 +17,11 @@ var temp_attack_power
 var temp_health := health
 func _ready():
 	state = "attack"
-
+	hp_bar.max_value = health
 
 
 func _process(delta):
+	hp_bar.value = health
 	if position.x < 960:
 		position.x += speed * delta
 	if Input.is_action_just_pressed("ui_accept"):
@@ -53,6 +55,7 @@ func take_damage(damage):
 func die():
 	#Currency.dead_list.append(self.position)
 	state = "dead"
+	hp_bar.visible = false
 	remove_from_group("enemy") # for dragon targetting hopefully this won't break anything
 	Currency.add_dead(self)
 	i_died.emit(self)
@@ -60,7 +63,7 @@ func die():
 	temp_attack_power = attack_power
 	attack_power = 0
 	speed = 0
-	rotation = 90
+
 
 
 #Risen state code here

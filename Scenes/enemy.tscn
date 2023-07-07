@@ -1,8 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://5sewixaw5qvv"]
+[gd_scene load_steps=20 format=3 uid="uid://5sewixaw5qvv"]
 
 [ext_resource type="Texture2D" uid="uid://bhwvv4kfrjw2e" path="res://assets/Filler graphics/CyanKnight.png" id="1_2khcx"]
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_ha54x"]
 [ext_resource type="Texture2D" uid="uid://cyvqnph0snnkd" path="res://assets/Filler graphics/Tombstones.png" id="3_t4hes"]
+[ext_resource type="Texture2D" uid="uid://dksc1anrrjfr1" path="res://assets/HP back.png" id="4_1qivc"]
+[ext_resource type="Texture2D" uid="uid://hluqty1pngvc" path="res://assets/HP outside.png" id="5_fdwcg"]
+[ext_resource type="Texture2D" uid="uid://dk8jbh52x55g5" path="res://assets/HP progress.png" id="6_upl7w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hgrnx"]
 radius = 7.0
@@ -122,11 +125,23 @@ shape = SubResource("CircleShape2D_wxh2q")
 disabled = true
 
 [node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
 offset_left = -9.0
 offset_top = -17.0
 offset_right = 10.0
 offset_bottom = 11.0
 flat = true
+
+[node name="Hp bar" type="TextureProgressBar" parent="."]
+offset_left = -12.0
+offset_top = -27.0
+offset_right = 12.0
+offset_bottom = -17.0
+value = 50.0
+nine_patch_stretch = true
+texture_under = ExtResource("4_1qivc")
+texture_over = ExtResource("5_fdwcg")
+texture_progress = ExtResource("6_upl7w")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="timeout" from="hit_cooldown" to="." method="_on_hit_cooldown_timeout"]
