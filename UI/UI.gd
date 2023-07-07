@@ -20,13 +20,17 @@ func _process(delta):
 	soul_steal_shade.value = soul_steal_cooldown.time_left
 	raise_shade.value = raise_cooldown.time_left
 	explode_shade.value = explode_cooldown.time_left
+	# check of we need to start cooldown timers
 	if Spellhandler.explode_cooldown and explode_cooldown.is_stopped():
 		explode_cooldown.start()
+	if Spellhandler.steal_cooldown and soul_steal_cooldown.is_stopped():
+		soul_steal_cooldown.start()
 
 func _on_soulstealbutton_pressed():
-	if soul_steal_cooldown.is_stopped():
-		Currency.add_soul(1)
-		soul_steal_cooldown.start()
+	Spellhandler.current_spell = "steal"
+
+func _on_soulsteal_cooldown_timeout():
+	Spellhandler.steal_cooldown = false # reset cooldown
 
 func _on_raisebutton_pressed():
 	pass # Replace with function body.
@@ -36,4 +40,4 @@ func _on_explodebutton_pressed():
 
 
 func _on_explode_cooldown_timeout():
-	Spellhandler.explode_cooldown = false
+	Spellhandler.explode_cooldown = false # reset cooldown

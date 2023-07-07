@@ -113,6 +113,7 @@ wait_time = 10.0
 one_shot = true
 
 [connection signal="pressed" from="Spellpanel/Infohbox/Soulstealbutton" to="." method="_on_soulstealbutton_pressed"]
+[connection signal="timeout" from="Spellpanel/Infohbox/Soulstealbutton/SoulstealCooldown" to="." method="_on_soulsteal_cooldown_timeout"]
 [connection signal="pressed" from="Spellpanel/Infohbox/Raisebutton" to="." method="_on_raisebutton_pressed"]
 [connection signal="pressed" from="Spellpanel/Infohbox/Explodebutton" to="." method="_on_explodebutton_pressed"]
 [connection signal="timeout" from="Spellpanel/Infohbox/Explodebutton/ExplodeCooldown" to="." method="_on_explode_cooldown_timeout"]
