@@ -9,9 +9,8 @@ var targeted
 @onready var anim = $AnimatedSprite2D
 @onready var attack_delay = $hit_cooldown
 @onready var undead_targetting = $"Undead_targeting system"
-@onready var explosion = preload("res://Scenes/explosion.tscn")
 var state
-signal i_died(enemy_node)
+signal i_died(Node2D)
 var temp_attack_power
 var temp_health := health
 func _ready():
@@ -44,17 +43,17 @@ func _on_area_2d_area_entered(area):
 
 #
 func take_damage(damage):
-	#if health >= damage: i removed this, it didn't seem right -reed
-	health -= damage
-	if health <= 0:
-		die()
+	if health >= damage:
+		health -= damage
+		if health <= 0:
+			die()
 
 #  function on death to add to a list of revivable
 func die():
 	#Currency.dead_list.append(self.position)
 	state = "dead"
-	remove_from_group("enemy") # for dragon targetting hopefully this won't break anything
 	Currency.add_dead(self)
+	print(self)
 	i_died.emit(self)
 	anim.play("Dead")
 	temp_attack_power = attack_power
@@ -71,7 +70,7 @@ func raise():
 	
 	
 	# slow speed going up, they will target the nearest enemy until they die or the
-	# life timer ends
+	#life timer ends
 	speed = -20
 	
 	
@@ -83,13 +82,3 @@ func find_target():
 			target_list.append(target)
 	
 	
-
-func explode(): #spawn an explosion (then get rid of my body)
-	var temp = explosion.instantiate()
-	temp.position = position
-	get_parent().add_child(temp)
-	queue_free()
-
-func _on_button_pressed(): # if i'm dead tell spellhandler to do stuff
-	if state == "dead":
-		Spellhandler.target(self) # tells spellhandler who i am

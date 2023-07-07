@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://ca2w3m5qsoa1u"]
+
+[ext_resource type="Texture2D" uid="uid://bl10kyvr0y2ud" path="res://assets/Filler graphics/FireballProjectile.png" id="1_mt6ob"]
+[ext_resource type="Script" path="res://Scripts/explosion.gd" id="1_sjip7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cypdn"]
+size = Vector2(128, 128)
+
+[node name="Explosion" type="Area2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_sjip7")
+
+[node name="FireballProjectile" type="Sprite2D" parent="."]
+position = Vector2(0, 16)
+scale = Vector2(2, 2)
+texture = ExtResource("1_mt6ob")
+
+[node name="FireballProjectile3" type="Sprite2D" parent="."]
+position = Vector2(0, 48)
+scale = Vector2(2, 2)
+texture = ExtResource("1_mt6ob")
+
+[node name="FireballProjectile4" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+scale = Vector2(2, 2)
+texture = ExtResource("1_mt6ob")
+
+[node name="FireballProjectile2" type="Sprite2D" parent="."]
+position = Vector2(0, -48)
+scale = Vector2(2, 2)
+texture = ExtResource("1_mt6ob")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cypdn")
+
+[node name="Lifetime" type="Timer" parent="."]
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

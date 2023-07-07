@@ -15,4 +15,7 @@ func _process(delta):
 
 func steal_soul():
 	pass
-	
+
+func target(enemy):
+	if current_spell == "explode":
+		enemy.explode()

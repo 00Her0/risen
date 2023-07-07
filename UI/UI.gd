@@ -29,7 +29,7 @@ func _on_raise_cooldown_timeout():
 
 
 func _on_explode_cooldown_timeout():
-	pass # Replace with function body.
+	pass
 
 
 func _on_soulstealbutton_pressed():
@@ -42,4 +42,4 @@ func _on_raisebutton_pressed():
 
 
 func _on_explodebutton_pressed():
-	pass # Replace with function body.
+	Spellhandler.current_spell = "explode"

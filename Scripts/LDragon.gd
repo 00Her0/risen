@@ -28,8 +28,9 @@ func _process(_delta):
 
 
 func _on_targetting_system_area_entered(area):
-	if "Enemy" in area.name:
+	if area.is_in_group("enemy"):
 		add_target(area)
+		print("target added")
 		if target:
 			if area.position.x > target.position.x:
 				target = area
