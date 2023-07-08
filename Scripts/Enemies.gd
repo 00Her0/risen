@@ -20,7 +20,7 @@ func wave(num):
 			enemies_alive += 1
 			var enemy = x.instantiate()
 			enemy.position.x = 32 # to make spawning visible for debugging
-			enemy.position.y = rng.randf_range(32, 508) 
+			enemy.position.y = rng.randf_range(250, 508)
 			enemy.i_died.connect(enemy_died)
 			add_child(enemy)
 			enemy = null

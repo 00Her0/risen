@@ -22,8 +22,10 @@ func _ready():
 
 
 func _process(delta):
+	scale = Vector2(1.5-position.x/960, 1.5-position.x/960)
 	hp_bar.value = health
 	if position.x < 960:
+		position.y -= (speed / 3) * delta
 		position.x += speed * delta
 	if state == "risen":
 		risen_loop(delta)

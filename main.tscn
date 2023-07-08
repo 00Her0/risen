@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://donecacfvxfvl"]
+[gd_scene load_steps=6 format=3 uid="uid://donecacfvxfvl"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies.gd" id="1_hiq61"]
+[ext_resource type="Texture2D" uid="uid://crnrb3kk40pu7" path="res://assets/Filler graphics/background_sketch.png" id="1_wpu4m"]
 [ext_resource type="PackedScene" uid="uid://cb3vvhp4od8ye" path="res://Scenes/walls.tscn" id="2_8wgpb"]
 [ext_resource type="PackedScene" uid="uid://dh45gqpapy2me" path="res://Scenes/dragon.tscn" id="3_3pd6f"]
 [ext_resource type="PackedScene" uid="uid://dx1okvfblqpxj" path="res://UI/control.tscn" id="4_s24bf"]
 
 [node name="Main" type="Node2D"]
+
+[node name="BackgroundSketch" type="Sprite2D" parent="."]
+position = Vector2(486, 275)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_wpu4m")
 
 [node name="Enemies" type="Node2D" parent="."]
 script = ExtResource("1_hiq61")
