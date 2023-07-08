@@ -20,11 +20,12 @@ func _process(delta):
 	soul_steal_shade.value = soul_steal_cooldown.time_left
 	raise_shade.value = raise_cooldown.time_left
 	explode_shade.value = explode_cooldown.time_left
-	# check of we need to start cooldown timers
+	# check if we need to start cooldown timers
 	if Spellhandler.explode_cooldown and explode_cooldown.is_stopped():
 		explode_cooldown.start()
 	if Spellhandler.steal_cooldown and soul_steal_cooldown.is_stopped():
 		soul_steal_cooldown.start()
+	spell_cursor()
 
 func _on_soulstealbutton_pressed():
 	Spellhandler.current_spell = "steal"
@@ -33,11 +34,22 @@ func _on_soulsteal_cooldown_timeout():
 	Spellhandler.steal_cooldown = false # reset cooldown
 
 func _on_raisebutton_pressed():
-	pass # Replace with function body.
+	Spellhandler.current_spell = "raise"
 
 func _on_explodebutton_pressed():
 	Spellhandler.current_spell = "explode"
 
-
 func _on_explode_cooldown_timeout():
 	Spellhandler.explode_cooldown = false # reset cooldown
+
+func spell_cursor(): # this code is a little messy but i don't really know how else to do it
+	$Spellpanel/Infohbox/Soulstealbutton.position.y = 0
+	$Spellpanel/Infohbox/Raisebutton.position.y = 0
+	$Spellpanel/Infohbox/Explodebutton.position.y = 0
+	match Spellhandler.current_spell:
+		"steal":
+			$Spellpanel/Infohbox/Soulstealbutton.position.y = -6
+		"raise":
+			$Spellpanel/Infohbox/Raisebutton.position.y = -6
+		"explode":
+			$Spellpanel/Infohbox/Explodebutton.position.y = -6

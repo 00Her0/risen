@@ -11,6 +11,7 @@ var targeted
 @onready var undead_targetting = $"Undead_targeting system"
 @onready var hp_bar = $"Hp bar"
 @onready var explosion = preload("res://Scenes/explosion.tscn")
+@onready var target = "none"
 var state
 signal i_died(enemy_node)
 var temp_attack_power
@@ -24,8 +25,8 @@ func _process(delta):
 	hp_bar.value = health
 	if position.x < 960:
 		position.x += speed * delta
-	if Input.is_action_just_pressed("ui_accept"):
-		speed = 0
+	if state == "risen":
+		risen_loop(delta)
 
 
 
@@ -69,9 +70,11 @@ func die():
 #Risen state code here
 func raise():
 	state = "risen"
-	undead_targetting.disabled = false
+	undead_targetting.get_node("Undead collider").disabled = false
 	# Code here for recovering stats from before death
-	
+	hp_bar.visible = true
+	anim.play("Walk")
+	attack_power = temp_attack_power
 	
 	# slow speed going up, they will target the nearest enemy until they die or the
 	# life timer ends
@@ -81,11 +84,16 @@ func raise():
 func find_target():
 	var target_list = []
 	var possible_target_list = undead_targetting.get_overlapping_areas()
-	for target in possible_target_list:
-		if "enemy" in target.name:
-			target_list.append(target)
-	
-	
+	for i in possible_target_list:
+		if i.is_in_group("enemy"):
+			target_list.append(i)
+	for i in target_list:
+		if target is String:
+			target = i
+		else:
+			if i.position.distance_to(self.position) <= target.position.distance_to(self.position):
+				target = i
+	return target
 
 func explode(): #spawn an explosion (then get rid of my body)
 	var temp = explosion.instantiate()
@@ -96,3 +104,16 @@ func explode(): #spawn an explosion (then get rid of my body)
 func _on_button_pressed(): # if i'm dead tell spellhandler to do stuff
 	if state == "dead":
 		Spellhandler.target(self) # tells spellhandler who i am
+
+func risen_loop(delta):
+	if target is String: # if we dont have a target get one
+		find_target()
+	else:
+		if target.position.x > self.position.x: # move toward target sorry for the bad code
+			position.x += 20 * delta
+		else:
+			position.x += -20 * delta
+		if target.position.y > self.position.y:
+			position.y += 20 * delta
+		else:
+			position.y += -20 * delta

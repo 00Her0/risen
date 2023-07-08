@@ -12,6 +12,7 @@ script = ExtResource("1_hiq61")
 
 [node name="spawn_cooldown" type="Timer" parent="Enemies"]
 wait_time = 5.0
+one_shot = true
 
 [node name="Walls" parent="." instance=ExtResource("2_8wgpb")]
 

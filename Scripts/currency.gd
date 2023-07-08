@@ -1,6 +1,6 @@
 extends Node
 
-var souls := 0
+var souls := 7 # CHANGED FOR TESTING
 var soul_list = []
 
 func add_soul(amount):
