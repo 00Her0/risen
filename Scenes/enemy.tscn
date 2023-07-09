@@ -93,7 +93,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_loc4j"]
-size = Vector2(18.5, 12)
+size = Vector2(37, 12)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wxh2q"]
 radius = 500.0
@@ -112,7 +112,7 @@ autoplay = "Walk"
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(19.75, -1)
+position = Vector2(10.5, -1)
 shape = SubResource("RectangleShape2D_loc4j")
 
 [node name="hit_cooldown" type="Timer" parent="."]

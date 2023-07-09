@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://donecacfvxfvl"]
+[gd_scene load_steps=7 format=3 uid="uid://donecacfvxfvl"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies.gd" id="1_hiq61"]
 [ext_resource type="Texture2D" uid="uid://crnrb3kk40pu7" path="res://assets/Filler graphics/background_sketch.png" id="1_wpu4m"]
 [ext_resource type="PackedScene" uid="uid://dh45gqpapy2me" path="res://Scenes/dragon.tscn" id="3_3pd6f"]
 [ext_resource type="PackedScene" uid="uid://dx1okvfblqpxj" path="res://UI/control.tscn" id="4_s24bf"]
+[ext_resource type="Script" path="res://Wall.gd" id="5_hmxq2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l213k"]
+size = Vector2(98.8138, 20)
 
 [node name="Main" type="Node2D"]
 
@@ -34,5 +38,15 @@ offset_left = 480.0
 offset_top = 540.0
 offset_right = 480.0
 offset_bottom = 540.0
+
+[node name="Wall" type="Area2D" parent="." groups=["wall"]]
+script = ExtResource("5_hmxq2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2(670.81, 205.664)
+rotation = 0.663225
+scale = Vector2(9.21818, 8.36703)
+shape = SubResource("RectangleShape2D_l213k")
+debug_color = Color(0.956863, 0, 0.52549, 0.419608)
 
 [connection signal="timeout" from="Enemies/spawn_cooldown" to="Enemies" method="_on_spawn_cooldown_timeout"]

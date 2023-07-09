@@ -2,7 +2,6 @@ extends Area2D
 
 
 @export var speed = 20
-@export var attack_range = 250
 @export var attack_power = 5
 @export var health := 100
 var targeted
@@ -13,22 +12,25 @@ var targeted
 @onready var explosion = preload("res://Scenes/explosion.tscn")
 @onready var target = "none"
 var state
+var wall
 signal i_died(enemy_node)
 var temp_attack_power
 var temp_health := health
 func _ready():
-	state = "attack"
+	state = "move"
 	hp_bar.max_value = health
 
 
 func _process(delta):
 	scale = Vector2(1.5-position.x/960, 1.5-position.x/960)
 	hp_bar.value = health
-	if position.x < 960:
+	if state == "move":
 		position.y -= (speed / 3) * delta
 		position.x += speed * delta
-	if state == "risen":
+	elif state == "risen" or state == "risen attack":
 		risen_loop(delta)
+	elif state == "attack": # attack is the state when touching wall
+		$hit_cooldown.start()
 
 
 
@@ -36,16 +38,19 @@ func _on_hit_cooldown_timeout():
 	if state != "dead":
 		if targeted.broken == false:
 			targeted.take_damage(attack_power)
-		else:
-			attack_range = 0
 
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("wall"):
 		targeted = area
+		state = "attack"
 		anim.play("Attack")
 		attack_delay.start()
 		speed = 0
+	elif area.is_in_group("enemy") and state == "risen":
+		print("boys we got emmmm")
+		state = "risen attack"
+		targeted = area
 
 #
 func take_damage(damage):
@@ -110,6 +115,11 @@ func _on_button_pressed(): # if i'm dead tell spellhandler to do stuff
 func risen_loop(delta):
 	if target is String: # if we dont have a target get one
 		find_target()
+	elif state == "risen attack":
+		print("RISEN ATTACKKKKKKKK")
+		targeted.take_damage(attack_power)
+		if targeted.state == "dead":
+			state = "risen"
 	else:
 		if target.position.x > self.position.x: # move toward target sorry for the bad code
 			position.x += 20 * delta
