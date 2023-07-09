@@ -37,9 +37,11 @@ func _process(delta):
 func _on_hit_cooldown_timeout():
 	if state != "dead":
 		if state == "risen":
-			state = "risen attack"
-			anim.play("Attack")
-			return
+			#if anim.animation != "Attack":
+				anim.play("Attack")
+#				return
+#			else:
+				state = "risen attack"
 		if targeted.is_in_group("wall"):
 			if targeted.broken == false:
 				targeted.take_damage(attack_power)
@@ -87,6 +89,7 @@ func die():
 func raise():
 	state = "risen"
 	undead_targetting.get_node("Undead collider").disabled = false
+	$risen_damage.start()
 	# Code here for recovering stats from before death
 	hp_bar.visible = true
 	anim.play("Walk")
@@ -111,6 +114,8 @@ func find_target():
 		else:
 			if i.position.distance_to(self.position) <= target.position.distance_to(self.position) and i.state == "move":
 				target = i
+	if target is String and anim.animation != "Walk":
+		anim.play("Walk")
 	return target
 
 func explode(): #spawn an explosion (then get rid of my body)
@@ -124,7 +129,6 @@ func _on_button_pressed(): # if i'm dead tell spellhandler to do stuff
 		Spellhandler.target(self) # tells spellhandler who i am
 
 func risen_loop(delta):
-	#health -= 0.001
 	if health <= 0:
 		die()
 	#if target is String: # if we dont have a target get one
@@ -138,6 +142,8 @@ func risen_loop(delta):
 		if $hit_cooldown.is_stopped():
 			$hit_cooldown.start()
 	else:
+		if anim.animation != "Walk":
+			anim.play("Walk")
 		if target.position.x > self.position.x: # move toward target sorry for the bad code
 			#little speed buff so they can catch up with enemies
 			position.x += speed * 1.25 * delta
@@ -160,3 +166,7 @@ func new_target():
 	target = "none"
 	anim.play("Walk")
 	$hit_cooldown.stop()
+
+
+func _on_risen_damage_timeout():
+	health -= 5
