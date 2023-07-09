@@ -36,7 +36,15 @@ func _process(delta):
 
 func _on_hit_cooldown_timeout():
 	if state != "dead":
-		if targeted.broken == false:
+		if state == "risen":
+			state = "risen attack"
+			anim.play("Attack")
+			return
+		if targeted.is_in_group("wall"):
+			if targeted.broken == false:
+				targeted.take_damage(attack_power)
+		elif targeted.is_in_group("enemy"):
+			print("eat this!")
 			targeted.take_damage(attack_power)
 
 
@@ -48,13 +56,14 @@ func _on_area_2d_area_entered(area):
 		attack_delay.start()
 		speed = 0
 	elif area.is_in_group("enemy") and state == "risen":
-		print("boys we got emmmm")
-		state = "risen attack"
-		targeted = area
+		if area.state == "move":
+			print("boys we got emmmm")
+			targeted = area
+			$hit_cooldown.start()
+		else:
+			new_target()
 
-#
 func take_damage(damage):
-	#if health >= damage: i removed this, it didn't seem right -reed
 	health -= damage
 	if health <= 0:
 		die()
@@ -82,23 +91,25 @@ func raise():
 	hp_bar.visible = true
 	anim.play("Walk")
 	attack_power = temp_attack_power
+	health = temp_health
 	
 	# slow speed going up, they will target the nearest enemy until they die or the
 	# life timer ends
-	speed = -20
+	speed = 20
 	
 	
 func find_target():
 	var target_list = []
 	var possible_target_list = undead_targetting.get_overlapping_areas()
+	target = "none"
 	for i in possible_target_list:
-		if i.is_in_group("enemy"):
+		if i.is_in_group("enemy") and i.state == "move":
 			target_list.append(i)
 	for i in target_list:
-		if target is String:
+		if target is String and i.state == "move":
 			target = i
 		else:
-			if i.position.distance_to(self.position) <= target.position.distance_to(self.position):
+			if i.position.distance_to(self.position) <= target.position.distance_to(self.position) and i.state == "move":
 				target = i
 	return target
 
@@ -113,19 +124,39 @@ func _on_button_pressed(): # if i'm dead tell spellhandler to do stuff
 		Spellhandler.target(self) # tells spellhandler who i am
 
 func risen_loop(delta):
-	if target is String: # if we dont have a target get one
-		find_target()
+	#health -= 0.001
+	if health <= 0:
+		die()
+	#if target is String: # if we dont have a target get one
+	find_target()
+	if target is String:
+		pass
 	elif state == "risen attack":
-		print("RISEN ATTACKKKKKKKK")
-		targeted.take_damage(attack_power)
 		if targeted.state == "dead":
-			state = "risen"
+			new_target()
+			print("hes on the floor")
+		if $hit_cooldown.is_stopped():
+			$hit_cooldown.start()
 	else:
 		if target.position.x > self.position.x: # move toward target sorry for the bad code
-			position.x += 20 * delta
+			#little speed buff so they can catch up with enemies
+			position.x += speed * 1.25 * delta
 		else:
-			position.x += -20 * delta
+			position.x += -speed * 1.25 * delta
 		if target.position.y > self.position.y:
-			position.y += 20 * delta
+			position.y += speed * 1.25 * delta
 		else:
-			position.y += -20 * delta
+			position.y += -speed * 1.25 * delta
+
+
+func _on_area_2d_area_exited(area):
+	if area.is_in_group("enemy") and state == "risen attack":
+		print("hes gettin away!")
+		new_target()
+
+func new_target():
+	print("start over")
+	state = "risen"
+	target = "none"
+	anim.play("Walk")
+	$hit_cooldown.stop()
