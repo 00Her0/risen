@@ -1,9 +1,9 @@
 extends Area2D
 
 
-@export var speed = 20
-@export var attack_power = 5
-@export var health := 100
+@export var speed: int
+@export var attack_power: int
+@export var health: int
 var targeted
 @onready var anim = $AnimatedSprite2D
 @onready var attack_delay = $hit_cooldown
@@ -11,13 +11,19 @@ var targeted
 @onready var hp_bar = $"Hp bar"
 @onready var explosion = preload("res://Scenes/explosion.tscn")
 @onready var target = "none"
+var unit_stats = {"Spearman": {"Health":100, "Attack": 5, "Speed": 20,},"Archer": {"Health":50, "Attack": 8, "Speed": 25,}, "Knight": {"Health":200, "Attack": 10, "Speed": 35,}, "Swordman": {"Health":150, "Attack": 5, "Speed": 10,}}
+var unit_list = ["Spearman","Archer","Knight","Swordman"]
+var unit_type 
 var state
 var wall
 signal i_died(enemy_node)
 var temp_attack_power
-var temp_health := health
+var temp_health
 func _ready():
 	state = "move"
+	unit_type = unit_list.pick_random()
+	assign_stats()
+	temp_health = health
 	hp_bar.max_value = health
 
 
@@ -38,6 +44,7 @@ func _on_hit_cooldown_timeout():
 	if state != "dead":
 		if state == "risen":
 			#if anim.animation != "Attack":
+				$Attacksound.play()
 				anim.play("Attack")
 #				return
 #			else:
@@ -74,6 +81,7 @@ func take_damage(damage):
 func die():
 	#Currency.dead_list.append(self.position)
 	state = "dead"
+	$Deathsound.play()
 	hp_bar.visible = false
 	remove_from_group("enemy") # for dragon targetting hopefully this won't break anything
 	Currency.add_dead(self)
@@ -88,6 +96,7 @@ func die():
 #Risen state code here
 func raise():
 	state = "risen"
+	$Raisesound.play()
 	undead_targetting.get_node("Undead collider").disabled = false
 	$risen_damage.start()
 	# Code here for recovering stats from before death
@@ -119,6 +128,8 @@ func find_target():
 	return target
 
 func explode(): #spawn an explosion (then get rid of my body)
+	$Explosionsound.play()
+	await $Explosionsound.finished
 	var temp = explosion.instantiate()
 	temp.position = position
 	get_parent().add_child(temp)
@@ -170,3 +181,23 @@ func new_target():
 
 func _on_risen_damage_timeout():
 	health -= 5
+
+
+func assign_stats(): #Assign stats for the unit and swap sprites for the appropriate unit
+	match unit_type:
+		"Spearman":
+			health = unit_stats["Spearman"]["Health"]
+			attack_power = unit_stats["Spearman"]["Attack"]
+			speed = unit_stats["Spearman"]["Speed"]
+		"Archer":
+			health = unit_stats["Archer"]["Health"]
+			attack_power = unit_stats["Archer"]["Attack"]
+			speed = unit_stats["Archer"]["Speed"]
+		"Knight":
+			health = unit_stats["Knight"]["Health"]
+			attack_power = unit_stats["Knight"]["Attack"]
+			speed = unit_stats["Knight"]["Speed"]
+		"Swordman":
+			health = unit_stats["Swordman"]["Health"]
+			attack_power = unit_stats["Swordman"]["Attack"]
+			speed = unit_stats["Swordman"]["Speed"]

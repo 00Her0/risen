@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://5sewixaw5qvv"]
+[gd_scene load_steps=24 format=3 uid="uid://5sewixaw5qvv"]
 
 [ext_resource type="Texture2D" uid="uid://bhwvv4kfrjw2e" path="res://assets/Filler graphics/CyanKnight.png" id="1_2khcx"]
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_ha54x"]
@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://dksc1anrrjfr1" path="res://assets/HP back.png" id="4_1qivc"]
 [ext_resource type="Texture2D" uid="uid://hluqty1pngvc" path="res://assets/HP outside.png" id="5_fdwcg"]
 [ext_resource type="Texture2D" uid="uid://dk8jbh52x55g5" path="res://assets/HP progress.png" id="6_upl7w"]
+[ext_resource type="AudioStream" uid="uid://d2k50q5g01nq6" path="res://assets/Music and sounds/VOXScrm_Male Serial Killer Attacking 1_344 Audio_Screaming.wav" id="7_ea3pj"]
+[ext_resource type="AudioStream" uid="uid://bousvtdao5ypk" path="res://assets/Music and sounds/Bluezone_BC0277_weapon_smoke_grenade_launcher_003.wav" id="8_lgjtw"]
+[ext_resource type="AudioStream" uid="uid://p7407a7nijxb" path="res://assets/Music and sounds/MAGElem_Water Spell Splash Attack Medium 2_RogueWaves_DruidMagic.wav" id="9_qcg3x"]
+[ext_resource type="AudioStream" uid="uid://cimijcrb8qlo6" path="res://assets/Music and sounds/SWSH_Sword Slash Impact V2 Assorted 18_DDUMAIS_NONE.wav" id="10_pqpkd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hgrnx"]
 radius = 7.0
@@ -144,6 +148,20 @@ texture_over = ExtResource("5_fdwcg")
 texture_progress = ExtResource("6_upl7w")
 
 [node name="risen_damage" type="Timer" parent="."]
+
+[node name="Deathsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ea3pj")
+
+[node name="Explosionsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_lgjtw")
+
+[node name="Raisesound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_qcg3x")
+volume_db = -15.0
+
+[node name="Attacksound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_pqpkd")
+volume_db = -20.0
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

@@ -1,5 +1,6 @@
 extends Node
 
+var sound = true
 var souls := 7 # CHANGED FOR TESTING
 var soul_list = []
 

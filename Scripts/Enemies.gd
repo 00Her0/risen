@@ -4,7 +4,10 @@ extends Node2D
 @onready var waves = [ # I made it this way so we can add different types of enemies leter more easily
 	[[e],[e,e,e],[e,e,e]], # this is one wave
 	[[e,e]], # e means one enemy, so this wave has two enemies that spawn at the same
-	[[e,e],[e,e]] # this wave has two groups, one spawns then five seconds later the other spawns
+	[[e,e],[e,e]],
+	[[e,e,e,e],[e,e,e]],
+	[[e,e],[e,e,e,e,e,e,e]],
+	[[e,e,e,e,e,e],[e,e,e]] # this wave has two groups, one spawns then five seconds later the other spawns
 	# josh if that doesnt make sense just @ me on discord :)
 	# I like that because later we can change the letters to mean 
 	# different units later and have stats vary depending on unit and wave

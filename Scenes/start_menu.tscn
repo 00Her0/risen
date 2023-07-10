@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b6kpi1drj1rm4"]
+[gd_scene load_steps=10 format=3 uid="uid://b6kpi1drj1rm4"]
 
 [ext_resource type="Texture2D" uid="uid://cnutlf7tgjk4k" path="res://assets/button normal.png" id="1_2cno0"]
 [ext_resource type="Texture2D" uid="uid://dbkg5x6alhme" path="res://assets/Risen.png" id="1_2kdal"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://kokvtdqpgus2" path="res://assets/button click.png" id="2_4i26q"]
 [ext_resource type="Texture2D" uid="uid://b53pt5srf7qot" path="res://assets/button hover.png" id="3_u6l4v"]
 [ext_resource type="AudioStream" uid="uid://ced15mc6xlvh1" path="res://assets/Music and sounds/Patreon Goal Reward Loops - Track 04.wav" id="6_vkl8o"]
+[ext_resource type="AudioStream" uid="uid://crbip863mh3nt" path="res://assets/Music and sounds/Impact 021.wav" id="7_uiu5f"]
+[ext_resource type="AudioStream" uid="uid://bc8ng2r331xf0" path="res://assets/Music and sounds/Impact 045.wav" id="8_kafx8"]
+[ext_resource type="AudioStream" uid="uid://vey5vebycy4i" path="res://assets/Music and sounds/CREAHmn_Test Subject 3 10_344 Audio_Zombie Specimens Vol 2.wav" id="9_kb0pu"]
 
 [node name="Start menu" type="Control"]
 layout_mode = 3
@@ -274,12 +277,30 @@ text = "Back"
 stream = ExtResource("6_vkl8o")
 volume_db = -10.0
 
+[node name="Hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_uiu5f")
+
+[node name="Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_kafx8")
+
+[node name="Start" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_kb0pu")
+
+[connection signal="mouse_entered" from="Main/StartButton" to="." method="_on_start_button_mouse_entered"]
 [connection signal="pressed" from="Main/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="mouse_entered" from="Main/OptionsButton" to="." method="_on_options_button_mouse_entered"]
 [connection signal="pressed" from="Main/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="mouse_entered" from="Main/CreditsButton" to="." method="_on_credits_button_mouse_entered"]
 [connection signal="pressed" from="Main/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="mouse_entered" from="Main/ExitButton" to="." method="_on_exit_button_mouse_entered"]
 [connection signal="pressed" from="Main/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="mouse_entered" from="Options/Mutebutton" to="." method="_on_mutebutton_mouse_entered"]
 [connection signal="pressed" from="Options/Mutebutton" to="." method="_on_mutebutton_pressed"]
+[connection signal="mouse_entered" from="Options/MuteSoundButton" to="." method="_on_mute_sound_button_mouse_entered"]
 [connection signal="pressed" from="Options/MuteSoundButton" to="." method="_on_mute_sound_button_pressed"]
+[connection signal="mouse_entered" from="Options/CreditsButton" to="." method="_on_credits_button_mouse_entered"]
 [connection signal="pressed" from="Options/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="mouse_entered" from="Options/OptionsBackButton" to="." method="_on_options_back_button_mouse_entered"]
 [connection signal="pressed" from="Options/OptionsBackButton" to="." method="_on_options_back_button_pressed"]
+[connection signal="mouse_entered" from="Credit/CreditsBackButton" to="." method="_on_credits_back_button_mouse_entered"]
 [connection signal="pressed" from="Credit/CreditsBackButton" to="." method="_on_credits_back_button_pressed"]
