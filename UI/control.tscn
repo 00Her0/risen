@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dx1okvfblqpxj"]
+[gd_scene load_steps=7 format=3 uid="uid://dx1okvfblqpxj"]
 
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_oal40"]
-[ext_resource type="Texture2D" uid="uid://d1ucjj6fpjiqe" path="res://assets/Filler graphics/tile_0081.png" id="2_a4gpg"]
-[ext_resource type="Texture2D" uid="uid://xs8tw6d4lkwk" path="res://assets/Filler graphics/tile_0054.png" id="3_a0lo7"]
+[ext_resource type="Texture2D" uid="uid://btws7tvl74uoe" path="res://assets/soul container.png" id="2_pc30h"]
+[ext_resource type="Texture2D" uid="uid://iw2b08yfp8dh" path="res://assets/soul siphon.png" id="3_0vbtu"]
 [ext_resource type="Texture2D" uid="uid://bfot4op4e0xca" path="res://assets/Filler graphics/whiteshader.png" id="4_pfv82"]
+[ext_resource type="Texture2D" uid="uid://cqqq2k0idqa8n" path="res://assets/Raise.png" id="5_737yh"]
+[ext_resource type="Texture2D" uid="uid://lp4yp2a65ke4" path="res://assets/Explode.png" id="6_vliyk"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -22,7 +24,7 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -480.0
-offset_top = -32.0
+offset_top = -70.0
 offset_right = 480.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -33,14 +35,17 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -32.0
+offset_left = -1.0
+offset_top = -66.0
+offset_right = -1.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Soulicon" type="TextureButton" parent="Spellpanel/Infohbox"]
 layout_mode = 2
 tooltip_text = "Souls of the dead"
-texture_normal = ExtResource("2_a4gpg")
+texture_normal = ExtResource("2_pc30h")
 
 [node name="Soullabel" type="Label" parent="Spellpanel/Infohbox"]
 layout_mode = 2
@@ -49,7 +54,7 @@ text = "1
 
 [node name="Soulstealbutton" type="TextureButton" parent="Spellpanel/Infohbox"]
 layout_mode = 2
-texture_normal = ExtResource("3_a0lo7")
+texture_normal = ExtResource("3_0vbtu")
 
 [node name="CooldownShade" type="TextureProgressBar" parent="Spellpanel/Infohbox/Soulstealbutton"]
 layout_mode = 0
@@ -70,7 +75,7 @@ one_shot = true
 [node name="Raisebutton" type="TextureButton" parent="Spellpanel/Infohbox"]
 layout_mode = 2
 tooltip_text = "Send a captured soul into a body to animate it"
-texture_normal = ExtResource("3_a0lo7")
+texture_normal = ExtResource("5_737yh")
 
 [node name="CooldownShade" type="TextureProgressBar" parent="Spellpanel/Infohbox/Raisebutton"]
 layout_mode = 0
@@ -92,7 +97,7 @@ one_shot = true
 [node name="Explodebutton" type="TextureButton" parent="Spellpanel/Infohbox"]
 layout_mode = 2
 tooltip_text = "Fill a dead body with so many souls it explodes!"
-texture_normal = ExtResource("3_a0lo7")
+texture_normal = ExtResource("6_vliyk")
 
 [node name="CooldownShade" type="TextureProgressBar" parent="Spellpanel/Infohbox/Explodebutton"]
 layout_mode = 0

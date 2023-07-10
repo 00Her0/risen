@@ -139,6 +139,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Mutebutton" type="TextureButton" parent="Options"]
+layout_mode = 0
 offset_left = 375.0
 offset_top = 125.0
 offset_right = 475.0
@@ -163,6 +164,7 @@ grow_vertical = 2
 text = "Mute Music"
 
 [node name="MuteSoundButton" type="TextureButton" parent="Options"]
+layout_mode = 0
 offset_left = 375.0
 offset_top = 195.0
 offset_right = 475.0
@@ -187,6 +189,7 @@ grow_vertical = 2
 text = "Mute Sound"
 
 [node name="CreditsButton" type="TextureButton" parent="Options"]
+layout_mode = 0
 offset_left = 375.0
 offset_top = 265.0
 offset_right = 475.0
@@ -212,6 +215,7 @@ text = "Credits
 "
 
 [node name="OptionsBackButton" type="TextureButton" parent="Options"]
+layout_mode = 0
 offset_left = 375.0
 offset_top = 335.0
 offset_right = 475.0
@@ -242,6 +246,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="CreditsBackButton" type="TextureButton" parent="Credit"]
+layout_mode = 0
 offset_left = 375.0
 offset_top = 335.0
 offset_right = 475.0

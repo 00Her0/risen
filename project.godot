@@ -27,6 +27,10 @@ window/size/viewport_height=540
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
+[editor]
+
+movie_writer/movie_file="E:/GameDev/In Progress/GameJams/GDFG July 2023/Risen/risen/Testing.avi"
+
 [input]
 
 "left click"={
