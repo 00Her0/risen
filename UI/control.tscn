@@ -65,7 +65,6 @@ tint_under = Color(0.231373, 0.231373, 0.231373, 0)
 tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
 [node name="SoulstealCooldown" type="Timer" parent="Spellpanel/Infohbox/Soulstealbutton"]
-wait_time = 4.0
 one_shot = true
 
 [node name="Raisebutton" type="TextureButton" parent="Spellpanel/Infohbox"]
