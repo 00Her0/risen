@@ -17,7 +17,8 @@ func _physics_process(delta):
 
 
 func _on_area_entered(area):
-	if "Enemy" in area.name:
+	if area.is_in_group("enemy"):
+		$Explode.play()
 		area.take_damage(damage)
 		queue_free()
 

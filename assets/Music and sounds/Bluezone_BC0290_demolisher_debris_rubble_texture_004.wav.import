@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://scoqods1ib87"
+path="res://.godot/imported/Bluezone_BC0290_demolisher_debris_rubble_texture_004.wav-b4379846091f894ff5cbf5ea648bcf8b.sample"
+
+[deps]
+
+source_file="res://assets/Music and sounds/Bluezone_BC0290_demolisher_debris_rubble_texture_004.wav"
+dest_files=["res://.godot/imported/Bluezone_BC0290_demolisher_debris_rubble_texture_004.wav-b4379846091f894ff5cbf5ea648bcf8b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

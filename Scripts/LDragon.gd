@@ -44,12 +44,6 @@ func add_target(enemy):
 		enemy.i_died.connect(remove_target)
 
 
-# Keep list sorted by nearest to wall and remove a target if it dies
-func manage_targets():
-	if !target_list.is_empty():
-		for target in target_list:
-			pass
-
 # remove targets on death
 func remove_target(enemy):
 	print(enemy)
