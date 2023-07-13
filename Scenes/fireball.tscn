@@ -1,9 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://cv5iib51qgmd7"]
+[gd_scene load_steps=16 format=3 uid="uid://cv5iib51qgmd7"]
 
 [ext_resource type="Script" path="res://Scripts/fireball.gd" id="1_hinsk"]
 [ext_resource type="Texture2D" uid="uid://ouy0uytnpoeg" path="res://assets/Fireball.png" id="2_5w18c"]
 [ext_resource type="AudioStream" uid="uid://scoqods1ib87" path="res://assets/Music and sounds/Bluezone_BC0290_demolisher_debris_rubble_texture_004.wav" id="3_0pf76"]
-[ext_resource type="Environment" uid="uid://but8j18gg0p" path="res://Scenes/Glowup.tres" id="4_ywhmu"]
 [ext_resource type="Material" uid="uid://jt4bw3bx3d73" path="res://Scenes/fireball.tres" id="5_quyoh"]
 [ext_resource type="Texture2D" uid="uid://bfot4op4e0xca" path="res://assets/Filler graphics/whiteshader.png" id="6_svq7k"]
 
@@ -91,9 +90,6 @@ frame_progress = 0.019832
 [node name="Explode" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_0pf76")
 volume_db = -20.0
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("4_ywhmu")
 
 [node name="Trailemitter" type="GPUParticles2D" parent="."]
 amount = 50

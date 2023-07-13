@@ -8,7 +8,7 @@ func _ready():
 
 func take_damage(power):
 	health -= power
-	Currency.wallhp = health
+	Currency.wall_hp = health
 	if health <= 0:
 		broken = true
 		print("game over nerd xDDD") # game over code here

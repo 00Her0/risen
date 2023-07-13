@@ -13,7 +13,6 @@
 [ext_resource type="AudioStream" uid="uid://bousvtdao5ypk" path="res://assets/Music and sounds/Bluezone_BC0277_weapon_smoke_grenade_launcher_003.wav" id="8_lgjtw"]
 [ext_resource type="AudioStream" uid="uid://p7407a7nijxb" path="res://assets/Music and sounds/MAGElem_Water Spell Splash Attack Medium 2_RogueWaves_DruidMagic.wav" id="9_qcg3x"]
 [ext_resource type="AudioStream" uid="uid://cimijcrb8qlo6" path="res://assets/Music and sounds/SWSH_Sword Slash Impact V2 Assorted 18_DDUMAIS_NONE.wav" id="10_pqpkd"]
-[ext_resource type="Environment" uid="uid://but8j18gg0p" path="res://Scenes/Glowup.tres" id="11_vd6kb"]
 [ext_resource type="Material" uid="uid://sdligu820uri" path="res://Scenes/siphon.tres" id="12_7k62o"]
 [ext_resource type="Material" uid="uid://efmkm5ssor4b" path="res://Scenes/explode.tres" id="13_yoeyy"]
 [ext_resource type="Texture2D" uid="uid://bfot4op4e0xca" path="res://assets/Filler graphics/whiteshader.png" id="14_7owdi"]
@@ -354,7 +353,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_loc4j"]
-size = Vector2(37, 12)
+size = Vector2(35, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5nmno"]
+size = Vector2(35, 70)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wxh2q"]
 radius = 500.0
@@ -394,6 +396,11 @@ autoplay = "Walk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(10.5, -1)
 shape = SubResource("RectangleShape2D_loc4j")
+debug_color = Color(0.941176, 0.133333, 0.509804, 0.419608)
+
+[node name="Archer_attack" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_5nmno")
+disabled = true
 
 [node name="hit_cooldown" type="Timer" parent="."]
 wait_time = 0.5
@@ -438,9 +445,6 @@ volume_db = -15.0
 [node name="Attacksound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_pqpkd")
 volume_db = -20.0
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("11_vd6kb")
 
 [node name="Siphon" type="GPUParticles2D" parent="."]
 position = Vector2(6, 10)

@@ -28,7 +28,6 @@ grow_horizontal = 2
 texture = ExtResource("1_2kdal")
 
 [node name="Main" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -244,6 +243,7 @@ grow_vertical = 2
 text = "Back"
 
 [node name="Credit" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0

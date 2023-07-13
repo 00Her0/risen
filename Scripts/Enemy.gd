@@ -5,13 +5,13 @@ extends Area2D
 @export var attack_power: int
 @export var health: int
 var targeted
-@onready var anim = $AnimatedSprite2D
+@onready var anim
 @onready var attack_delay = $hit_cooldown
 @onready var undead_targetting = $"Undead_targeting system"
 @onready var hp_bar = $"Hp bar"
 @onready var explosion = preload("res://Scenes/explosion.tscn")
 @onready var target = "none"
-var unit_stats = {"Spearman": {"Health":100, "Attack": 5, "Speed": 20,},"Archer": {"Health":50, "Attack": 8, "Speed": 25,}, "Knight": {"Health":200, "Attack": 10, "Speed": 35,}, "Swordman": {"Health":150, "Attack": 5, "Speed": 10,}}
+var unit_stats = {"Spearman": {"Health":100, "Attack": 5, "Speed": 20,},"Archer": {"Health":50, "Attack": 8, "Speed": 25,}, "Knight": {"Health":200, "Attack": 10, "Speed": 55,}, "Swordman": {"Health":150, "Attack": 5, "Speed": 10,}}
 var unit_list = ["Spearman","Archer","Knight","Swordman"]
 var unit_type 
 var state
@@ -196,23 +196,29 @@ func assign_stats(): #Assign stats for the unit and swap sprites for the appropr
 			attack_power = unit_stats["Spearman"]["Attack"]
 			speed = unit_stats["Spearman"]["Speed"]
 			$Spearman.visible = true
+			anim = $Spearman
 		"Archer":
 			health = unit_stats["Archer"]["Health"]
 			attack_power = unit_stats["Archer"]["Attack"]
 			speed = unit_stats["Archer"]["Speed"]
 			$Archer.visible = true
+			anim = $Archer
+			$Area2D/CollisionShape2D.disabled = true
+			$Area2D/Archer_attack.disabled = false
 		"Knight":
 			health = unit_stats["Knight"]["Health"]
 			attack_power = unit_stats["Knight"]["Attack"]
 			speed = unit_stats["Knight"]["Speed"]
 			$Knight.visible = true
+			anim = $Knight
 		"Swordman":
 			health = unit_stats["Swordman"]["Health"]
 			attack_power = unit_stats["Swordman"]["Attack"]
 			speed = unit_stats["Swordman"]["Speed"]
 			$Swordman.visible = true
+			anim = $Swordman
 
 
 func _on_area_entered(area):
-	if "Fireball" in area.name:
+	if "Fireball" in area.name and state != "dead":
 		$Fireballhit.emitting = true
