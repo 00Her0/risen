@@ -11,6 +11,10 @@ func _on_start_button_pressed():
 	$AudioStreamPlayer.playing = false
 	if Currency.sound == true:
 		$Start.play()
+	if get_tree().paused == true:
+		if Gamestate.state != "running":
+			get_tree().paused = false
+			Gamestate.state = "running"
 	await $Start.finished
 	get_tree().change_scene_to_file("res://main.tscn")
 
