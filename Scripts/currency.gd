@@ -6,6 +6,7 @@ var soul_list = []
 var wall_hp = 0 #used to track wall hp for UI
 var wall_repair_bool = false
 var wall_upgrade_bool = false
+var current_wave
 
 func add_soul(amount):
 	souls += amount
@@ -25,10 +26,18 @@ func remove_dead(dead_soul):
 			soul_list.remove_at(soul_list.find(soul))
 
 func repair_wall(max):
-	pass
+	if !wall_repair_bool:
+		print("repairing")
+		var amount_to_repair = max - wall_hp
+		var soul_cost = round(amount_to_repair/10)
+		var used_souls = min(soul_cost, souls)
+		use_soul(used_souls)
+		wall_hp += used_souls * 10
+		wall_repair_bool = true
 	
 func upgrade_wall():
 	if !wall_upgrade_bool:
+		print("upgrading")
 		var upgrade_amount = souls * 20
 		use_soul(souls)
 		wall_upgrade_bool = true

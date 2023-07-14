@@ -35,8 +35,8 @@ func _process(delta):
 		position.x += speed * delta
 	elif state == "risen" or state == "risen attack":
 		risen_loop(delta)
-	elif state == "attack": # attack is the state when touching wall
-		$hit_cooldown.start()
+#	elif state == "attack": # attack is the state when touching wall
+#		$hit_cooldown.start()
 
 
 
@@ -50,10 +50,8 @@ func _on_hit_cooldown_timeout():
 #			else:
 				state = "risen attack"
 		if targeted.is_in_group("wall"):
-			if targeted.broken == false:
-				targeted.take_damage(attack_power)
+			targeted.take_damage(attack_power)
 		elif targeted.is_in_group("enemy"):
-			print("eat this!")
 			targeted.take_damage(attack_power)
 
 
@@ -98,6 +96,7 @@ func die():
 func raise():
 	state = "risen"
 	$Raisesound.play()
+	$Raiseemitters/Raise.emitting = true
 	undead_targetting.get_node("Undead collider").disabled = false
 	$risen_damage.start()
 	# Code here for recovering stats from before death

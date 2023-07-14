@@ -10,6 +10,7 @@ extends Control
 @onready var soul_bar = $Spellpanel/Soulicon/Soulbar
 @onready var wall_hp = $Spellpanel/WallHPBar
 @onready var wall_hp_label = $Spellpanel/WallHPBar/WallHpLabel
+@onready var wave_label = $"Spellpanel/Wave label"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	soul_steal_shade.max_value = soul_steal_cooldown.wait_time
@@ -28,6 +29,8 @@ func _process(_delta):
 	soul_steal_shade.value = soul_steal_cooldown.time_left
 	raise_shade.value = raise_cooldown.time_left
 	explode_shade.value = explode_cooldown.time_left
+	if Currency.current_wave != 0 and Currency.current_wave != null:
+		wave_label.text = "Wave: " + str(Currency.current_wave)
 	# check if we need to start cooldown timers
 	if Spellhandler.explode_cooldown and explode_cooldown.is_stopped():
 		explode_cooldown.start()

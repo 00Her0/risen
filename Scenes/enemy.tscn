@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://5sewixaw5qvv"]
+[gd_scene load_steps=67 format=3 uid="uid://5sewixaw5qvv"]
 
 [ext_resource type="Texture2D" uid="uid://bhwvv4kfrjw2e" path="res://assets/Filler graphics/CyanKnight.png" id="1_2khcx"]
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_ha54x"]
@@ -356,10 +356,46 @@ animations = [{
 size = Vector2(35, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5nmno"]
-size = Vector2(35, 70)
+size = Vector2(200, 12)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wxh2q"]
 radius = 500.0
+
+[sub_resource type="Gradient" id="Gradient_kp72m"]
+offsets = PackedFloat32Array(0, 0.493827)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1l2br"]
+gradient = SubResource("Gradient_kp72m")
+
+[sub_resource type="Curve" id="Curve_p6yky"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rl7pg"]
+curve = SubResource("Curve_p6yky")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wlf8s"]
+emission_shape = 3
+emission_box_extents = Vector3(6, 1, 1)
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(0, -20, 0)
+angular_velocity_min = 20.0
+angular_velocity_max = 40.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = -5.0
+radial_accel_max = -5.0
+tangential_accel_min = -10.0
+tangential_accel_max = 10.0
+tangential_accel_curve = SubResource("CurveTexture_rl7pg")
+damping_max = 10.0
+color = Color(0.105882, 0.905882, 0.729412, 1)
+color_ramp = SubResource("GradientTexture1D_1l2br")
+hue_variation_min = -1.0
+hue_variation_max = 0.8
 
 [node name="Enemy" type="Area2D" groups=["enemy"]]
 script = ExtResource("1_ha54x")
@@ -394,11 +430,12 @@ autoplay = "Walk"
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(10.5, -1)
+position = Vector2(10.5, 0)
 shape = SubResource("RectangleShape2D_loc4j")
 debug_color = Color(0.941176, 0.133333, 0.509804, 0.419608)
 
 [node name="Archer_attack" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(100, 0)
 shape = SubResource("RectangleShape2D_5nmno")
 disabled = true
 
@@ -463,9 +500,15 @@ lifetime = 0.1
 one_shot = true
 explosiveness = 1.0
 
-[node name="Raise" type="GPUParticles2D" parent="."]
+[node name="Raiseemitters" type="Node2D" parent="."]
+
+[node name="Raise" type="GPUParticles2D" parent="Raiseemitters"]
 emitting = false
-lifetime = 3.0
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_wlf8s")
+lifetime = 2.0
+one_shot = true
+speed_scale = 3.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

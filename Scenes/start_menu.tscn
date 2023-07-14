@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://vey5vebycy4i" path="res://assets/Music and sounds/CREAHmn_Test Subject 3 10_344 Audio_Zombie Specimens Vol 2.wav" id="9_kb0pu"]
 
 [node name="Start menu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_8k1ap")

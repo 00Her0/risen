@@ -5,10 +5,15 @@ extends Area2D
 
 func _ready():
 	Currency.wall_hp = health
+	
+func _process(_delta):
+	if health <= 0:
+		Gamestate.state = "lose"
 
 func take_damage(power):
+	print(power)
 	health -= power
 	Currency.wall_hp = health
 	if health <= 0:
 		broken = true
-		print("game over nerd xDDD") # game over code here
+

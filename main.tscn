@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://donecacfvxfvl"]
+[gd_scene load_steps=10 format=3 uid="uid://donecacfvxfvl"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies.gd" id="1_hiq61"]
 [ext_resource type="Texture2D" uid="uid://crnrb3kk40pu7" path="res://assets/Filler graphics/background_sketch.png" id="1_wpu4m"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Wall.gd" id="5_hmxq2"]
 [ext_resource type="AudioStream" uid="uid://cwu35x1gsgr10" path="res://assets/Music and sounds/Ludum Dare 30 - Track 2.wav" id="6_pu4hy"]
 [ext_resource type="Environment" uid="uid://but8j18gg0p" path="res://Scenes/Glowup.tres" id="7_t3g4j"]
+[ext_resource type="PackedScene" uid="uid://d32ftunw48c02" path="res://UI/pause_menu.tscn" id="8_ldvve"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l213k"]
 size = Vector2(98.8138, 20)
@@ -50,15 +51,16 @@ stream = ExtResource("6_pu4hy")
 volume_db = -15.0
 autoplay = true
 
-[node name="UI" parent="." instance=ExtResource("4_s24bf")]
-light_mask = 4
-visibility_layer = 4
-offset_left = 486.0
-offset_top = 547.0
-offset_right = 486.0
-offset_bottom = 547.0
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("7_t3g4j")
+
+[node name="UI" parent="." instance=ExtResource("4_s24bf")]
+offset_left = 483.0
+offset_top = 541.0
+offset_right = 483.0
+offset_bottom = 541.0
+
+[node name="PauseMenu" parent="." instance=ExtResource("8_ldvve")]
+visible = false
 
 [connection signal="timeout" from="Enemies/spawn_cooldown" to="Enemies" method="_on_spawn_cooldown_timeout"]
