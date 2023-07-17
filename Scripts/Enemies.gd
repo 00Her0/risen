@@ -44,7 +44,6 @@ func enemy_died(_enemy):
 	enemies_alive -= 1
 
 func _process(_delta):
-	print($spawn_cooldown.time_left)
 	if enemies_alive == 0 and $spawn_cooldown.time_left == 0:
 		spawning_bool = false
 	if current_wave < 10 and spawning_bool == false:

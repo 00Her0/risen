@@ -22,3 +22,8 @@ func pause():
 	elif state == "lose" or state == "win":
 		get_tree().root.get_node("/root/Main/PauseMenu").visible = true
 		get_tree().paused = true
+
+func reset():
+	pass
+
+	

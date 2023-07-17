@@ -4,17 +4,13 @@ var current_spell = "steal"
 var explode_cooldown = false # is explode spell on cooldown
 var steal_cooldown = false # same for steal spell
 var raise_cooldown = false
+var bone_spear_cooldown = false
+var iron_maiden_cooldown = false
 var mouse_pos
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	mouse_pos = get_viewport().get_mouse_position()
-	if Input.is_action_just_pressed("left click"):
-		print(mouse_pos)
 
 func steal_soul():
 	pass

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://lmy45kivp065"]
+
+[ext_resource type="Texture2D" uid="uid://ct1u8lcnwt2we" path="res://assets/Filler graphics/Necromancer.png" id="1_xawo2"]
+[ext_resource type="Script" path="res://Scripts/Necro.gd" id="2_f2g4s"]
+
+[node name="Necro" type="Sprite2D"]
+position = Vector2(777, 152)
+texture = ExtResource("1_xawo2")
+hframes = 6
+vframes = 8
+frame = 19
+script = ExtResource("2_f2g4s")
+
+[node name="Muzzle" type="Marker2D" parent="."]
