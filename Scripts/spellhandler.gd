@@ -6,18 +6,18 @@ var steal_cooldown = false # same for steal spell
 var raise_cooldown = false
 var bone_spear_cooldown = false
 var iron_maiden_cooldown = false
+var weaken_cooldown = false
+var golem_summoned = false
 var mouse_pos
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	mouse_pos = get_viewport().get_mouse_position()
 
-func steal_soul():
-	pass
-
 func target(enemy):
 	if current_spell == "explode" and not explode_cooldown:
-		if Currency.use_soul(5):
+		if Currency.use_soul(6):
 			explode_cooldown = true
 			enemy.explode()
 		else:
@@ -27,7 +27,7 @@ func target(enemy):
 		enemy.soul_particle()
 		Currency.add_soul(1)
 	elif current_spell == "raise" and not raise_cooldown:
-		if Currency.use_soul(7):
+		if Currency.use_soul(2):
 			raise_cooldown = true
 			enemy.raise()
 		else:

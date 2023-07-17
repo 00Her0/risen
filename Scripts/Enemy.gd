@@ -16,6 +16,9 @@ var unit_list = ["Spearman","Archer","Knight","Swordman"]
 var unit_type 
 var state
 var wall
+var status = "" # used for for damage calculations
+var attack_status_multiplier = 1 # used to reduce damage dealt 
+var defense_status_multiplier = 1
 signal i_died(enemy_node)
 var temp_attack_power
 var temp_health
@@ -35,8 +38,8 @@ func _process(delta):
 		position.x += speed * delta
 	elif state == "risen" or state == "risen attack":
 		risen_loop(delta)
-#	elif state == "attack": # attack is the state when touching wall
-#		$hit_cooldown.start()
+	check_status()
+
 
 
 
@@ -50,9 +53,9 @@ func _on_hit_cooldown_timeout():
 #			else:
 				state = "risen attack"
 		if targeted.is_in_group("wall"):
-			targeted.take_damage(attack_power)
+			targeted.take_damage(attack_power * attack_status_multiplier)
 		elif targeted.is_in_group("enemy"):
-			targeted.take_damage(attack_power)
+			targeted.take_damage(attack_power * attack_status_multiplier)
 
 
 func _on_area_2d_area_entered(area):
@@ -64,14 +67,13 @@ func _on_area_2d_area_entered(area):
 		speed = 0
 	elif area.is_in_group("enemy") and state == "risen":
 		if area.state == "move":
-			print("boys we got emmmm")
 			targeted = area
 			$hit_cooldown.start()
 		else:
 			new_target()
 
 func take_damage(damage):
-	health -= damage
+	health -= damage * defense_status_multiplier
 	
 	if health <= 0:
 		die()
@@ -79,6 +81,8 @@ func take_damage(damage):
 #  function on death to add to a list of revivable
 func die():
 	#Currency.dead_list.append(self.position)
+	if state == "risen":
+		queue_free()
 	state = "dead"
 	$Deathsound.play()
 	hp_bar.visible = false
@@ -89,6 +93,7 @@ func die():
 	temp_attack_power = attack_power
 	attack_power = 0
 	speed = 0
+
 
 
 
@@ -154,7 +159,6 @@ func risen_loop(delta):
 	elif state == "risen attack":
 		if targeted.state == "dead":
 			new_target()
-			print("hes on the floor")
 		if $hit_cooldown.is_stopped():
 			$hit_cooldown.start()
 	else:
@@ -173,11 +177,9 @@ func risen_loop(delta):
 
 func _on_area_2d_area_exited(area):
 	if area.is_in_group("enemy") and state == "risen attack":
-		print("hes gettin away!")
 		new_target()
 
 func new_target():
-	print("start over")
 	state = "risen"
 	target = "none"
 	anim.play("Walk")
@@ -221,3 +223,45 @@ func assign_stats(): #Assign stats for the unit and swap sprites for the appropr
 func _on_area_entered(area):
 	if "Fireball" in area.name and state != "dead":
 		$Fireballhit.emitting = true
+
+
+func check_status():
+	if "w" in status: # look for weaken which lowers damage output
+		attack_status_multiplier = 0.75
+	else:
+		attack_status_multiplier = 1
+	if "i" in status: #look for iron maiden status to double damage taken
+		defense_status_multiplier = 2
+	else:
+		defense_status_multiplier = 1
+	
+func apply_status(type):
+	match type:
+		"iron_maiden":
+			if "i" not in status:
+				status += "i"
+				$Ironmaidenemitter.emitting = true
+				$Ironmaidenemitter/IronmaidenTimer.start()
+		"weaken":
+			if "w" not in status:
+				status += "w"
+				$Weakenemitter.emitting = true
+				$Weakenemitter/WeakenTimer.start()
+
+
+func _on_weaken_timer_timeout():
+	$Weakenemitter.emitting = false
+	var temp_status = status
+	if "i" in temp_status:
+		status = "i"
+	else:
+		status = ""
+
+
+func _on_ironmaiden_timer_timeout():
+	$Ironmaidenemitter.emitting = false
+	var temp_status = status
+	if "w" in temp_status:
+		status = "w"
+	else:
+		status = ""

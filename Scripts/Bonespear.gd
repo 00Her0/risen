@@ -17,5 +17,5 @@ func _physics_process(delta):
 	position += velocity * delta
 
 func _on_area_entered(area):
-	if area.has_method("take_damage") and is_in_group("enemy"):
+	if area.has_method("take_damage") and area.name != "Wall":
 		area.take_damage(damage)

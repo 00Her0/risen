@@ -42,10 +42,10 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -50.0
-offset_right = -740.0
-offset_bottom = -16.0
+offset_left = 18.0
+offset_top = -51.0
+offset_right = -694.0
+offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -58,9 +58,10 @@ texture_normal = ExtResource("3_0vbtu")
 layout_mode = 0
 offset_right = 31.0
 offset_bottom = 31.0
-tooltip_text = "[S]teal the soul from a Dead body
+tooltip_text = "Steal the soul from a Dead body
 Use on a gravestone
-Adds 1 soul to your pool"
+Adds 1 soul to your pool
+Hotkey: S"
 max_value = 4.0
 value = 3.0
 fill_mode = 5
@@ -82,9 +83,10 @@ texture_normal = ExtResource("5_737yh")
 layout_mode = 0
 offset_right = 31.0
 offset_bottom = 31.0
-tooltip_text = "Use a captured souls to [R]aise a dead body
+tooltip_text = "Use a captured souls to Raise a dead body
 Requires 2 souls to use
-use on a gravestone"
+use on a gravestone
+Hotkey: R"
 max_value = 4.0
 value = 3.0
 fill_mode = 5
@@ -107,9 +109,10 @@ texture_normal = ExtResource("6_vliyk")
 layout_mode = 0
 offset_right = 31.0
 offset_bottom = 31.0
-tooltip_text = "Fill a dead body with so many souls it [E]xplodes!
+tooltip_text = "Fill a dead body with so many souls it explodes!
 use on a gravestone
-Requires 6 souls"
+Requires 6 souls
+Hotkey: E"
 max_value = 4.0
 value = 3.0
 fill_mode = 5
@@ -131,7 +134,8 @@ layout_mode = 0
 offset_right = 31.0
 offset_bottom = 31.0
 tooltip_text = "Launch a bone spear at the location
-Impales enemies in its path inflicting damage"
+Impales enemies in its path inflicting damage
+Hotkey: B"
 max_value = 5.0
 value = 3.0
 fill_mode = 5
@@ -141,7 +145,8 @@ tint_under = Color(0.231373, 0.231373, 0.231373, 0)
 tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
 [node name="Bonespearcooldown" type="Timer" parent="Spellpanel/Infohbox/Bonespearbutton"]
-wait_time = 5.0
+wait_time = 3.0
+one_shot = true
 
 [node name="Ironmaindenbutton" type="TextureButton" parent="Spellpanel/Infohbox"]
 layout_mode = 2
@@ -152,7 +157,8 @@ layout_mode = 0
 offset_right = 31.0
 offset_bottom = 31.0
 tooltip_text = "Frighten your enemies so much they drop their guard
-causes enemies in the area to take double damage!"
+causes enemies in the area to take double damage!
+Hotkey: I"
 max_value = 5.0
 value = 3.0
 fill_mode = 5
@@ -163,6 +169,30 @@ tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
 [node name="Ironmaidencooldown" type="Timer" parent="Spellpanel/Infohbox/Ironmaindenbutton"]
 wait_time = 10.0
+one_shot = true
+
+[node name="Weakenbutton" type="TextureButton" parent="Spellpanel/Infohbox"]
+layout_mode = 2
+texture_normal = ExtResource("7_b7ld3")
+
+[node name="CooldownShade" type="TextureProgressBar" parent="Spellpanel/Infohbox/Weakenbutton"]
+layout_mode = 0
+offset_right = 31.0
+offset_bottom = 31.0
+tooltip_text = "strike fear into the hearts of men!
+reduce the targets attack power
+Hotkey: W"
+max_value = 5.0
+value = 3.0
+fill_mode = 5
+texture_under = ExtResource("4_pfv82")
+texture_progress = ExtResource("4_pfv82")
+tint_under = Color(0.231373, 0.231373, 0.231373, 0)
+tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
+
+[node name="Weakencooldown" type="Timer" parent="Spellpanel/Infohbox/Weakenbutton"]
+wait_time = 10.0
+one_shot = true
 
 [node name="Golembutton" type="TextureButton" parent="Spellpanel/Infohbox"]
 layout_mode = 2
@@ -174,9 +204,9 @@ offset_right = 31.0
 offset_bottom = 31.0
 tooltip_text = "Summon a golem to fight for you!
 using all the souls you can to imbue strength
-can only use this once"
+can only use this once
+Hotkey: G"
 max_value = 5.0
-value = 3.0
 fill_mode = 5
 texture_under = ExtResource("4_pfv82")
 texture_progress = ExtResource("4_pfv82")
@@ -273,6 +303,8 @@ text = "Souls
 [connection signal="timeout" from="Spellpanel/Infohbox/Bonespearbutton/Bonespearcooldown" to="." method="_on_bonespearcooldown_timeout"]
 [connection signal="pressed" from="Spellpanel/Infohbox/Ironmaindenbutton" to="." method="_on_ironmaindenbutton_pressed"]
 [connection signal="timeout" from="Spellpanel/Infohbox/Ironmaindenbutton/Ironmaidencooldown" to="." method="_on_ironmaidencooldown_timeout"]
+[connection signal="pressed" from="Spellpanel/Infohbox/Weakenbutton" to="." method="_on_weakenbutton_pressed"]
+[connection signal="timeout" from="Spellpanel/Infohbox/Weakenbutton/Weakencooldown" to="." method="_on_weakencooldown_timeout"]
 [connection signal="pressed" from="Spellpanel/Infohbox/Golembutton" to="." method="_on_golembutton_pressed"]
 [connection signal="pressed" from="Spellpanel/Upgradebox/RepairButton" to="." method="_on_repair_button_pressed"]
 [connection signal="pressed" from="Spellpanel/Upgradebox/UpgradewallButton" to="." method="_on_upgradewall_button_pressed"]

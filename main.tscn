@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://donecacfvxfvl"]
+[gd_scene load_steps=20 format=3 uid="uid://donecacfvxfvl"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies.gd" id="1_hiq61"]
 [ext_resource type="Texture2D" uid="uid://crnrb3kk40pu7" path="res://assets/Filler graphics/background_sketch.png" id="1_wpu4m"]
@@ -10,7 +10,8 @@
 [ext_resource type="AudioStream" uid="uid://cwu35x1gsgr10" path="res://assets/Music and sounds/Ludum Dare 30 - Track 2.wav" id="6_pu4hy"]
 [ext_resource type="Environment" uid="uid://but8j18gg0p" path="res://Scenes/Glowup.tres" id="7_t3g4j"]
 [ext_resource type="PackedScene" uid="uid://d32ftunw48c02" path="res://UI/pause_menu.tscn" id="8_ldvve"]
-[ext_resource type="PackedScene" uid="uid://lmy45kivp065" path="res://Scenes/necro.tscn" id="11_6klgh"]
+[ext_resource type="Texture2D" uid="uid://ct1u8lcnwt2we" path="res://assets/Filler graphics/Necromancer.png" id="11_tnavo"]
+[ext_resource type="Script" path="res://Scripts/Necro.gd" id="12_s5djt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f6cme"]
 atlas = ExtResource("4_f3rcy")
@@ -120,7 +121,16 @@ offset_bottom = 541.0
 [node name="PauseMenu" parent="." instance=ExtResource("8_ldvve")]
 visible = false
 
-[node name="Necro" parent="." instance=ExtResource("11_6klgh")]
+[node name="Necro" type="Sprite2D" parent="."]
+position = Vector2(776, 158)
+texture = ExtResource("11_tnavo")
+hframes = 6
+vframes = 8
+frame = 19
+script = ExtResource("12_s5djt")
+
+[node name="Muzzle" type="Marker2D" parent="Necro"]
+rotation = 3.14159
 
 [connection signal="timeout" from="Enemies/spawn_cooldown" to="Enemies" method="_on_spawn_cooldown_timeout"]
 [connection signal="area_entered" from="Dragons/LDragon/targetting_system" to="Dragons/LDragon" method="_on_targetting_system_area_entered" flags=18]

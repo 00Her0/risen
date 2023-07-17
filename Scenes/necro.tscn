@@ -4,7 +4,6 @@
 [ext_resource type="Script" path="res://Scripts/Necro.gd" id="2_f2g4s"]
 
 [node name="Necro" type="Sprite2D"]
-position = Vector2(777, 152)
 texture = ExtResource("1_xawo2")
 hframes = 6
 vframes = 8

@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://5sewixaw5qvv"]
+[gd_scene load_steps=73 format=3 uid="uid://5sewixaw5qvv"]
 
 [ext_resource type="Texture2D" uid="uid://bhwvv4kfrjw2e" path="res://assets/Filler graphics/CyanKnight.png" id="1_2khcx"]
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_ha54x"]
@@ -397,6 +397,41 @@ color_ramp = SubResource("GradientTexture1D_1l2br")
 hue_variation_min = -1.0
 hue_variation_max = 0.8
 
+[sub_resource type="Gradient" id="Gradient_qoqku"]
+offsets = PackedFloat32Array(0, 0.414815, 0.777778, 1)
+colors = PackedColorArray(0, 0.47451, 1, 1, 0, 1, 1, 1, 0.984314, 0.219608, 0.466667, 1, 0.992157, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8kbdn"]
+gradient = SubResource("Gradient_qoqku")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_beaqk"]
+emission_shape = 1
+emission_sphere_radius = 25.0
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = -45.0
+radial_accel_max = -45.0
+color_ramp = SubResource("GradientTexture1D_8kbdn")
+
+[sub_resource type="Gradient" id="Gradient_hv346"]
+offsets = PackedFloat32Array(0.037037, 0.533333, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.513726, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j7bpi"]
+gradient = SubResource("Gradient_hv346")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ndu6o"]
+emission_shape = 3
+emission_box_extents = Vector3(10, 1, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+color_ramp = SubResource("GradientTexture1D_j7bpi")
+
 [node name="Enemy" type="Area2D" groups=["enemy"]]
 script = ExtResource("1_ha54x")
 
@@ -510,9 +545,32 @@ lifetime = 2.0
 one_shot = true
 speed_scale = 3.0
 
+[node name="Weakenemitter" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_beaqk")
+lifetime = 20.0
+
+[node name="WeakenTimer" type="Timer" parent="Weakenemitter"]
+wait_time = 4.0
+one_shot = true
+
+[node name="Ironmaidenemitter" type="GPUParticles2D" parent="."]
+position = Vector2(0, -15)
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_ndu6o")
+lifetime = 0.75
+
+[node name="IronmaidenTimer" type="Timer" parent="Ironmaidenemitter"]
+wait_time = 20.0
+one_shot = true
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="timeout" from="hit_cooldown" to="." method="_on_hit_cooldown_timeout"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="risen_damage" to="." method="_on_risen_damage_timeout"]
+[connection signal="timeout" from="Weakenemitter/WeakenTimer" to="." method="_on_weaken_timer_timeout"]
+[connection signal="timeout" from="Ironmaidenemitter/IronmaidenTimer" to="." method="_on_ironmaiden_timer_timeout"]

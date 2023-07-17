@@ -13,8 +13,7 @@ func _process(_delta):
 	else:
 		$Pause/Backbutton/Label.text = "Resume"
 func _on_exitbutton_pressed():
-	if Gamestate.state == "paused": # Quit game if game is paused
-		get_tree().quit()
+	get_tree().quit()
 	
 
 
@@ -26,7 +25,7 @@ func _on_backbutton_pressed():
 	elif Gamestate.state == "lose" or Gamestate.state == "win": #display lose/win message 
 		get_tree().paused = false
 		Gamestate.state = "running"
-		Currency.current_wave = 0
+		Gamestate.reset()
 		get_tree().reload_current_scene()
 
 

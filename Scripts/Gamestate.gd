@@ -24,6 +24,11 @@ func pause():
 		get_tree().paused = true
 
 func reset():
-	pass
-
+	Currency.souls = 0
+	Currency.soul_list = []
+	Currency.wall_hp = 0
+	Currency.wall_repair_bool = false
+	Currency.wall_upgrade_bool = false
+	Currency.wave = 0
+	
 	
