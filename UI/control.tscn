@@ -1,18 +1,26 @@
-[gd_scene load_steps=14 format=3 uid="uid://dx1okvfblqpxj"]
+[gd_scene load_steps=21 format=3 uid="uid://dx1okvfblqpxj"]
 
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_oal40"]
-[ext_resource type="Texture2D" uid="uid://iw2b08yfp8dh" path="res://assets/soul siphon.png" id="3_0vbtu"]
 [ext_resource type="Texture2D" uid="uid://bfot4op4e0xca" path="res://assets/Filler graphics/whiteshader.png" id="4_pfv82"]
-[ext_resource type="Texture2D" uid="uid://cqqq2k0idqa8n" path="res://assets/Raise.png" id="5_737yh"]
 [ext_resource type="Texture2D" uid="uid://xs8tw6d4lkwk" path="res://assets/Filler graphics/tile_0054.png" id="6_be0pe"]
-[ext_resource type="Texture2D" uid="uid://lp4yp2a65ke4" path="res://assets/Explode.png" id="6_vliyk"]
-[ext_resource type="Texture2D" uid="uid://dk8jbh52x55g5" path="res://assets/HP progress.png" id="6_xdjo7"]
 [ext_resource type="Texture2D" uid="uid://d1ucjj6fpjiqe" path="res://assets/Filler graphics/tile_0081.png" id="7_66tx0"]
-[ext_resource type="Texture2D" uid="uid://dksc1anrrjfr1" path="res://assets/HP back.png" id="7_b7ld3"]
-[ext_resource type="Texture2D" uid="uid://dnh4iyopt4wdx" path="res://assets/soul siphon-export.png" id="9_8il2o"]
 [ext_resource type="Texture2D" uid="uid://cydqi7rn6x8oj" path="res://assets/hammer.png" id="9_wvfj3"]
-[ext_resource type="Texture2D" uid="uid://bcbvdewshxkoo" path="res://assets/Panel.png" id="10_vtace"]
 [ext_resource type="Texture2D" uid="uid://w40hnls33i2d" path="res://assets/Wall powerup.png" id="11_71rgy"]
+[ext_resource type="Texture2D" uid="uid://dspwntj5kwdlo" path="res://assets/Final graphics/Inventory_9slices_06.png" id="14_aojxv"]
+[ext_resource type="Texture2D" uid="uid://dubc85oixg275" path="res://Risen Icon 2.png" id="14_yq06w"]
+[ext_resource type="Texture2D" uid="uid://df2uclu6s81qd" path="res://assets/Final graphics/Inventory_9slices_061.png" id="15_qh80b"]
+[ext_resource type="Texture2D" uid="uid://c4bxoclp13b0e" path="res://assets/iron maiden.png" id="16_xeufj"]
+[ext_resource type="Texture2D" uid="uid://dqbb1vp0bdavs" path="res://assets/bone spear.png" id="17_0285j"]
+[ext_resource type="Texture2D" uid="uid://cvoioo6vksukd" path="res://assets/Final graphics/hp_bar fill.png" id="17_uc6ie"]
+[ext_resource type="Texture2D" uid="uid://bvcred8s1gfg5" path="res://assets/weaken.png" id="18_2oigf"]
+[ext_resource type="Texture2D" uid="uid://c4y7cyeso304x" path="res://assets/Final graphics/Health_Bar_02.png" id="18_m4es4"]
+[ext_resource type="Texture2D" uid="uid://dhsgj7g8v57qh" path="res://assets/Raise-export.png" id="19_i5yik"]
+[ext_resource type="Texture2D" uid="uid://cidmpryl6endt" path="res://assets/Final graphics/soul_bar fill 2.png" id="19_o0fxg"]
+[ext_resource type="Texture2D" uid="uid://pcnn3kt440n1" path="res://assets/Explode-export.png" id="20_h1yqs"]
+[ext_resource type="Texture2D" uid="uid://f4ipy8sombjf" path="res://assets/golem.png" id="21_gw312"]
+[ext_resource type="Texture2D" uid="uid://dhb8a4evu7btu" path="res://assets/Final graphics/Health_Bar_01.png" id="23_l6bsb"]
+
+[sub_resource type="Shortcut" id="Shortcut_xtgvv"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -23,46 +31,38 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_oal40")
 
-[node name="Spellpanel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -480.0
-offset_top = -70.0
-offset_right = 480.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Infohbox" type="HBoxContainer" parent="Spellpanel"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 18.0
-offset_top = -51.0
-offset_right = -694.0
-offset_bottom = -17.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Soulstealbutton" type="TextureButton" parent="Spellpanel/Infohbox"]
+[node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
-tooltip_text = "[S]teal the soul from a Dead body"
-texture_normal = ExtResource("3_0vbtu")
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 287.0
+offset_bottom = 45.0
+tabs_visible = false
 
-[node name="CooldownShade" type="TextureProgressBar" parent="Spellpanel/Infohbox/Soulstealbutton"]
+[node name="Necrospellpanel" type="Panel" parent="TabContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Necrospellpanel"]
 layout_mode = 0
-offset_right = 31.0
-offset_bottom = 31.0
-tooltip_text = "Steal the soul from a Dead body
-Use on a gravestone
-Adds 1 soul to your pool
-Hotkey: S"
-max_value = 4.0
+offset_right = 279.0
+offset_bottom = 40.0
+
+[node name="Ironmaindenbutton" type="TextureButton" parent="TabContainer/Necrospellpanel/HBoxContainer"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_xtgvv")
+texture_normal = ExtResource("14_aojxv")
+texture_pressed = ExtResource("15_qh80b")
+
+[node name="CooldownShade" type="TextureProgressBar" parent="TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 40.0
+offset_bottom = 40.0
+tooltip_text = "Frighten your enemies so much they drop their guard
+causes enemies in the area to take double damage!
+Hotkey: I"
+max_value = 5.0
 value = 3.0
 fill_mode = 5
 texture_under = ExtResource("4_pfv82")
@@ -70,19 +70,111 @@ texture_progress = ExtResource("4_pfv82")
 tint_under = Color(0.231373, 0.231373, 0.231373, 0)
 tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
-[node name="SoulstealCooldown" type="Timer" parent="Spellpanel/Infohbox/Soulstealbutton"]
+[node name="Ironmaidencooldown" type="Timer" parent="TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton"]
+wait_time = 10.0
 one_shot = true
 
-[node name="Raisebutton" type="TextureButton" parent="Spellpanel/Infohbox"]
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 15.0
+offset_right = 34.0
+offset_bottom = 34.0
+texture = ExtResource("16_xeufj")
+expand_mode = 1
+
+[node name="Bonespearbutton" type="TextureButton" parent="TabContainer/Necrospellpanel/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("14_aojxv")
+texture_pressed = ExtResource("15_qh80b")
+
+[node name="CooldownShade" type="TextureProgressBar" parent="TabContainer/Necrospellpanel/HBoxContainer/Bonespearbutton"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 40.0
+offset_bottom = 40.0
+tooltip_text = "Launch a bone spear at the location
+Impales enemies in its path inflicting damage
+Hotkey: B"
+max_value = 5.0
+value = 3.0
+fill_mode = 5
+texture_under = ExtResource("4_pfv82")
+texture_progress = ExtResource("4_pfv82")
+tint_under = Color(0.231373, 0.231373, 0.231373, 0)
+tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
+
+[node name="Bonespearcooldown" type="Timer" parent="TabContainer/Necrospellpanel/HBoxContainer/Bonespearbutton"]
+wait_time = 3.0
+one_shot = true
+
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Necrospellpanel/HBoxContainer/Bonespearbutton"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 16.0
+offset_right = 32.0
+offset_bottom = 31.0
+texture = ExtResource("17_0285j")
+expand_mode = 1
+
+[node name="Weakenbutton" type="TextureButton" parent="TabContainer/Necrospellpanel/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("14_aojxv")
+texture_pressed = ExtResource("15_qh80b")
+
+[node name="CooldownShade" type="TextureProgressBar" parent="TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 40.0
+offset_bottom = 40.0
+tooltip_text = "strike fear into the hearts of men!
+reduce the targets attack power
+Hotkey: W"
+max_value = 5.0
+value = 3.0
+fill_mode = 5
+texture_under = ExtResource("4_pfv82")
+texture_progress = ExtResource("4_pfv82")
+tint_under = Color(0.231373, 0.231373, 0.231373, 0)
+tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
+
+[node name="Weakencooldown" type="Timer" parent="TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton"]
+wait_time = 10.0
+one_shot = true
+
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 16.0
+offset_right = 32.0
+offset_bottom = 33.0
+texture = ExtResource("18_2oigf")
+expand_mode = 1
+
+[node name="Soulspellpanel" type="Panel" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Soulspellpanel"]
+layout_mode = 0
+offset_right = 278.0
+offset_bottom = 40.0
+
+[node name="Raisebutton" type="TextureButton" parent="TabContainer/Soulspellpanel/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "[2 Souls]
 Use a captured souls to [R]aise a dead body"
-texture_normal = ExtResource("5_737yh")
+texture_normal = ExtResource("14_aojxv")
+texture_pressed = ExtResource("15_qh80b")
 
-[node name="CooldownShade" type="TextureProgressBar" parent="Spellpanel/Infohbox/Raisebutton"]
+[node name="CooldownShade" type="TextureProgressBar" parent="TabContainer/Soulspellpanel/HBoxContainer/Raisebutton"]
 layout_mode = 0
-offset_right = 31.0
-offset_bottom = 31.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 40.0
+offset_bottom = 40.0
 tooltip_text = "Use a captured souls to Raise a dead body
 Requires 2 souls to use
 use on a gravestone
@@ -95,20 +187,32 @@ texture_progress = ExtResource("4_pfv82")
 tint_under = Color(1, 1, 1, 0)
 tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
-[node name="RaiseCooldown" type="Timer" parent="Spellpanel/Infohbox/Raisebutton"]
+[node name="RaiseCooldown" type="Timer" parent="TabContainer/Soulspellpanel/HBoxContainer/Raisebutton"]
 wait_time = 6.0
 one_shot = true
 
-[node name="Explodebutton" type="TextureButton" parent="Spellpanel/Infohbox"]
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Soulspellpanel/HBoxContainer/Raisebutton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 15.0
+offset_right = 33.0
+offset_bottom = 34.0
+texture = ExtResource("19_i5yik")
+expand_mode = 1
+
+[node name="Explodebutton" type="TextureButton" parent="TabContainer/Soulspellpanel/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "[6 Souls]
 Fill a dead body with so many souls it [E]xplodes!"
-texture_normal = ExtResource("6_vliyk")
+texture_normal = ExtResource("14_aojxv")
+texture_pressed = ExtResource("15_qh80b")
 
-[node name="CooldownShade" type="TextureProgressBar" parent="Spellpanel/Infohbox/Explodebutton"]
+[node name="CooldownShade" type="TextureProgressBar" parent="TabContainer/Soulspellpanel/HBoxContainer/Explodebutton"]
 layout_mode = 0
-offset_right = 31.0
-offset_bottom = 31.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 40.0
+offset_bottom = 40.0
 tooltip_text = "Fill a dead body with so many souls it explodes!
 use on a gravestone
 Requires 6 souls
@@ -121,87 +225,30 @@ texture_progress = ExtResource("4_pfv82")
 tint_under = Color(0.231373, 0.231373, 0.231373, 0)
 tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
-[node name="ExplodeCooldown" type="Timer" parent="Spellpanel/Infohbox/Explodebutton"]
+[node name="ExplodeCooldown" type="Timer" parent="TabContainer/Soulspellpanel/HBoxContainer/Explodebutton"]
 wait_time = 10.0
 one_shot = true
 
-[node name="Bonespearbutton" type="TextureButton" parent="Spellpanel/Infohbox"]
-layout_mode = 2
-texture_normal = ExtResource("6_xdjo7")
-
-[node name="CooldownShade" type="TextureProgressBar" parent="Spellpanel/Infohbox/Bonespearbutton"]
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Soulspellpanel/HBoxContainer/Explodebutton"]
 layout_mode = 0
-offset_right = 31.0
-offset_bottom = 31.0
-tooltip_text = "Launch a bone spear at the location
-Impales enemies in its path inflicting damage
-Hotkey: B"
-max_value = 5.0
-value = 3.0
-fill_mode = 5
-texture_under = ExtResource("4_pfv82")
-texture_progress = ExtResource("4_pfv82")
-tint_under = Color(0.231373, 0.231373, 0.231373, 0)
-tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 34.0
+offset_bottom = 34.0
+texture = ExtResource("20_h1yqs")
+expand_mode = 1
 
-[node name="Bonespearcooldown" type="Timer" parent="Spellpanel/Infohbox/Bonespearbutton"]
-wait_time = 3.0
-one_shot = true
-
-[node name="Ironmaindenbutton" type="TextureButton" parent="Spellpanel/Infohbox"]
+[node name="Golembutton" type="TextureButton" parent="TabContainer/Soulspellpanel/HBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("7_b7ld3")
+texture_normal = ExtResource("14_aojxv")
+texture_pressed = ExtResource("15_qh80b")
 
-[node name="CooldownShade" type="TextureProgressBar" parent="Spellpanel/Infohbox/Ironmaindenbutton"]
+[node name="CooldownShade" type="TextureProgressBar" parent="TabContainer/Soulspellpanel/HBoxContainer/Golembutton"]
 layout_mode = 0
-offset_right = 31.0
-offset_bottom = 31.0
-tooltip_text = "Frighten your enemies so much they drop their guard
-causes enemies in the area to take double damage!
-Hotkey: I"
-max_value = 5.0
-value = 3.0
-fill_mode = 5
-texture_under = ExtResource("4_pfv82")
-texture_progress = ExtResource("4_pfv82")
-tint_under = Color(0.231373, 0.231373, 0.231373, 0)
-tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
-
-[node name="Ironmaidencooldown" type="Timer" parent="Spellpanel/Infohbox/Ironmaindenbutton"]
-wait_time = 10.0
-one_shot = true
-
-[node name="Weakenbutton" type="TextureButton" parent="Spellpanel/Infohbox"]
-layout_mode = 2
-texture_normal = ExtResource("7_b7ld3")
-
-[node name="CooldownShade" type="TextureProgressBar" parent="Spellpanel/Infohbox/Weakenbutton"]
-layout_mode = 0
-offset_right = 31.0
-offset_bottom = 31.0
-tooltip_text = "strike fear into the hearts of men!
-reduce the targets attack power
-Hotkey: W"
-max_value = 5.0
-value = 3.0
-fill_mode = 5
-texture_under = ExtResource("4_pfv82")
-texture_progress = ExtResource("4_pfv82")
-tint_under = Color(0.231373, 0.231373, 0.231373, 0)
-tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
-
-[node name="Weakencooldown" type="Timer" parent="Spellpanel/Infohbox/Weakenbutton"]
-wait_time = 10.0
-one_shot = true
-
-[node name="Golembutton" type="TextureButton" parent="Spellpanel/Infohbox"]
-layout_mode = 2
-texture_normal = ExtResource("7_b7ld3")
-
-[node name="CooldownShade" type="TextureProgressBar" parent="Spellpanel/Infohbox/Golembutton"]
-layout_mode = 0
-offset_right = 31.0
-offset_bottom = 31.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 40.0
+offset_bottom = 40.0
 tooltip_text = "Summon a golem to fight for you!
 using all the souls you can to imbue strength
 can only use this once
@@ -213,18 +260,32 @@ texture_progress = ExtResource("4_pfv82")
 tint_under = Color(0.231373, 0.231373, 0.231373, 0)
 tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
-[node name="Upgradebox" type="HBoxContainer" parent="Spellpanel"]
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Soulspellpanel/HBoxContainer/Golembutton"]
 layout_mode = 0
-offset_left = 797.0
-offset_top = 19.0
-offset_right = 961.0
-offset_bottom = 88.0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 33.0
+offset_bottom = 33.0
+texture = ExtResource("21_gw312")
+expand_mode = 1
+flip_h = true
 
-[node name="RepairButton" type="TextureButton" parent="Spellpanel/Upgradebox"]
+[node name="Baseupgradepanel" type="Panel" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Upgradebox" type="HBoxContainer" parent="TabContainer/Baseupgradepanel"]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.0
+offset_bottom = -30.0
+
+[node name="RepairButton" type="TextureButton" parent="TabContainer/Baseupgradepanel/Upgradebox"]
 layout_mode = 2
 texture_normal = ExtResource("6_be0pe")
 
-[node name="TextureRect" type="TextureRect" parent="Spellpanel/Upgradebox/RepairButton"]
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Baseupgradepanel/Upgradebox/RepairButton"]
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
@@ -233,11 +294,11 @@ You can only muster the power to do this once
 Uses all souls available to repair"
 texture = ExtResource("9_wvfj3")
 
-[node name="UpgradewallButton" type="TextureButton" parent="Spellpanel/Upgradebox"]
+[node name="UpgradewallButton" type="TextureButton" parent="TabContainer/Baseupgradepanel/Upgradebox"]
 layout_mode = 2
 texture_normal = ExtResource("7_66tx0")
 
-[node name="TextureRect" type="TextureRect" parent="Spellpanel/Upgradebox/UpgradewallButton"]
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Baseupgradepanel/Upgradebox/UpgradewallButton"]
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
@@ -246,66 +307,86 @@ you only have the strength to do this once
 Uses all available souls"
 texture = ExtResource("11_71rgy")
 
-[node name="UltimateDragonButton2" type="TextureButton" parent="Spellpanel/Upgradebox"]
+[node name="UltimateDragonButton2" type="TextureButton" parent="TabContainer/Baseupgradepanel/Upgradebox"]
 layout_mode = 2
 tooltip_text = "dragon ultimate attack, currently not working"
 texture_normal = ExtResource("7_66tx0")
 
-[node name="WallHPBar" type="TextureProgressBar" parent="Spellpanel"]
-layout_mode = 0
-offset_left = 392.0
-offset_top = 6.0
-offset_right = 773.0
-offset_bottom = 60.0
-value = 50.0
-nine_patch_stretch = true
-texture_progress = ExtResource("10_vtace")
+[node name="TabBar" type="TabBar" parent="."]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 45.0
+offset_right = -674.0
+offset_bottom = -441.0
+clip_tabs = false
+tab_count = 3
+tab_0/title = "Spells"
+tab_0/icon = ExtResource("14_yq06w")
+tab_1/title = "Souls"
+tab_1/icon = ExtResource("19_i5yik")
+tab_2/title = "Lair"
+tab_2/icon = ExtResource("9_wvfj3")
 
-[node name="WallHpLabel" type="Label" parent="Spellpanel/WallHPBar"]
+[node name="Wave label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 172.0
-offset_top = 14.0
-offset_right = 212.0
-offset_bottom = 37.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-
-[node name="Wave label" type="Label" parent="Spellpanel"]
-layout_mode = 0
-offset_left = 11.0
-offset_top = -460.0
-offset_right = 62.0
-offset_bottom = -434.0
+offset_left = 292.0
+offset_right = 343.0
+offset_bottom = 26.0
 text = "Wave: "
 
-[node name="Soul_counter" type="NinePatchRect" parent="Spellpanel"]
+[node name="Timetonextwave" type="Label" parent="Wave label"]
 layout_mode = 0
-offset_top = -401.0
-offset_right = 32.0
-offset_bottom = -369.0
-texture = ExtResource("9_8il2o")
-axis_stretch_horizontal = 1
+offset_top = 24.0
+offset_right = 105.0
+offset_bottom = 50.0
+text = "Next wave in:"
 
-[node name="Label" type="Label" parent="Spellpanel/Soul_counter"]
+[node name="Wavetimer" type="Timer" parent="Wave label/Timetonextwave"]
+wait_time = 10.0
+one_shot = true
+
+[node name="Healthprogressbar" type="TextureProgressBar" parent="."]
 layout_mode = 0
-offset_top = -18.0
-offset_right = 40.0
-offset_bottom = 5.0
-text = "Souls
-"
+offset_left = -2.0
+offset_top = 103.0
+offset_right = 287.0
+offset_bottom = 127.0
+max_value = 200.0
+value = 50.0
+nine_patch_stretch = true
+stretch_margin_left = 9
+stretch_margin_right = 9
+texture_under = ExtResource("23_l6bsb")
+texture_progress = ExtResource("17_uc6ie")
 
-[connection signal="pressed" from="Spellpanel/Infohbox/Soulstealbutton" to="." method="_on_soulstealbutton_pressed"]
-[connection signal="timeout" from="Spellpanel/Infohbox/Soulstealbutton/SoulstealCooldown" to="." method="_on_soulsteal_cooldown_timeout"]
-[connection signal="pressed" from="Spellpanel/Infohbox/Raisebutton" to="." method="_on_raisebutton_pressed"]
-[connection signal="timeout" from="Spellpanel/Infohbox/Raisebutton/RaiseCooldown" to="." method="_on_raise_cooldown_timeout"]
-[connection signal="pressed" from="Spellpanel/Infohbox/Explodebutton" to="." method="_on_explodebutton_pressed"]
-[connection signal="timeout" from="Spellpanel/Infohbox/Explodebutton/ExplodeCooldown" to="." method="_on_explode_cooldown_timeout"]
-[connection signal="pressed" from="Spellpanel/Infohbox/Bonespearbutton" to="." method="_on_bonespearbutton_pressed"]
-[connection signal="timeout" from="Spellpanel/Infohbox/Bonespearbutton/Bonespearcooldown" to="." method="_on_bonespearcooldown_timeout"]
-[connection signal="pressed" from="Spellpanel/Infohbox/Ironmaindenbutton" to="." method="_on_ironmaindenbutton_pressed"]
-[connection signal="timeout" from="Spellpanel/Infohbox/Ironmaindenbutton/Ironmaidencooldown" to="." method="_on_ironmaidencooldown_timeout"]
-[connection signal="pressed" from="Spellpanel/Infohbox/Weakenbutton" to="." method="_on_weakenbutton_pressed"]
-[connection signal="timeout" from="Spellpanel/Infohbox/Weakenbutton/Weakencooldown" to="." method="_on_weakencooldown_timeout"]
-[connection signal="pressed" from="Spellpanel/Infohbox/Golembutton" to="." method="_on_golembutton_pressed"]
-[connection signal="pressed" from="Spellpanel/Upgradebox/RepairButton" to="." method="_on_repair_button_pressed"]
-[connection signal="pressed" from="Spellpanel/Upgradebox/UpgradewallButton" to="." method="_on_upgradewall_button_pressed"]
-[connection signal="pressed" from="Spellpanel/Upgradebox/UltimateDragonButton2" to="." method="_on_ultimate_dragon_button_2_pressed"]
+[node name="SoulsProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_top = 128.0
+offset_right = 286.0
+offset_bottom = 152.0
+max_value = 7.0
+value = 4.0
+nine_patch_stretch = true
+stretch_margin_left = 9
+stretch_margin_right = 9
+texture_under = ExtResource("18_m4es4")
+texture_progress = ExtResource("19_o0fxg")
+
+[connection signal="pressed" from="TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton" to="." method="_on_ironmaindenbutton_pressed"]
+[connection signal="timeout" from="TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton/Ironmaidencooldown" to="." method="_on_ironmaidencooldown_timeout"]
+[connection signal="pressed" from="TabContainer/Necrospellpanel/HBoxContainer/Bonespearbutton" to="." method="_on_bonespearbutton_pressed"]
+[connection signal="timeout" from="TabContainer/Necrospellpanel/HBoxContainer/Bonespearbutton/Bonespearcooldown" to="." method="_on_bonespearcooldown_timeout"]
+[connection signal="pressed" from="TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton" to="." method="_on_weakenbutton_pressed"]
+[connection signal="timeout" from="TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton/Weakencooldown" to="." method="_on_weakencooldown_timeout"]
+[connection signal="pressed" from="TabContainer/Soulspellpanel/HBoxContainer/Raisebutton" to="." method="_on_raisebutton_pressed"]
+[connection signal="timeout" from="TabContainer/Soulspellpanel/HBoxContainer/Raisebutton/RaiseCooldown" to="." method="_on_raise_cooldown_timeout"]
+[connection signal="pressed" from="TabContainer/Soulspellpanel/HBoxContainer/Explodebutton" to="." method="_on_explodebutton_pressed"]
+[connection signal="timeout" from="TabContainer/Soulspellpanel/HBoxContainer/Explodebutton/ExplodeCooldown" to="." method="_on_explode_cooldown_timeout"]
+[connection signal="pressed" from="TabContainer/Soulspellpanel/HBoxContainer/Golembutton" to="." method="_on_golembutton_pressed"]
+[connection signal="pressed" from="TabContainer/Baseupgradepanel/Upgradebox/RepairButton" to="." method="_on_repair_button_pressed"]
+[connection signal="pressed" from="TabContainer/Baseupgradepanel/Upgradebox/UpgradewallButton" to="." method="_on_upgradewall_button_pressed"]
+[connection signal="pressed" from="TabContainer/Baseupgradepanel/Upgradebox/UltimateDragonButton2" to="." method="_on_ultimate_dragon_button_2_pressed"]
+[connection signal="tab_clicked" from="TabBar" to="." method="_on_tab_bar_tab_clicked"]
+[connection signal="timeout" from="Wave label/Timetonextwave/Wavetimer" to="." method="_on_wavetimer_timeout"]

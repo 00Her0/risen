@@ -1,7 +1,12 @@
 extends Node
 
-var state
-# Called when the node enters the scene tree for the first time.
+## this is an auto load that will be used to handle
+## game state such as win/lose/pause
+
+var state #this is the state the game is currently in
+
+
+
 func _ready():
 	state = "running"
 
@@ -12,6 +17,8 @@ func _process(delta):
 		pause()
 	if state == "win" or state == "lose":
 		pause()
+	# UI information that needs refreshed eveyr frame
+
 
 
 func pause():
@@ -23,12 +30,6 @@ func pause():
 		get_tree().root.get_node("/root/Main/PauseMenu").visible = true
 		get_tree().paused = true
 
-func reset():
-	Currency.souls = 0
-	Currency.soul_list = []
-	Currency.wall_hp = 0
-	Currency.wall_repair_bool = false
-	Currency.wall_upgrade_bool = false
-	Currency.wave = 0
+
 	
 	

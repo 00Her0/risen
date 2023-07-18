@@ -11,7 +11,6 @@ func _process(_delta):
 		Gamestate.state = "lose"
 
 func take_damage(power):
-	print(power)
 	health -= power
 	Currency.wall_hp = health
 	if health <= 0:

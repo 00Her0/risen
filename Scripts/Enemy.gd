@@ -157,10 +157,11 @@ func risen_loop(delta):
 	if target is String:
 		pass
 	elif state == "risen attack":
-		if targeted.state == "dead":
-			new_target()
-		if $hit_cooldown.is_stopped():
-			$hit_cooldown.start()
+		if targeted != null:
+			if targeted.state == "dead":
+				new_target()
+			if $hit_cooldown.is_stopped():
+				$hit_cooldown.start()
 	else:
 		if anim.animation != "Walk":
 			anim.play("Walk")
@@ -223,6 +224,8 @@ func assign_stats(): #Assign stats for the unit and swap sprites for the appropr
 func _on_area_entered(area):
 	if "Fireball" in area.name and state != "dead":
 		$Fireballhit.emitting = true
+	if "Enemy" in area.get_parent().name:
+		print("i'm under attack")
 
 
 func check_status():
@@ -265,3 +268,4 @@ func _on_ironmaiden_timer_timeout():
 		status = "w"
 	else:
 		status = ""
+

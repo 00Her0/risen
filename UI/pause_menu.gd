@@ -25,7 +25,7 @@ func _on_backbutton_pressed():
 	elif Gamestate.state == "lose" or Gamestate.state == "win": #display lose/win message 
 		get_tree().paused = false
 		Gamestate.state = "running"
-		Gamestate.reset()
+		Currency.reset()
 		get_tree().reload_current_scene()
 
 

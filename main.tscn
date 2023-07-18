@@ -1,10 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://donecacfvxfvl"]
+[gd_scene load_steps=14 format=3 uid="uid://donecacfvxfvl"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies.gd" id="1_hiq61"]
-[ext_resource type="Texture2D" uid="uid://crnrb3kk40pu7" path="res://assets/Filler graphics/background_sketch.png" id="1_wpu4m"]
+[ext_resource type="Texture2D" uid="uid://dj25bfds34fwl" path="res://assets/Filler graphics/landscape_01.png" id="1_y1w1b"]
 [ext_resource type="PackedScene" uid="uid://dh45gqpapy2me" path="res://Scenes/dragon.tscn" id="3_3pd6f"]
-[ext_resource type="Script" path="res://Scripts/LDragon.gd" id="3_hjl5t"]
-[ext_resource type="Texture2D" uid="uid://biuysmb3ied04" path="res://assets/Filler graphics/WhiteDragon.png" id="4_f3rcy"]
 [ext_resource type="PackedScene" uid="uid://dx1okvfblqpxj" path="res://UI/control.tscn" id="4_s24bf"]
 [ext_resource type="Script" path="res://Wall.gd" id="5_hmxq2"]
 [ext_resource type="AudioStream" uid="uid://cwu35x1gsgr10" path="res://assets/Music and sounds/Ludum Dare 30 - Track 2.wav" id="6_pu4hy"]
@@ -13,44 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://ct1u8lcnwt2we" path="res://assets/Filler graphics/Necromancer.png" id="11_tnavo"]
 [ext_resource type="Script" path="res://Scripts/Necro.gd" id="12_s5djt"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f6cme"]
-atlas = ExtResource("4_f3rcy")
-region = Rect2(0, 32, 32, 32)
+[sub_resource type="CircleShape2D" id="CircleShape2D_h3kj1"]
+radius = 400.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4e3l0"]
-atlas = ExtResource("4_f3rcy")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xju2k"]
-atlas = ExtResource("4_f3rcy")
-region = Rect2(64, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gegtw"]
-atlas = ExtResource("4_f3rcy")
-region = Rect2(96, 32, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_1374g"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f6cme")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4e3l0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xju2k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gegtw")
-}],
-"loop": true,
-"name": &"Idle",
-"speed": 5.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_unwic"]
-radius = 500.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_lq0pk"]
+radius = 550.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l213k"]
 size = Vector2(98.8138, 20)
@@ -58,9 +23,8 @@ size = Vector2(98.8138, 20)
 [node name="Main" type="Node2D"]
 
 [node name="BackgroundSketch" type="Sprite2D" parent="."]
-position = Vector2(486, 275)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_wpu4m")
+position = Vector2(480, 270)
+texture = ExtResource("1_y1w1b")
 
 [node name="Enemies" type="Node2D" parent="."]
 script = ExtResource("1_hiq61")
@@ -71,30 +35,20 @@ one_shot = true
 
 [node name="Dragons" type="Node2D" parent="."]
 
-[node name="LDragon" type="Area2D" parent="Dragons"]
-position = Vector2(808, 275)
-rotation = 4.71239
-script = ExtResource("3_hjl5t")
+[node name="LDragon" parent="Dragons" instance=ExtResource("3_3pd6f")]
+position = Vector2(554, 113)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dragons/LDragon"]
-
-[node name="Dragon" type="AnimatedSprite2D" parent="Dragons/LDragon"]
-sprite_frames = SubResource("SpriteFrames_1374g")
-animation = &"Idle"
-autoplay = "Idle"
-
-[node name="Muzzle" type="Marker2D" parent="Dragons/LDragon/Dragon"]
-
-[node name="targetting_system" type="Area2D" parent="Dragons/LDragon"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dragons/LDragon/targetting_system"]
-shape = SubResource("CircleShape2D_unwic")
+[node name="CollisionShape2D" parent="Dragons/LDragon/targetting_system" index="0"]
+shape = SubResource("CircleShape2D_h3kj1")
 
 [node name="LDragon2" parent="Dragons" instance=ExtResource("3_3pd6f")]
-position = Vector2(577, 132)
-rotation = 4.71239
+position = Vector2(800, 257)
+
+[node name="CollisionShape2D" parent="Dragons/LDragon2/targetting_system" index="0"]
+shape = SubResource("CircleShape2D_lq0pk")
 
 [node name="Wall" type="Area2D" parent="." groups=["wall"]]
+visible = false
 script = ExtResource("5_hmxq2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
@@ -113,16 +67,14 @@ autoplay = true
 environment = ExtResource("7_t3g4j")
 
 [node name="UI" parent="." instance=ExtResource("4_s24bf")]
-offset_left = 483.0
-offset_top = 541.0
-offset_right = 483.0
-offset_bottom = 541.0
+offset_top = 2.0
+offset_bottom = 2.0
 
 [node name="PauseMenu" parent="." instance=ExtResource("8_ldvve")]
 visible = false
 
 [node name="Necro" type="Sprite2D" parent="."]
-position = Vector2(776, 158)
+position = Vector2(759, 144)
 texture = ExtResource("11_tnavo")
 hframes = 6
 vframes = 8
@@ -133,4 +85,6 @@ script = ExtResource("12_s5djt")
 rotation = 3.14159
 
 [connection signal="timeout" from="Enemies/spawn_cooldown" to="Enemies" method="_on_spawn_cooldown_timeout"]
-[connection signal="area_entered" from="Dragons/LDragon/targetting_system" to="Dragons/LDragon" method="_on_targetting_system_area_entered" flags=18]
+
+[editable path="Dragons/LDragon"]
+[editable path="Dragons/LDragon2"]

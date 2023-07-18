@@ -13,6 +13,7 @@ extends Node2D
 	[[e,e,e,e,e,e,e,e,e,e]],
 	[[e,e,e,e,e,e,e,e,e,e,e,]]
 	]
+@onready var wave_times = [10,20,40,40,40,40,40,40,60,60]
 @onready var enemies_alive = 0
 @onready var current_wave = 0
 @onready var rng = RandomNumberGenerator.new()
@@ -21,7 +22,8 @@ extends Node2D
 
 
 func _ready():
-	$spawn_cooldown.start()
+	$spawn_cooldown.start(wave_times[current_wave])
+	Currency.time_to_next_wave = wave_times[current_wave]
 
 func wave(num):
 #	if num > 2: # since theres only 2 waves rn this cuts it after 2
@@ -47,7 +49,7 @@ func _process(_delta):
 	if enemies_alive == 0 and $spawn_cooldown.time_left == 0:
 		spawning_bool = false
 	if current_wave < 10 and spawning_bool == false:
-		$spawn_cooldown.start()
+		$spawn_cooldown.start(wave_times[current_wave])
 		spawning_bool = true
 	elif current_wave == 10 and enemies_alive == 0:
 		Gamestate.state = "win"
@@ -56,5 +58,6 @@ func _process(_delta):
 
 func _on_spawn_cooldown_timeout():
 	wave(current_wave)
-	Currency.current_wave = current_wave
+	Currency.current_wave = current_wave + 1
+	Currency.time_to_next_wave = wave_times[current_wave]
 	current_wave += 1
