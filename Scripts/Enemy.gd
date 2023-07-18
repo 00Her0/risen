@@ -33,6 +33,7 @@ func _ready():
 
 
 func _process(delta):
+	print(state)
 	scale = Vector2(1.5-position.x/960, 1.5-position.x/960) # perspective effect
 	hp_bar.value = health
 	if state == STATES.ALIVE or state == STATES.RISEN:
@@ -50,7 +51,7 @@ func _process(delta):
 
 func move(t, delta):
 	if t is String: # sanity check
-		find_target()
+		print("we cant move there partner")
 		return
 	position.x = move_toward(position.x, t.position.x, speed * delta)
 	position.y = move_toward(position.y, t.position.y, speed * delta)
@@ -106,14 +107,14 @@ func raise():
 	anim.play("Walk")
 	attack_power = temp_attack_power
 	health = temp_health
-	speed = temp_speed
+	speed = 100
 	targeted = "none"
 	find_target()
 
 func find_target():
-	print("finding target!!!!!!!!!!!!!!!!!!!!")
+	speed = temp_speed
 	for i in $"Undead_targeting system".get_overlapping_areas():
-		if i.is_in_group("enemy"):
+		if i.is_in_group("enemy") and i != self:
 			if targeted is String:
 				targeted = i
 			elif position.distance_to(i.position) < position.distance_to(targeted.position):
