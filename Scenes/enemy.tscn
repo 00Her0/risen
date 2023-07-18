@@ -481,7 +481,6 @@ wait_time = 0.5
 
 [node name="Undead collider" type="CollisionShape2D" parent="Undead_targeting system"]
 shape = SubResource("CircleShape2D_wxh2q")
-disabled = true
 
 [node name="Button" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0)
