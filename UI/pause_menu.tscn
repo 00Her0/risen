@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d32ftunw48c02"]
+[gd_scene load_steps=4 format=3 uid="uid://d32ftunw48c02"]
 
 [ext_resource type="Script" path="res://UI/pause_menu.gd" id="1_m3lus"]
+[ext_resource type="Theme" uid="uid://crw1vbknyu534" path="res://assets/Final graphics/Menu/button_default.tres" id="2_jw3mo"]
 [ext_resource type="Texture2D" uid="uid://dbkg5x6alhme" path="res://assets/Risen.png" id="2_uwwu4"]
-[ext_resource type="Texture2D" uid="uid://cnutlf7tgjk4k" path="res://assets/button normal.png" id="3_y5wg8"]
-[ext_resource type="Texture2D" uid="uid://kokvtdqpgus2" path="res://assets/button click.png" id="4_vcki3"]
-[ext_resource type="Texture2D" uid="uid://b53pt5srf7qot" path="res://assets/button hover.png" id="5_4u0lb"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 2
@@ -21,15 +19,13 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Mainmenubutton" type="TextureButton" parent="Pause"]
+[node name="Mainmenubutton" type="Button" parent="Pause"]
 layout_mode = 0
-offset_left = 420.0
-offset_top = 324.0
-offset_right = 520.0
-offset_bottom = 374.0
-texture_normal = ExtResource("3_y5wg8")
-texture_pressed = ExtResource("4_vcki3")
-texture_hover = ExtResource("5_4u0lb")
+offset_left = 357.0
+offset_top = 312.0
+offset_right = 607.0
+offset_bottom = 362.0
+theme = ExtResource("2_jw3mo")
 
 [node name="Label" type="Label" parent="Pause/Mainmenubutton"]
 layout_mode = 1
@@ -47,15 +43,13 @@ grow_vertical = 2
 text = "Main Menu
 "
 
-[node name="Exitbutton" type="TextureButton" parent="Pause"]
+[node name="Exitbutton" type="Button" parent="Pause"]
 layout_mode = 0
-offset_left = 420.0
-offset_top = 464.0
-offset_right = 520.0
-offset_bottom = 514.0
-texture_normal = ExtResource("3_y5wg8")
-texture_pressed = ExtResource("4_vcki3")
-texture_hover = ExtResource("5_4u0lb")
+offset_left = 357.0
+offset_top = 452.0
+offset_right = 607.0
+offset_bottom = 502.0
+theme = ExtResource("2_jw3mo")
 
 [node name="Label" type="Label" parent="Pause/Exitbutton"]
 layout_mode = 1
@@ -73,15 +67,13 @@ grow_vertical = 2
 text = "Exit
 "
 
-[node name="Backbutton" type="TextureButton" parent="Pause"]
+[node name="Backbutton" type="Button" parent="Pause"]
 layout_mode = 0
-offset_left = 420.0
-offset_top = 394.0
-offset_right = 520.0
-offset_bottom = 444.0
-texture_normal = ExtResource("3_y5wg8")
-texture_pressed = ExtResource("4_vcki3")
-texture_hover = ExtResource("5_4u0lb")
+offset_left = 357.0
+offset_top = 382.0
+offset_right = 607.0
+offset_bottom = 432.0
+theme = ExtResource("2_jw3mo")
 
 [node name="Label" type="Label" parent="Pause/Backbutton"]
 layout_mode = 1
