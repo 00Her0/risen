@@ -49,12 +49,26 @@ func _process(delta):
 			targeted = "none"
 			find_target()
 
+func set_type(unit):
+	match unit:
+		"SP":
+			unit_type = "Spearman"
+		"SW":
+			unit_type = "Swordman"
+		"KN":
+			unit_type = "Knight"
+		"AR":
+			unit_type = "Archer"
+
 func move(t, delta):
 	if t is String: # sanity check
 		print("we cant move there partner")
 		return
-	position.x = move_toward(position.x, t.position.x, speed * delta)
-	position.y = move_toward(position.y, t.position.y, speed * delta)
+	position.x = move_toward(position.x, t.position.x, (speed * 1.75) * delta)
+	if state == STATES.ALIVE:
+		position.y -= (speed) * delta
+	else:
+		position.y = move_toward(position.y, t.position.y, speed * delta)
 
 func _on_hit_cooldown_timeout():
 	if state != STATES.DEAD:
@@ -141,43 +155,11 @@ func soul_particle(): # emite particles for soul steal and dissapear after!
 func _on_button_pressed(): # if i'm dead tell spellhandler to do stuff
 	if state == STATES.DEAD:
 		Spellhandler.target(self) # tells spellhandler who i am
-'''
-func risen_loop(delta):
-	if health <= 0:
-		die()
-	#if target is String: # if we dont have a target get one
-	find_target()
-	if target is String:
-		pass
-	elif state == "risen attack":
-		if targeted.state == "dead":
-			new_target()
-		if $hit_cooldown.is_stopped():
-			$hit_cooldown.start()
-	else:
-		if anim.animation != "Walk":
-			anim.play("Walk")
-		if target.position.x > self.position.x: # move toward target sorry for the bad code
-			#little speed buff so they can catch up with enemies
-			position.x += speed * 1.25 * delta
-		else:
-			position.x += -speed * 1.25 * delta
-		if target.position.y > self.position.y:
-			position.y += speed * 1.25 * delta
-		else:
-			position.y += -speed * 1.25 * delta
 
+func _on_right_click_button_pressed():
+	if state == STATES.DEAD:
+		Spellhandler.target(self, true)
 
-func _on_area_2d_area_exited(area):
-	if area.is_in_group("enemy") and state == "risen attack":
-		new_target()
-
-func new_target():
-	state = "risen"
-	target = "none"
-	anim.play("Walk")
-	$hit_cooldown.stop()
-'''
 func _on_risen_damage_timeout():
 	health -= 5
 
