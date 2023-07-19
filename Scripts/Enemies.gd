@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var enemy_unit = preload("res://Scenes/enemy.tscn")
+@onready var popup = preload("res://Scenes/pop_up.tscn")
 
 @onready var enemies_alive = 0
 @onready var current_wave = 0
@@ -15,6 +16,9 @@ var current_wave_comp #holds current wave composition as array
 func _ready():
 	Currency.time_to_next_wave = 10
 	load_wave_file()
+	var temp = popup.instantiate()
+	temp.pop_up("test", "this is a test popup")
+	add_child(temp)
 
 
 #func _process(_delta):
