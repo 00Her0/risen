@@ -1,60 +1,86 @@
 extends Node2D
 
-@onready var e = preload("res://Scenes/enemy.tscn")
-@onready var waves = [ # I made it this way so we can add different types of enemies leter more easily
-	[[e],[e,e,e],[e,e,e]], # this is one wave
-	[[e,e]], # e means one enemy, so this wave has two enemies that spawn at the same
-	[[e,e],[e,e]],
-	[[e,e,e,e],[e,e,e]],
-	[[e,e],[e,e,e,e,e,e,e]],
-	[[e,e,e,e,e,e],[e,e,e]],
-	[[e,e,e,e,e,e,e,e,e]],
-	[[e,e,e,e,e,e,e,e,]],
-	[[e,e,e,e,e,e,e,e,e,e]],
-	[[e,e,e,e,e,e,e,e,e,e,e,]]
-	]
+@onready var enemy_unit = preload("res://Scenes/enemy.tscn")
+
 @onready var enemies_alive = 0
 @onready var current_wave = 0
 @onready var rng = RandomNumberGenerator.new()
 @onready var spawning_bool = false
 @export var wave_multiplier = 1.05
 
+#code to get set wave compositions
+var content # variable to hold all wave data gets loaded on ready
+var current_wave_comp #holds current wave composition as array
 
 func _ready():
-	$spawn_cooldown.start()
+	Currency.time_to_next_wave = 10
+	load_wave_file()
 
-func wave(num):
-#	if num > 2: # since theres only 2 waves rn this cuts it after 2
-#		return
-	enemies_alive = 0
-	for i in waves[num]:
-		for x in i:
-			enemies_alive += 1
-			var enemy = x.instantiate()
-			if current_wave > 0:
-				enemy.health = enemy.health * (wave_multiplier * current_wave)
-			enemy.position.x = 32 # to make spawning visible for debugging
-			enemy.position.y = rng.randf_range(270, 500)
-			enemy.i_died.connect(enemy_died)
-			add_child(enemy)
-			enemy = null
-		await(get_tree().create_timer(5).timeout)
 
-func enemy_died(_enemy):
-	enemies_alive -= 1
-
-func _process(_delta):
-	if enemies_alive == 0 and $spawn_cooldown.time_left == 0:
-		spawning_bool = false
-	if current_wave < 10 and spawning_bool == false:
-		$spawn_cooldown.start()
-		spawning_bool = true
-	elif current_wave == 10 and enemies_alive == 0:
-		Gamestate.state = "win"
+#func _process(_delta):
+#	if enemies_alive == 0 and $spawn_cooldown.time_left == 0:
+#		spawning_bool = false
+#	if current_wave < 10 and spawning_bool == false:
+#		$spawn_cooldown.start(wave_times[current_wave])
+#		spawning_bool = true
+#	elif current_wave == 10 and enemies_alive == 0:
+#		Gamestate.state = "win"
 
 
 
 func _on_spawn_cooldown_timeout():
-	wave(current_wave)
-	Currency.current_wave = current_wave
+	if current_wave_comp.is_empty():
+		current_wave_comp = load_current_wave()
+	else:
+		current_wave_comp.clear()
+		current_wave_comp = load_current_wave()
+		print(current_wave_comp)
+	if current_wave_comp.size() > 10:
+		var counter = 0
+		for unit in current_wave_comp:
+			counter += 1
+			if counter > 10:
+				await get_tree().create_timer(10).timeout
+				counter = 0
+			else:
+				spawn(unit)
+	else:
+		for unit in current_wave_comp:
+			spawn(unit)
+	Currency.current_wave = current_wave + 1
+	Currency.time_to_next_wave = current_wave_comp.size() * 2
 	current_wave += 1
+	$spawn_cooldown.start(current_wave_comp.size() * 2)
+
+
+func load_wave_file():
+	var file = FileAccess.open("res://Scripts/waves.txt",FileAccess.READ)
+	content = file.get_as_text()
+	current_wave_comp =  load_current_wave()
+
+
+
+func load_current_wave(): # loads current wave composition to be used by
+	var temp_comp  = content.get_slice("\r", current_wave).split(",")
+	temp_comp.remove_at(0)
+	return temp_comp
+
+func spawn(type):
+	var e = enemy_unit.instantiate()
+	var spawn_pos = find_spawn_loc()
+	e.position = spawn_pos
+	e.assign_stats(type)
+#	e.health *= (wave_multiplier * max(current_wave,1))
+	add_child(e)
+	
+	
+	
+func find_spawn_loc():
+	var x = rng.randf_range(-140,170)
+	var y
+	if x < 0:
+		y = rng.randf_range(440,540)
+	else:
+		y = rng.randf_range(540,610)
+	var pos = Vector2(x,y)
+	return pos

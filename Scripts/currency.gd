@@ -4,10 +4,12 @@ var sound = true
 var music = true
 var souls := 7 # CHANGED FOR TESTING
 var soul_list = []
-var wall_hp = 0 #used to track wall hp for UI
+var wall_hp = 200
+var wall_max_hp = 200
 var wall_repair_bool = false
 var wall_upgrade_bool = false
 var current_wave
+var time_to_next_wave
 
 func add_soul(amount):
 	souls += amount
@@ -45,3 +47,12 @@ func upgrade_wall():
 		wall_hp += upgrade_amount
 		return upgrade_amount
 	else: return 0
+
+func reset():
+	souls = 0
+	soul_list = []
+	wall_hp = 200
+	wall_max_hp = 200
+	wall_repair_bool = false
+	wall_upgrade_bool = false
+	current_wave = 0

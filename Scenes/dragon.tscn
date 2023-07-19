@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dh45gqpapy2me"]
+[gd_scene load_steps=8 format=3 uid="uid://dh45gqpapy2me"]
 
 [ext_resource type="Script" path="res://Scripts/LDragon.gd" id="1_pv04f"]
 [ext_resource type="Texture2D" uid="uid://biuysmb3ied04" path="res://assets/Filler graphics/WhiteDragon.png" id="2_niawh"]
@@ -39,9 +39,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_unwic"]
-radius = 500.0
-
 [node name="LDragon" type="Area2D"]
 script = ExtResource("1_pv04f")
 
@@ -57,6 +54,5 @@ autoplay = "Idle"
 [node name="targetting_system" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="targetting_system"]
-shape = SubResource("CircleShape2D_unwic")
 
 [connection signal="area_entered" from="targetting_system" to="." method="_on_targetting_system_area_entered"]

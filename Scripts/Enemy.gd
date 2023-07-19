@@ -26,6 +26,7 @@ var temp_health
 var temp_speed
 
 func _ready():
+	state = "move"
 	unit_type = unit_list.pick_random()
 	assign_stats()
 	temp_health = health
@@ -176,6 +177,8 @@ func assign_stats(): #Assign stats for the unit and swap sprites for the appropr
 func _on_area_entered(area):
 	if "Fireball" in area.name and state == STATES.ALIVE:
 		$Fireballhit.emitting = true
+	if "Enemy" in area.get_parent().name:
+		print("i'm under attack")
 
 func check_status():
 	if "w" in status: # look for weaken which lowers damage output

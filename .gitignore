@@ -1,2 +1,17 @@
 # Godot 4+ specific ignores
 .godot/
+Versions/Risen 0.1.1/Risen.exe
+Versions/Risen 0.1.1/Risen.pck
+Versions/Risen 0.1/Risen.exe
+Versions/Risen 0.1/Risen.pck
+Versions/Risen v0.2/HTML/index.apple-touch-icon.png
+Versions/Risen v0.2/HTML/index.audio.worklet.js
+Versions/Risen v0.2/HTML/index.html
+Versions/Risen v0.2/HTML/index.icon.png
+Versions/Risen v0.2/HTML/index.js
+Versions/Risen v0.2/HTML/index.pck
+Versions/Risen v0.2/HTML/index.png
+Versions/Risen v0.2/HTML/index.wasm
+Versions/Risen v0.2/HTML/index.worker.js
+Versions/Risen v0.2/Risen.exe
+Versions/Risen v0.2/Risen.pck

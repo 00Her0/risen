@@ -7,14 +7,14 @@ func _ready():
 
 func _process(delta):
 	if Currency.sound == false:
-		$Options/MuteSoundButton/Label.text = "Unmute Sound"
+		$Options/MuteSoundButton.text = "Unmute Sound"
 	elif Currency.sound == true:
-		$Options/MuteSoundButton/Label.text = "Mute Sound"
+		$Options/MuteSoundButton.text = "Mute Sound"
 	if Currency.music == true:
-		$Options/Mutebutton/Label.text = "Mute Music"
+		$Options/Mutebutton.text = "Mute Music"
 
 	elif Currency.music == false:
-		$Options/Mutebutton/Label.text = "Unmute Music"
+		$Options/Mutebutton.text = "Unmute Music"
 		$AudioStreamPlayer.playing = false
 
 func _on_start_button_pressed():
