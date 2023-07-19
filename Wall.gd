@@ -5,6 +5,7 @@ extends Area2D
 
 func _ready():
 	Currency.wall_hp = health
+	Gamestate.wall = self
 	
 func _process(_delta):
 	if health <= 0:

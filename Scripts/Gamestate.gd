@@ -1,6 +1,7 @@
 extends Node
 
 var state
+var wall
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state = "running"
