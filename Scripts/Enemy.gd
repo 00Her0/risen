@@ -3,7 +3,7 @@ extends Area2D
 
 @export var speed: int
 @export var attack_power: int
-@export var health: int
+var health
 var targeted
 @onready var anim
 @onready var attack_delay = $hit_cooldown
@@ -12,8 +12,6 @@ var targeted
 @onready var explosion = preload("res://Scenes/explosion.tscn")
 @onready var target = "none"
 var unit_stats = {"Spearman": {"Health":100, "Attack": 5, "Speed": 20,},"Archer": {"Health":50, "Attack": 8, "Speed": 25,}, "Knight": {"Health":200, "Attack": 10, "Speed": 55,}, "Swordman": {"Health":150, "Attack": 5, "Speed": 10,}}
-var unit_list = ["Spearman","Archer","Knight","Swordman"]
-var unit_type 
 var state
 var wall
 var status = "" # used for for damage calculations
@@ -24,8 +22,6 @@ var temp_attack_power
 var temp_health
 func _ready():
 	state = "move"
-	unit_type = unit_list.pick_random()
-	assign_stats()
 	temp_health = health
 	hp_bar.max_value = health
 
@@ -34,8 +30,8 @@ func _process(delta):
 	scale = Vector2(1.5-position.x/960, 1.5-position.x/960)
 	hp_bar.value = health
 	if state == "move":
-		position.y -= (speed / 3) * delta
-		position.x += speed * delta
+		position.y -= (speed * 1) * delta
+		position.x += (speed* 1.75) * delta
 	elif state == "risen" or state == "risen attack":
 		risen_loop(delta)
 	check_status()
@@ -191,15 +187,15 @@ func _on_risen_damage_timeout():
 	health -= 5
 
 
-func assign_stats(): #Assign stats for the unit and swap sprites for the appropriate unit
+func assign_stats(unit_type): #Assign stats for the unit and swap sprites for the appropriate unit
 	match unit_type:
-		"Spearman":
+		"SP":
 			health = unit_stats["Spearman"]["Health"]
 			attack_power = unit_stats["Spearman"]["Attack"]
 			speed = unit_stats["Spearman"]["Speed"]
 			$Spearman.visible = true
 			anim = $Spearman
-		"Archer":
+		"AR":
 			health = unit_stats["Archer"]["Health"]
 			attack_power = unit_stats["Archer"]["Attack"]
 			speed = unit_stats["Archer"]["Speed"]
@@ -207,13 +203,13 @@ func assign_stats(): #Assign stats for the unit and swap sprites for the appropr
 			anim = $Archer
 			$Area2D/CollisionShape2D.disabled = true
 			$Area2D/Archer_attack.disabled = false
-		"Knight":
+		"KN":
 			health = unit_stats["Knight"]["Health"]
 			attack_power = unit_stats["Knight"]["Attack"]
 			speed = unit_stats["Knight"]["Speed"]
 			$Knight.visible = true
 			anim = $Knight
-		"Swordman":
+		"SW":
 			health = unit_stats["Swordman"]["Health"]
 			attack_power = unit_stats["Swordman"]["Attack"]
 			speed = unit_stats["Swordman"]["Speed"]
