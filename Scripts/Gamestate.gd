@@ -1,12 +1,8 @@
 extends Node
 
-## this is an auto load that will be used to handle
-## game state such as win/lose/pause
-
-var state #this is the state the game is currently in
-
-
-
+var state
+var wall
+# Called when the node enters the scene tree for the first time.
 func _ready():
 	state = "running"
 

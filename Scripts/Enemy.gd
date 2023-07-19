@@ -3,8 +3,7 @@ extends Area2D
 
 @export var speed: int
 @export var attack_power: int
-var health
-var targeted
+@export var health: int
 @onready var anim
 @onready var attack_delay = $hit_cooldown
 @onready var undead_targetting = $"Undead_targeting system"
@@ -12,7 +11,11 @@ var targeted
 @onready var explosion = preload("res://Scenes/explosion.tscn")
 @onready var target = "none"
 var unit_stats = {"Spearman": {"Health":100, "Attack": 5, "Speed": 20,},"Archer": {"Health":50, "Attack": 8, "Speed": 25,}, "Knight": {"Health":200, "Attack": 10, "Speed": 55,}, "Swordman": {"Health":150, "Attack": 5, "Speed": 10,}}
-var state
+var unit_list = ["Spearman","Archer","Knight","Swordman"]
+var unit_type
+enum STATES {ALIVE, DEAD, RISEN}
+var state = STATES.ALIVE
+var targeted = Gamestate.wall.get_node("CollisionShape2D")
 var wall
 var status = "" # used for for damage calculations
 var attack_status_multiplier = 1 # used to reduce damage dealt 
@@ -20,53 +23,72 @@ var defense_status_multiplier = 1
 signal i_died(enemy_node)
 var temp_attack_power
 var temp_health
+var temp_speed
+
 func _ready():
 	state = "move"
+	unit_type = unit_list.pick_random()
+	assign_stats()
 	temp_health = health
 	hp_bar.max_value = health
 
 
 func _process(delta):
-	scale = Vector2(1.5-position.x/960, 1.5-position.x/960)
+	print(state)
+	scale = Vector2(1.5-position.x/960, 1.5-position.x/960) # perspective effect
 	hp_bar.value = health
-	if state == "move":
-		position.y -= (speed * 1) * delta
-		position.x += (speed* 1.75) * delta
-	elif state == "risen" or state == "risen attack":
-		risen_loop(delta)
-	check_status()
+	if state == STATES.ALIVE or state == STATES.RISEN:
+		move(targeted, delta)
+	check_status() # check for status effects
+	if state == STATES.RISEN:
+		if targeted is String:
+			find_target()
+		elif targeted.state == STATES.DEAD:
+			print("hes down")
+			attack_delay.stop()
+			anim.play("Walk")
+			targeted = "none"
+			find_target()
 
+func set_type(unit):
+	match unit:
+		"SP":
+			unit_type = "Spearman"
+		"SW":
+			unit_type = "Swordman"
+		"KN":
+			unit_type = "Knight"
+		"AR":
+			unit_type = "Archer"
 
-
+func move(t, delta):
+	if t is String: # sanity check
+		print("we cant move there partner")
+		return
+	position.x = move_toward(position.x, t.position.x, (speed * 1.75) * delta)
+	if state == STATES.ALIVE:
+		position.y -= (speed) * delta
+	else:
+		position.y = move_toward(position.y, t.position.y, speed * delta)
 
 func _on_hit_cooldown_timeout():
-	if state != "dead":
-		if state == "risen":
-			#if anim.animation != "Attack":
-				$Attacksound.play()
-				anim.play("Attack")
-#				return
-#			else:
-				state = "risen attack"
+	if state != STATES.DEAD:
 		if targeted.is_in_group("wall"):
 			targeted.take_damage(attack_power * attack_status_multiplier)
 		elif targeted.is_in_group("enemy"):
 			targeted.take_damage(attack_power * attack_status_multiplier)
 
-
 func _on_area_2d_area_entered(area):
-	if area.is_in_group("wall"):
+	if area.is_in_group("wall") and state != STATES.RISEN:
 		targeted = area
-		state = "attack"
 		anim.play("Attack")
 		attack_delay.start()
 		speed = 0
-	elif area.is_in_group("enemy") and state == "risen":
-		if area.state == "move":
-			targeted = area
-			$hit_cooldown.start()
-		else:
-			new_target()
+	elif area.is_in_group("enemy") and state == STATES.RISEN:
+		targeted = area
+		anim.play("Attack")
+		attack_delay.start()
+		speed = 0
 
 func take_damage(damage):
 	health -= damage * defense_status_multiplier
@@ -77,25 +99,20 @@ func take_damage(damage):
 #  function on death to add to a list of revivable
 func die():
 	#Currency.dead_list.append(self.position)
-	if state == "risen":
+	if state == STATES.RISEN:
 		queue_free()
-	state = "dead"
+	state = STATES.DEAD
 	$Deathsound.play()
 	hp_bar.visible = false
-	remove_from_group("enemy") # for dragon targetting hopefully this won't break anything
-	Currency.add_dead(self)
+	remove_from_group("enemy")
 	i_died.emit(self)
 	anim.play("Dead")
 	temp_attack_power = attack_power
+	temp_speed = speed
 	attack_power = 0
-	speed = 0
 
-
-
-
-#Risen state code here
 func raise():
-	state = "risen"
+	state = STATES.RISEN
 	$Raisesound.play()
 	$Raiseemitters/Raise.emitting = true
 	undead_targetting.get_node("Undead collider").disabled = false
@@ -105,28 +122,23 @@ func raise():
 	anim.play("Walk")
 	attack_power = temp_attack_power
 	health = temp_health
-	
-	# slow speed going up, they will target the nearest enemy until they die or the
-	# life timer ends
-	speed = 20
-	
-	
+	speed = 100
+	targeted = "none"
+	find_target()
+
 func find_target():
-	var target_list = []
-	var possible_target_list = undead_targetting.get_overlapping_areas()
-	target = "none"
-	for i in possible_target_list:
-		if i.is_in_group("enemy") and i.state == "move":
-			target_list.append(i)
-	for i in target_list:
-		if target is String and i.state == "move":
-			target = i
-		else:
-			if i.position.distance_to(self.position) <= target.position.distance_to(self.position) and i.state == "move":
-				target = i
-	if target is String and anim.animation != "Walk":
-		anim.play("Walk")
-	return target
+	speed = temp_speed
+	for i in $"Undead_targeting system".get_overlapping_areas():
+		if i.is_in_group("enemy") and i != self:
+			if targeted is String:
+				targeted = i
+			elif position.distance_to(i.position) < position.distance_to(targeted.position):
+				targeted = i
+	if $Area2D.get_overlapping_areas().has(targeted):
+		anim.play("Attack")
+		attack_delay.start()
+		speed = 0
+	print(targeted)
 
 func explode(): #spawn an explosion (then get rid of my body)
 	$Explosionsound.play()
@@ -142,87 +154,31 @@ func soul_particle(): # emite particles for soul steal and dissapear after!
 	queue_free()
 
 func _on_button_pressed(): # if i'm dead tell spellhandler to do stuff
-	if state == "dead":
+	if state == STATES.DEAD:
 		Spellhandler.target(self) # tells spellhandler who i am
 
-func risen_loop(delta):
-	if health <= 0:
-		die()
-	#if target is String: # if we dont have a target get one
-	find_target()
-	if target is String:
-		pass
-	elif state == "risen attack":
-		if targeted != null:
-			if targeted.state == "dead":
-				new_target()
-			if $hit_cooldown.is_stopped():
-				$hit_cooldown.start()
-	else:
-		if anim.animation != "Walk":
-			anim.play("Walk")
-		if target.position.x > self.position.x: # move toward target sorry for the bad code
-			#little speed buff so they can catch up with enemies
-			position.x += speed * 1.25 * delta
-		else:
-			position.x += -speed * 1.25 * delta
-		if target.position.y > self.position.y:
-			position.y += speed * 1.25 * delta
-		else:
-			position.y += -speed * 1.25 * delta
-
-
-func _on_area_2d_area_exited(area):
-	if area.is_in_group("enemy") and state == "risen attack":
-		new_target()
-
-func new_target():
-	state = "risen"
-	target = "none"
-	anim.play("Walk")
-	$hit_cooldown.stop()
-
+func _on_right_click_button_pressed():
+	if state == STATES.DEAD:
+		Spellhandler.target(self, true)
 
 func _on_risen_damage_timeout():
 	health -= 5
 
-
-func assign_stats(unit_type): #Assign stats for the unit and swap sprites for the appropriate unit
-	match unit_type:
-		"SP":
-			health = unit_stats["Spearman"]["Health"]
-			attack_power = unit_stats["Spearman"]["Attack"]
-			speed = unit_stats["Spearman"]["Speed"]
-			$Spearman.visible = true
-			anim = $Spearman
-		"AR":
-			health = unit_stats["Archer"]["Health"]
-			attack_power = unit_stats["Archer"]["Attack"]
-			speed = unit_stats["Archer"]["Speed"]
-			$Archer.visible = true
-			anim = $Archer
-			$Area2D/CollisionShape2D.disabled = true
-			$Area2D/Archer_attack.disabled = false
-		"KN":
-			health = unit_stats["Knight"]["Health"]
-			attack_power = unit_stats["Knight"]["Attack"]
-			speed = unit_stats["Knight"]["Speed"]
-			$Knight.visible = true
-			anim = $Knight
-		"SW":
-			health = unit_stats["Swordman"]["Health"]
-			attack_power = unit_stats["Swordman"]["Attack"]
-			speed = unit_stats["Swordman"]["Speed"]
-			$Swordman.visible = true
-			anim = $Swordman
-
+func assign_stats(): #Assign stats for the unit and swap sprites for the appropriate unit
+	health = unit_stats[unit_type]["Health"]
+	attack_power = unit_stats[unit_type]["Attack"]
+	speed = unit_stats[unit_type]["Speed"]
+	get_node(unit_type).visible = true
+	anim = get_node(unit_type)
+	if unit_type == "Archer":
+		$Area2D/CollisionShape2D.disabled = true
+		$Area2D/Archer_attack.disabled = false
 
 func _on_area_entered(area):
-	if "Fireball" in area.name and state != "dead":
+	if "Fireball" in area.name and state == STATES.ALIVE:
 		$Fireballhit.emitting = true
 	if "Enemy" in area.get_parent().name:
 		print("i'm under attack")
-
 
 func check_status():
 	if "w" in status: # look for weaken which lowers damage output
@@ -233,7 +189,7 @@ func check_status():
 		defense_status_multiplier = 2
 	else:
 		defense_status_multiplier = 1
-	
+
 func apply_status(type):
 	match type:
 		"iron_maiden":
@@ -247,21 +203,10 @@ func apply_status(type):
 				$Weakenemitter.emitting = true
 				$Weakenemitter/WeakenTimer.start()
 
-
 func _on_weaken_timer_timeout():
 	$Weakenemitter.emitting = false
-	var temp_status = status
-	if "i" in temp_status:
-		status = "i"
-	else:
-		status = ""
-
+	status.replace("w","")
 
 func _on_ironmaiden_timer_timeout():
 	$Ironmaidenemitter.emitting = false
-	var temp_status = status
-	if "w" in temp_status:
-		status = "w"
-	else:
-		status = ""
-
+	status.replace("i","")

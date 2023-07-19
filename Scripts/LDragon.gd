@@ -48,7 +48,7 @@ func add_target(enemy):
 func remove_target(enemy):
 	print(enemy)
 	if target_list.has(enemy):
-		if enemy.state == "dead":
+		if enemy.state == 1:
 			target_list.remove_at(target_list.find(enemy))
 			if !target_list.is_empty():
 				target = target_list.front()
