@@ -1,0 +1,55 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=9 format=3 uid="uid://sdligu820uri"]
+
+[sub_resource type="Curve" id="Curve_k5f70"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0.00892858, 170.182), 0.0, 0.0, 0, 0, Vector2(1, 360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qufe5"]
+curve = SubResource("Curve_k5f70")
+
+[sub_resource type="Gradient" id="Gradient_26tmx"]
+offsets = PackedFloat32Array(0, 0.296296, 0.592593, 0.765432, 0.987654)
+colors = PackedColorArray(0.74902, 0, 0.211765, 1, 0.117647, 0.360784, 1, 0.964706, 0.117647, 0.917647, 1, 0.670588, 0.117647, 0.917647, 1, 0, 0.117647, 0.917647, 1, 0.670588)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_t26ht"]
+gradient = SubResource("Gradient_26tmx")
+
+[sub_resource type="Curve" id="Curve_8s8ji"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.482, 3), 0.0, 0.0, 0, 0, Vector2(0.982, 8), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_aps2p"]
+curve = SubResource("Curve_8s8ji")
+
+[sub_resource type="Curve" id="Curve_ivogl"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.473214, 0.536364), 0.0, 0.0, 0, 0, Vector2(0.982143, 0.318182), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_1nv58"]
+curve = SubResource("Curve_ivogl")
+
+[resource]
+emission_shape = 3
+emission_box_extents = Vector3(10, 1, 1)
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+gravity = Vector3(0, -15, 0)
+initial_velocity_max = 10.0
+angular_velocity_min = 21.36
+angular_velocity_max = 106.06
+angular_velocity_curve = SubResource("CurveTexture_qufe5")
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_max = 3.0
+linear_accel_curve = SubResource("CurveTexture_aps2p")
+damping_min = 2.94
+damping_max = 8.82
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_1nv58")
+color_ramp = SubResource("GradientTexture1D_t26ht")
+hue_variation_min = 0.05
+hue_variation_max = 0.06

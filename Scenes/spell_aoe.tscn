@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bngarm5pps4yx"]
+
+[ext_resource type="Script" path="res://Scripts/spell_aoe.gd" id="1_6133a"]
+[ext_resource type="Texture2D" uid="uid://bfot4op4e0xca" path="res://assets/Filler graphics/whiteshader.png" id="2_drxv1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ddp6k"]
+radius = 200.0
+
+[node name="Spell aoe" type="Area2D"]
+script = ExtResource("1_6133a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ddp6k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.00392157, 0.196078, 0.129412, 0.384314)
+scale = Vector2(12.8125, 12.8125)
+texture = ExtResource("2_drxv1")

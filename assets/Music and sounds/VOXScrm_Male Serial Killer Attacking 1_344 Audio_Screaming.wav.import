@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d2k50q5g01nq6"
+path="res://.godot/imported/VOXScrm_Male Serial Killer Attacking 1_344 Audio_Screaming.wav-faafb7d9759d8f95f626a5daa66755bc.sample"
+
+[deps]
+
+source_file="res://assets/Music and sounds/VOXScrm_Male Serial Killer Attacking 1_344 Audio_Screaming.wav"
+dest_files=["res://.godot/imported/VOXScrm_Male Serial Killer Attacking 1_344 Audio_Screaming.wav-faafb7d9759d8f95f626a5daa66755bc.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

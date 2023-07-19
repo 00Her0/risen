@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqrnv5ugdppk"]
+
+[ext_resource type="Script" path="res://Scripts/Bonespear.gd" id="1_mwbry"]
+[ext_resource type="Texture2D" uid="uid://dqbb1vp0bdavs" path="res://assets/bone spear.png" id="2_0emr7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_acsna"]
+size = Vector2(63, 20)
+
+[node name="Bonespear" type="Area2D"]
+script = ExtResource("1_mwbry")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 0)
+shape = SubResource("RectangleShape2D_acsna")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_0emr7")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

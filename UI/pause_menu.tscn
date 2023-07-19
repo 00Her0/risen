@@ -1,0 +1,120 @@
+[gd_scene load_steps=4 format=3 uid="uid://d32ftunw48c02"]
+
+[ext_resource type="Script" path="res://UI/pause_menu.gd" id="1_m3lus"]
+[ext_resource type="Theme" uid="uid://crw1vbknyu534" path="res://assets/Final graphics/Menu/button_default.tres" id="2_jw3mo"]
+[ext_resource type="Texture2D" uid="uid://dbkg5x6alhme" path="res://assets/Risen.png" id="2_uwwu4"]
+
+[node name="PauseMenu" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m3lus")
+
+[node name="Pause" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Mainmenubutton" type="Button" parent="Pause"]
+layout_mode = 0
+offset_left = 357.0
+offset_top = 312.0
+offset_right = 607.0
+offset_bottom = 362.0
+theme = ExtResource("2_jw3mo")
+
+[node name="Label" type="Label" parent="Pause/Mainmenubutton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Main Menu
+"
+
+[node name="Exitbutton" type="Button" parent="Pause"]
+layout_mode = 0
+offset_left = 357.0
+offset_top = 452.0
+offset_right = 607.0
+offset_bottom = 502.0
+theme = ExtResource("2_jw3mo")
+
+[node name="Label" type="Label" parent="Pause/Exitbutton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -13.0
+offset_right = 20.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Exit
+"
+
+[node name="Backbutton" type="Button" parent="Pause"]
+layout_mode = 0
+offset_left = 357.0
+offset_top = 382.0
+offset_right = 607.0
+offset_bottom = 432.0
+theme = ExtResource("2_jw3mo")
+
+[node name="Label" type="Label" parent="Pause/Backbutton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = -13.0
+offset_right = 31.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Resume"
+
+[node name="TextureRect" type="TextureRect" parent="Pause"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 310.0
+offset_right = 610.0
+offset_bottom = 200.0
+grow_horizontal = 2
+texture = ExtResource("2_uwwu4")
+
+[node name="WinLoseLabel" type="Label" parent="Pause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 440.0
+offset_top = 238.5
+offset_right = 480.0
+offset_bottom = 261.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="Pause/Mainmenubutton" to="." method="_on_mainmenubutton_pressed"]
+[connection signal="pressed" from="Pause/Exitbutton" to="." method="_on_exitbutton_pressed"]
+[connection signal="pressed" from="Pause/Backbutton" to="." method="_on_backbutton_pressed"]

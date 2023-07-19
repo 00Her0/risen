@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cimijcrb8qlo6"
+path="res://.godot/imported/SWSH_Sword Slash Impact V2 Assorted 18_DDUMAIS_NONE.wav-39adcec7628f099d787f6044ee918976.sample"
+
+[deps]
+
+source_file="res://assets/Music and sounds/SWSH_Sword Slash Impact V2 Assorted 18_DDUMAIS_NONE.wav"
+dest_files=["res://.godot/imported/SWSH_Sword Slash Impact V2 Assorted 18_DDUMAIS_NONE.wav-39adcec7628f099d787f6044ee918976.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
