@@ -30,7 +30,6 @@ func remove_dead(dead_soul):
 
 func repair_wall(max):
 	if !wall_repair_bool:
-		print("repairing")
 		var amount_to_repair = max - wall_hp
 		var soul_cost = round(amount_to_repair/10)
 		var used_souls = min(soul_cost, souls)
@@ -40,7 +39,6 @@ func repair_wall(max):
 	
 func upgrade_wall():
 	if !wall_upgrade_bool:
-		print("upgrading")
 		var upgrade_amount = souls * 20
 		use_soul(souls)
 		wall_upgrade_bool = true

@@ -26,15 +26,12 @@ var temp_health
 var temp_speed
 
 func _ready():
-	state = "move"
-	unit_type = unit_list.pick_random()
 	assign_stats()
 	temp_health = health
 	hp_bar.max_value = health
 
 
 func _process(delta):
-	print(state)
 	scale = Vector2(1.5-position.x/960, 1.5-position.x/960) # perspective effect
 	hp_bar.value = health
 	if state == STATES.ALIVE or state == STATES.RISEN:
@@ -44,7 +41,7 @@ func _process(delta):
 		if targeted is String:
 			find_target()
 		elif targeted.state == STATES.DEAD:
-			print("hes down")
+
 			attack_delay.stop()
 			anim.play("Walk")
 			targeted = "none"
@@ -63,7 +60,6 @@ func set_type(unit):
 
 func move(t, delta):
 	if t is String: # sanity check
-		print("we cant move there partner")
 		return
 	position.x = move_toward(position.x, t.position.x, (speed * 1.75) * delta)
 	if state == STATES.ALIVE:
@@ -138,7 +134,7 @@ func find_target():
 		anim.play("Attack")
 		attack_delay.start()
 		speed = 0
-	print(targeted)
+
 
 func explode(): #spawn an explosion (then get rid of my body)
 	$Explosionsound.play()
@@ -156,10 +152,10 @@ func soul_particle(): # emite particles for soul steal and dissapear after!
 func _on_button_pressed(): # if i'm dead tell spellhandler to do stuff
 	if state == STATES.DEAD:
 		Spellhandler.target(self) # tells spellhandler who i am
+	if Input.is_action_just_pressed("right click"):
+			if state == STATES.DEAD:
+				Spellhandler.target(self, true)
 
-func _on_right_click_button_pressed():
-	if state == STATES.DEAD:
-		Spellhandler.target(self, true)
 
 func _on_risen_damage_timeout():
 	health -= 5
@@ -178,7 +174,7 @@ func _on_area_entered(area):
 	if "Fireball" in area.name and state == STATES.ALIVE:
 		$Fireballhit.emitting = true
 	if "Enemy" in area.get_parent().name:
-		print("i'm under attack")
+		pass
 
 func check_status():
 	if "w" in status: # look for weaken which lowers damage output

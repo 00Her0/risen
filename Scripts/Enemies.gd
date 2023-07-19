@@ -69,7 +69,7 @@ func spawn(type):
 	var e = enemy_unit.instantiate()
 	var spawn_pos = find_spawn_loc()
 	e.position = spawn_pos
-	e.assign_stats(type)
+	e.set_type(type)
 #	e.health *= (wave_multiplier * max(current_wave,1))
 	add_child(e)
 	
