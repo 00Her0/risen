@@ -54,8 +54,10 @@ func set_type(unit):
 		"SW":
 			unit_type = "Swordman"
 		"KN":
-			unit_type = "Knight"
+			unit_type = "Archer"
 		"AR":
+			unit_type = "Archer"
+		_:
 			unit_type = "Archer"
 
 func move(t, delta):
@@ -152,10 +154,10 @@ func soul_particle(): # emite particles for soul steal and dissapear after!
 func _on_button_pressed(): # if i'm dead tell spellhandler to do stuff
 	if state == STATES.DEAD:
 		Spellhandler.target(self) # tells spellhandler who i am
-	if Input.is_action_just_pressed("right click"):
-			if state == STATES.DEAD:
-				Spellhandler.target(self, true)
 
+func _on_right_click_button_pressed():
+	if state == STATES.DEAD:
+			Spellhandler.target(self, true)
 
 func _on_risen_damage_timeout():
 	health -= 5
