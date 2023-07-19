@@ -1,20 +1,7 @@
 extends Node2D
 
-@onready var e = preload("res://Scenes/enemy.tscn")
 @onready var enemy_unit = preload("res://Scenes/enemy.tscn")
-@onready var waves = [ # I made it this way so we can add different types of enemies leter more easily
-	[[e],[e,e,e],[e,e,e]], # this is one wave
-	[[e,e]], # e means one enemy, so this wave has two enemies that spawn at the same
-	[[e,e],[e,e]],
-	[[e,e,e,e],[e,e,e]],
-	[[e,e],[e,e,e,e,e,e,e]],
-	[[e,e,e,e,e,e],[e,e,e]],
-	[[e,e,e,e,e,e,e,e,e]],
-	[[e,e,e,e,e,e,e,e,]],
-	[[e,e,e,e,e,e,e,e,e,e]],
-	[[e,e,e,e,e,e,e,e,e,e,e,]]
-	]
-@onready var wave_times = [10,20,40,40,40,40,40,40,60,60]
+
 @onready var enemies_alive = 0
 @onready var current_wave = 0
 @onready var rng = RandomNumberGenerator.new()
@@ -26,7 +13,7 @@ var content # variable to hold all wave data gets loaded on ready
 var current_wave_comp #holds current wave composition as array
 
 func _ready():
-	Currency.time_to_next_wave = wave_times[current_wave]
+	Currency.time_to_next_wave = 10
 	load_wave_file()
 
 
@@ -42,23 +29,40 @@ func _ready():
 
 
 func _on_spawn_cooldown_timeout():
-	for unit in current_wave_comp:
-		spawn(unit)
+	if current_wave_comp.is_empty():
+		current_wave_comp = load_current_wave()
+	else:
+		current_wave_comp.clear()
+		current_wave_comp = load_current_wave()
+		print(current_wave_comp)
+	if current_wave_comp.size() > 10:
+		var counter = 0
+		for unit in current_wave_comp:
+			counter += 1
+			if counter > 10:
+				await get_tree().create_timer(10).timeout
+				counter = 0
+			else:
+				spawn(unit)
+	else:
+		for unit in current_wave_comp:
+			spawn(unit)
 	Currency.current_wave = current_wave + 1
-	Currency.time_to_next_wave = wave_times[current_wave]
+	Currency.time_to_next_wave = current_wave_comp.size() * 2
 	current_wave += 1
-	$spawn_cooldown.start(wave_times[current_wave])
+	$spawn_cooldown.start(current_wave_comp.size() * 2)
 
 
 func load_wave_file():
 	var file = FileAccess.open("res://Scripts/waves.txt",FileAccess.READ)
 	content = file.get_as_text()
 	current_wave_comp =  load_current_wave()
-	print(current_wave_comp)
+
 
 
 func load_current_wave(): # loads current wave composition to be used by
 	var temp_comp  = content.get_slice("\r", current_wave).split(",")
+	temp_comp.remove_at(0)
 	return temp_comp
 
 func spawn(type):
@@ -66,7 +70,7 @@ func spawn(type):
 	var spawn_pos = find_spawn_loc()
 	e.position = spawn_pos
 	e.assign_stats(type)
-	e.health *= (wave_multiplier * max(current_wave,1))
+#	e.health *= (wave_multiplier * max(current_wave,1))
 	add_child(e)
 	
 	
