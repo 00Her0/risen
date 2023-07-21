@@ -17,15 +17,6 @@ func _ready():
 	load_wave_file()
 
 
-#func _process(_delta):
-#	if enemies_alive == 0 and $spawn_cooldown.time_left == 0:
-#		spawning_bool = false
-#	if current_wave < 10 and spawning_bool == false:
-#		$spawn_cooldown.start(wave_times[current_wave])
-#		spawning_bool = true
-#	elif current_wave == 10 and enemies_alive == 0:
-#		Gamestate.state = "win"
-
 
 
 func _on_spawn_cooldown_timeout():

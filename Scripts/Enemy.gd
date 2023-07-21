@@ -17,6 +17,7 @@ enum STATES {ALIVE, DEAD, RISEN}
 var state = STATES.ALIVE
 var targeted = Gamestate.wall.get_node("CollisionShape2D")
 var wall
+var being_siphoned = false
 var status = "" # used for for damage calculations
 var attack_status_multiplier = 1 # used to reduce damage dealt 
 var defense_status_multiplier = 1
@@ -109,6 +110,7 @@ func die():
 
 func raise():
 	state = STATES.RISEN
+	modulate_sprite()
 	$Raisesound.play()
 	$Raiseemitters/Raise.emitting = true
 	undead_targetting.get_node("Undead collider").disabled = false
@@ -153,6 +155,8 @@ func soul_particle(): # emite particles for soul steal and dissapear after!
 
 func _on_risen_damage_timeout():
 	health -= 5
+	if health <= 0:
+		queue_free()
 
 func assign_stats(): #Assign stats for the unit and swap sprites for the appropriate unit
 	health = unit_stats[unit_type]["Health"]
@@ -211,4 +215,18 @@ func _on_button_gui_input(event):
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			if event.pressed:
 				if state == STATES.DEAD:
-					Spellhandler.soul_siphon(self)
+					if !being_siphoned:
+						being_siphoned = true
+						Spellhandler.soul_siphon(self)
+						
+
+func modulate_sprite():
+	match unit_type:
+		"Knight":
+			$Knight.set_self_modulate(Color(0.09,1,0.08,1))
+		"Swordman":
+			$Swordman.set_self_modulate(Color(0.09,1,0.08,1))
+		"Archer":
+			$Archer.set_self_modulate(Color(0.09,1,0.08,1))
+		"Spearman":
+			$Spearman.set_self_modulate(Color(0.09,1,0.08,1))

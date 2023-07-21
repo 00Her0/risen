@@ -478,6 +478,7 @@ disabled = true
 wait_time = 0.5
 
 [node name="Undead_targeting system" type="Area2D" parent="."]
+visible = false
 
 [node name="Undead collider" type="CollisionShape2D" parent="Undead_targeting system"]
 shape = SubResource("CircleShape2D_wxh2q")

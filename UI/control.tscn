@@ -53,6 +53,15 @@ shortcut = SubResource("Shortcut_xtgvv")
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
 
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 15.0
+offset_right = 34.0
+offset_bottom = 34.0
+texture = ExtResource("16_xeufj")
+expand_mode = 1
+
 [node name="CooldownShade" type="TextureProgressBar" parent="TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton"]
 layout_mode = 0
 offset_left = 8.0
@@ -74,19 +83,19 @@ tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 wait_time = 10.0
 one_shot = true
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton"]
-layout_mode = 0
-offset_left = 14.0
-offset_top = 15.0
-offset_right = 34.0
-offset_bottom = 34.0
-texture = ExtResource("16_xeufj")
-expand_mode = 1
-
 [node name="Bonespearbutton" type="TextureButton" parent="TabContainer/Necrospellpanel/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
+
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Necrospellpanel/HBoxContainer/Bonespearbutton"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 16.0
+offset_right = 32.0
+offset_bottom = 31.0
+texture = ExtResource("17_0285j")
+expand_mode = 1
 
 [node name="CooldownShade" type="TextureProgressBar" parent="TabContainer/Necrospellpanel/HBoxContainer/Bonespearbutton"]
 layout_mode = 0
@@ -109,19 +118,19 @@ tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 wait_time = 3.0
 one_shot = true
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Necrospellpanel/HBoxContainer/Bonespearbutton"]
-layout_mode = 0
-offset_left = 17.0
-offset_top = 16.0
-offset_right = 32.0
-offset_bottom = 31.0
-texture = ExtResource("17_0285j")
-expand_mode = 1
-
 [node name="Weakenbutton" type="TextureButton" parent="TabContainer/Necrospellpanel/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
+
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 16.0
+offset_right = 32.0
+offset_bottom = 33.0
+texture = ExtResource("18_2oigf")
+expand_mode = 1
 
 [node name="CooldownShade" type="TextureProgressBar" parent="TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton"]
 layout_mode = 0
@@ -143,15 +152,6 @@ tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 [node name="Weakencooldown" type="Timer" parent="TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton"]
 wait_time = 10.0
 one_shot = true
-
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 16.0
-offset_right = 32.0
-offset_bottom = 33.0
-texture = ExtResource("18_2oigf")
-expand_mode = 1
 
 [node name="Soulspellpanel" type="Panel" parent="TabContainer"]
 visible = false
