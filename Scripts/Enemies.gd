@@ -62,7 +62,11 @@ func load_wave_file():
 
 func load_current_wave(): # loads current wave composition to be used by
 	var temp_comp  = content.get_slice("\r", current_wave).split(",")
-	temp_comp.remove_at(0)
+	for enemy in temp_comp:
+		if "\n" in enemy:
+			temp_comp.remove_at(temp_comp.find(enemy))
+		elif "" in enemy:
+			temp_comp.remove_at(temp_comp.find(enemy))
 	return temp_comp
 
 func spawn(type):

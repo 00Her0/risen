@@ -15,10 +15,7 @@ var mouse_pos
 func _process(_delta):
 	mouse_pos = get_viewport().get_mouse_position()
 
-func target(enemy, right := false):
-	if right:
-		enemy.soul_particle()
-		Currency.add_soul(1)
+func target(enemy,):
 	if current_spell == "explode" and not explode_cooldown:
 		if Currency.use_soul(6):
 			explode_cooldown = true
@@ -31,3 +28,7 @@ func target(enemy, right := false):
 			enemy.raise()
 		else:
 			pass # not enough $ popup
+
+func soul_siphon(enemy):
+	enemy.soul_particle()
+	Currency.add_soul(1)

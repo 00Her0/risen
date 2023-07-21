@@ -30,7 +30,6 @@ func _process(_delta):
 func _on_targetting_system_area_entered(area):
 	if area.is_in_group("enemy"):
 		add_target(area)
-		print("target added")
 		if target:
 			if area.position.x > target.position.x:
 				target = area
@@ -46,7 +45,6 @@ func add_target(enemy):
 
 # remove targets on death
 func remove_target(enemy):
-	print(enemy)
 	if target_list.has(enemy):
 		if enemy.state == 1:
 			target_list.remove_at(target_list.find(enemy))
@@ -54,13 +52,3 @@ func remove_target(enemy):
 				target = target_list.front()
 			else:
 				target = null
-
-#constant cycle to find target nearest to the wall
-#func find_closest_target(possibles):
-#	print(possibles)
-#	var target_1
-#	if !possibles.is_empty():
-#		target_1 = possibles[1]
-#	for target_possible in possibles:
-#		if target_possible.position.x > target_1.position.x:
-#			target = target_possible

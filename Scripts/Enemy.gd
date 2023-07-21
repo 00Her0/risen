@@ -10,7 +10,7 @@ extends Area2D
 @onready var hp_bar = $"Hp bar"
 @onready var explosion = preload("res://Scenes/explosion.tscn")
 @onready var target = "none"
-var unit_stats = {"Spearman": {"Health":100, "Attack": 5, "Speed": 20,},"Archer": {"Health":50, "Attack": 8, "Speed": 25,}, "Knight": {"Health":200, "Attack": 10, "Speed": 55,}, "Swordman": {"Health":150, "Attack": 5, "Speed": 10,}}
+var unit_stats = {"Spearman": {"Health":100, "Attack": 5, "Speed": 15,},"Archer": {"Health":50, "Attack": 8, "Speed": 25,}, "Knight": {"Health":100, "Attack": 10, "Speed": 30,}, "Swordman": {"Health":150, "Attack": 5, "Speed": 5,}}
 var unit_list = ["Spearman","Archer","Knight","Swordman"]
 var unit_type
 enum STATES {ALIVE, DEAD, RISEN}
@@ -130,10 +130,11 @@ func find_target():
 				targeted = i
 			elif position.distance_to(i.position) < position.distance_to(targeted.position):
 				targeted = i
-	if $Area2D.get_overlapping_areas().has(targeted):
-		anim.play("Attack")
-		attack_delay.start()
-		speed = 0
+	for i in  $Area2D.get_overlapping_areas():
+		if i == targeted:
+			anim.play("Attack")
+			attack_delay.start()
+			speed = 0
 
 
 func explode(): #spawn an explosion (then get rid of my body)
@@ -148,13 +149,6 @@ func soul_particle(): # emite particles for soul steal and dissapear after!
 	$Siphon.emitting = true
 	await get_tree().create_timer(2.25).timeout
 	queue_free()
-
-func _on_button_pressed(): # if i'm dead tell spellhandler to do stuff
-	if state == STATES.DEAD:
-		Spellhandler.target(self) # tells spellhandler who i am
-	if Input.is_action_just_pressed("right click"):
-			if state == STATES.DEAD:
-				Spellhandler.target(self, true)
 
 
 func _on_risen_damage_timeout():
@@ -206,3 +200,15 @@ func _on_weaken_timer_timeout():
 func _on_ironmaiden_timer_timeout():
 	$Ironmaidenemitter.emitting = false
 	status.replace("i","")
+
+
+func _on_button_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				if state == STATES.DEAD:
+					Spellhandler.target(self)
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			if event.pressed:
+				if state == STATES.DEAD:
+					Spellhandler.soul_siphon(self)
