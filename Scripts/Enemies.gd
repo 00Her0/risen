@@ -54,19 +54,18 @@ func _on_spawn_cooldown_timeout():
 
 
 func load_wave_file():
-	var file = FileAccess.open("res://Scripts/waves.txt",FileAccess.READ)
-	content = file.get_as_text()
-	current_wave_comp =  load_current_wave()
+	print(FileAccess.file_exists("res://Scripts/waves.txt"))
+	if FileAccess.file_exists("res://Scripts/waves.txt"):
+		
+		var file = FileAccess.open("res://Scripts/waves.txt",FileAccess.READ)
+		content = file.get_as_text()
+		current_wave_comp =  load_current_wave()
 
 
 
 func load_current_wave(): # loads current wave composition to be used by
 	var temp_comp  = content.get_slice("\r", current_wave).split(",")
-	for enemy in temp_comp:
-		if "\n" in enemy:
-			temp_comp.remove_at(temp_comp.find(enemy))
-		elif "" in enemy:
-			temp_comp.remove_at(temp_comp.find(enemy))
+	temp_comp.remove_at(0)
 	return temp_comp
 
 func spawn(type):
