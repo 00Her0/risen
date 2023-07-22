@@ -20,6 +20,7 @@ config/icon="res://Risen Icon 2.png"
 Currency="*res://Scripts/currency.gd"
 Spellhandler="*res://Scripts/spellhandler.gd"
 Gamestate="*res://Scripts/Gamestate.gd"
+Tutorial="*res://Scripts/tutorial.gd"
 
 [display]
 

@@ -61,7 +61,7 @@ func load_wave_file():
 
 
 func load_current_wave(): # loads current wave composition to be used by
-	var temp_comp  = content.get_slice("\r", current_wave).split(",")
+	var temp_comp  = content.get_slice("\n", current_wave).split(",")
 	temp_comp.remove_at(0)
 	return temp_comp
 
@@ -72,9 +72,7 @@ func spawn(type):
 	e.set_type(type)
 #	e.health *= (wave_multiplier * max(current_wave,1))
 	add_child(e)
-	
-	
-	
+
 func find_spawn_loc():
 	var x = rng.randf_range(-140,170)
 	var y

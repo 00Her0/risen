@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwq1kgo0ofio2"]
+
+[ext_resource type="Script" path="res://Scripts/Pop-Up.gd" id="1_164j4"]
+[ext_resource type="Theme" uid="uid://bo4h1ilsntjwk" path="res://assets/Final graphics/Menu/Label theme.tres" id="2_eakfk"]
+[ext_resource type="FontFile" uid="uid://dppx2nkibkbd1" path="res://assets/Final graphics/Menu/Retro Gaming.ttf" id="3_qvvqr"]
+[ext_resource type="Theme" uid="uid://crw1vbknyu534" path="res://assets/Final graphics/Menu/button_default.tres" id="4_xuw82"]
+[ext_resource type="Texture2D" uid="uid://ckqf3xey5qso" path="res://assets/Final graphics/arrow.png" id="5_l6c8x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ol1i2"]
+bg_color = Color(0.290196, 0.6, 0.6, 0.443137)
+
+[node name="Pop-Up" type="Control"]
+z_index = 10
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_164j4")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 712.0
+offset_right = 960.0
+offset_bottom = 96.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ol1i2")
+
+[node name="BoxContainer" type="BoxContainer" parent="PanelContainer"]
+layout_mode = 2
+vertical = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/BoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_eakfk")
+text = "Title"
+fit_content = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="PanelContainer/BoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_eakfk")
+theme_override_fonts/normal_font = ExtResource("3_qvvqr")
+theme_override_font_sizes/normal_font_size = 11
+text = "some text goes here"
+fit_content = true
+
+[node name="button" type="Button" parent="PanelContainer/BoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_xuw82")
+action_mode = 0
+text = "close
+"
+vertical_icon_alignment = 0
+
+[node name="Arrow" type="Sprite2D" parent="."]
+position = Vector2(480, 272)
+rotation = 1.57079
+texture = ExtResource("5_l6c8x")
+
+[connection signal="pressed" from="PanelContainer/BoxContainer/button" to="." method="_on_button_pressed"]
