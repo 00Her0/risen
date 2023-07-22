@@ -24,6 +24,7 @@ signal i_died(enemy_node)
 var temp_attack_power
 var temp_health
 var temp_speed
+var popup
 
 func _ready():
 	assign_stats()
@@ -108,6 +109,8 @@ func die():
 	temp_attack_power = attack_power
 	temp_speed = speed
 	attack_power = 0
+	if Tutorial.state == 0:
+		popup = Spellhandler.make_popup(position, "dead enemy", "right click to harvest their soul")
 
 func raise():
 	state = STATES.RISEN
@@ -157,7 +160,9 @@ func _on_button_pressed(): # if i'm dead tell spellhandler to do stuff
 
 func _on_right_click_button_pressed():
 	if state == STATES.DEAD:
-			Spellhandler.target(self, true)
+		if popup != null:
+			popup._on_button_pressed()
+		Spellhandler.target(self, true)
 
 func _on_risen_damage_timeout():
 	health -= 5

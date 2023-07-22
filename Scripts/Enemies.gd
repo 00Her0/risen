@@ -1,7 +1,6 @@
 extends Node2D
 
 @onready var enemy_unit = preload("res://Scenes/enemy.tscn")
-@onready var popup = preload("res://Scenes/pop_up.tscn")
 
 @onready var enemies_alive = 0
 @onready var current_wave = 0
@@ -16,9 +15,6 @@ var current_wave_comp #holds current wave composition as array
 func _ready():
 	Currency.time_to_next_wave = 10
 	load_wave_file()
-	var temp = popup.instantiate()
-	temp.pop_up("test", "this is a test popup")
-	add_child(temp)
 
 
 #func _process(_delta):
@@ -65,7 +61,7 @@ func load_wave_file():
 
 
 func load_current_wave(): # loads current wave composition to be used by
-	var temp_comp  = content.get_slice("\r", current_wave).split(",")
+	var temp_comp  = content.get_slice("\n", current_wave).split(",")
 	temp_comp.remove_at(0)
 	return temp_comp
 
@@ -76,9 +72,7 @@ func spawn(type):
 	e.set_type(type)
 #	e.health *= (wave_multiplier * max(current_wave,1))
 	add_child(e)
-	
-	
-	
+
 func find_spawn_loc():
 	var x = rng.randf_range(-140,170)
 	var y
