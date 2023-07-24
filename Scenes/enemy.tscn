@@ -489,7 +489,15 @@ offset_left = -9.0
 offset_top = -17.0
 offset_right = 10.0
 offset_bottom = 11.0
-button_mask = 3
+flat = true
+
+[node name="RightClickButton" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = -9.0
+offset_top = -17.0
+offset_right = 10.0
+offset_bottom = 11.0
+button_mask = 2
 flat = true
 
 [node name="Hp bar" type="TextureProgressBar" parent="."]

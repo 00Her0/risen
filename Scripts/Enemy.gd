@@ -25,6 +25,7 @@ signal i_died(enemy_node)
 var temp_attack_power
 var temp_health
 var temp_speed
+var popup
 
 func _ready():
 	assign_stats()
@@ -55,7 +56,7 @@ func set_type(unit):
 		"SW":
 			unit_type = "Swordman"
 		"KN":
-			unit_type = "Knight"
+			unit_type = "Archer"
 		"AR":
 			unit_type = "Archer"
 		_:
@@ -112,6 +113,8 @@ func die():
 	temp_attack_power = attack_power
 	temp_speed = speed
 	attack_power = 0
+	if Tutorial.state == 0:
+		popup = Spellhandler.make_popup(position, "dead enemy", "right click to harvest their soul")
 
 func raise():
 	state = STATES.RISEN
@@ -156,7 +159,6 @@ func soul_particle(): # emite particles for soul steal and dissapear after!
 	$Siphon.emitting = true
 	await get_tree().create_timer(2.25).timeout
 	queue_free()
-
 
 func _on_risen_damage_timeout():
 	health -= 5
