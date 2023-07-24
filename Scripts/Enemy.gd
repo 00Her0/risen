@@ -58,6 +58,8 @@ func set_type(unit):
 			unit_type = "Knight"
 		"AR":
 			unit_type = "Archer"
+		_:
+			unit_type = "Spearman"
 
 func move(t, delta):
 	if t is String: # sanity check
