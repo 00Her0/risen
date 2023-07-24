@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwq1kgo0ofio2"]
+[gd_scene load_steps=7 format=3 uid="uid://bwq1kgo0ofio2"]
 
 [ext_resource type="Script" path="res://Scripts/Pop-Up.gd" id="1_164j4"]
 [ext_resource type="Theme" uid="uid://bo4h1ilsntjwk" path="res://assets/Final graphics/Menu/Label theme.tres" id="2_eakfk"]
@@ -21,10 +21,8 @@ script = ExtResource("1_164j4")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
-
 offset_left = 712.0
 offset_right = 960.0
-
 offset_bottom = 96.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ol1i2")
 
