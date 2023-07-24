@@ -17,15 +17,6 @@ func _ready():
 	load_wave_file()
 
 
-#func _process(_delta):
-#	if enemies_alive == 0 and $spawn_cooldown.time_left == 0:
-#		spawning_bool = false
-#	if current_wave < 10 and spawning_bool == false:
-#		$spawn_cooldown.start(wave_times[current_wave])
-#		spawning_bool = true
-#	elif current_wave == 10 and enemies_alive == 0:
-#		Gamestate.state = "win"
-
 
 
 func _on_spawn_cooldown_timeout():
@@ -54,9 +45,12 @@ func _on_spawn_cooldown_timeout():
 
 
 func load_wave_file():
-	var file = FileAccess.open("res://Scripts/waves.txt",FileAccess.READ)
-	content = file.get_as_text()
-	current_wave_comp =  load_current_wave()
+	print(FileAccess.file_exists("res://Scripts/waves.txt"))
+	if FileAccess.file_exists("res://Scripts/waves.txt"):
+		
+		var file = FileAccess.open("res://Scripts/waves.txt",FileAccess.READ)
+		content = file.get_as_text()
+		current_wave_comp =  load_current_wave()
 
 
 
