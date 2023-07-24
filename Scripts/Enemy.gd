@@ -73,7 +73,7 @@ func _on_hit_cooldown_timeout():
 		if targeted.is_in_group("wall"):
 			targeted.take_damage(attack_power * attack_status_multiplier)
 		elif targeted.is_in_group("enemy"):
-			targeted.take_damage(attack_power * attack_status_multiplier)
+			targeted.take_damage(attack_power * attack_status_multiplier, true)
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("wall") and state != STATES.RISEN:
@@ -87,11 +87,14 @@ func _on_area_2d_area_entered(area):
 		attack_delay.start()
 		speed = 0
 
-func take_damage(damage):
+func take_damage(damage, risen_state := false):
 	health -= damage * defense_status_multiplier
-	
 	if health <= 0:
 		die()
+	if risen_state:
+		anim.play("Attack")
+		attack_delay.start()
+		speed = 0
 
 #  function on death to add to a list of revivable
 func die():
