@@ -10,13 +10,14 @@ extends Area2D
 @onready var hp_bar = $"Hp bar"
 @onready var explosion = preload("res://Scenes/explosion.tscn")
 @onready var target = "none"
-var unit_stats = {"Spearman": {"Health":100, "Attack": 5, "Speed": 20,},"Archer": {"Health":50, "Attack": 8, "Speed": 25,}, "Knight": {"Health":200, "Attack": 10, "Speed": 55,}, "Swordman": {"Health":150, "Attack": 5, "Speed": 10,}}
+var unit_stats = {"Spearman": {"Health":100, "Attack": 5, "Speed": 15,},"Archer": {"Health":50, "Attack": 8, "Speed": 25,}, "Knight": {"Health":100, "Attack": 10, "Speed": 30,}, "Swordman": {"Health":150, "Attack": 5, "Speed": 5,}}
 var unit_list = ["Spearman","Archer","Knight","Swordman"]
 var unit_type
 enum STATES {ALIVE, DEAD, RISEN}
 var state = STATES.ALIVE
 var targeted = Gamestate.wall.get_node("CollisionShape2D")
 var wall
+var being_siphoned = false
 var status = "" # used for for damage calculations
 var attack_status_multiplier = 1 # used to reduce damage dealt 
 var defense_status_multiplier = 1
@@ -59,7 +60,7 @@ func set_type(unit):
 		"AR":
 			unit_type = "Archer"
 		_:
-			unit_type = "Archer"
+			unit_type = "Spearman"
 
 func move(t, delta):
 	if t is String: # sanity check
@@ -75,7 +76,7 @@ func _on_hit_cooldown_timeout():
 		if targeted.is_in_group("wall"):
 			targeted.take_damage(attack_power * attack_status_multiplier)
 		elif targeted.is_in_group("enemy"):
-			targeted.take_damage(attack_power * attack_status_multiplier)
+			targeted.take_damage(attack_power * attack_status_multiplier, true)
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("wall") and state != STATES.RISEN:
@@ -89,11 +90,14 @@ func _on_area_2d_area_entered(area):
 		attack_delay.start()
 		speed = 0
 
-func take_damage(damage):
+func take_damage(damage, risen_state := false):
 	health -= damage * defense_status_multiplier
-	
 	if health <= 0:
 		die()
+	if risen_state:
+		anim.play("Attack")
+		attack_delay.start()
+		speed = 0
 
 #  function on death to add to a list of revivable
 func die():
@@ -114,6 +118,7 @@ func die():
 
 func raise():
 	state = STATES.RISEN
+	modulate_sprite()
 	$Raisesound.play()
 	$Raiseemitters/Raise.emitting = true
 	undead_targetting.get_node("Undead collider").disabled = false
@@ -135,10 +140,11 @@ func find_target():
 				targeted = i
 			elif position.distance_to(i.position) < position.distance_to(targeted.position):
 				targeted = i
-	if $Area2D.get_overlapping_areas().has(targeted):
-		anim.play("Attack")
-		attack_delay.start()
-		speed = 0
+	for i in  $Area2D.get_overlapping_areas():
+		if i == targeted:
+			anim.play("Attack")
+			attack_delay.start()
+			speed = 0
 
 
 func explode(): #spawn an explosion (then get rid of my body)
@@ -154,18 +160,10 @@ func soul_particle(): # emite particles for soul steal and dissapear after!
 	await get_tree().create_timer(2.25).timeout
 	queue_free()
 
-func _on_button_pressed(): # if i'm dead tell spellhandler to do stuff
-	if state == STATES.DEAD:
-		Spellhandler.target(self) # tells spellhandler who i am
-
-func _on_right_click_button_pressed():
-	if state == STATES.DEAD:
-		if popup != null:
-			popup._on_button_pressed()
-		Spellhandler.target(self, true)
-
 func _on_risen_damage_timeout():
 	health -= 5
+	if health <= 0:
+		queue_free()
 
 func assign_stats(): #Assign stats for the unit and swap sprites for the appropriate unit
 	health = unit_stats[unit_type]["Health"]
@@ -213,3 +211,29 @@ func _on_weaken_timer_timeout():
 func _on_ironmaiden_timer_timeout():
 	$Ironmaidenemitter.emitting = false
 	status.replace("i","")
+
+
+func _on_button_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				if state == STATES.DEAD:
+					Spellhandler.target(self)
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			if event.pressed:
+				if state == STATES.DEAD:
+					if !being_siphoned:
+						being_siphoned = true
+						Spellhandler.soul_siphon(self)
+						
+
+func modulate_sprite():
+	match unit_type:
+		"Knight":
+			$Knight.set_self_modulate(Color(0.09,1,0.08,1))
+		"Swordman":
+			$Swordman.set_self_modulate(Color(0.09,1,0.08,1))
+		"Archer":
+			$Archer.set_self_modulate(Color(0.09,1,0.08,1))
+		"Spearman":
+			$Spearman.set_self_modulate(Color(0.09,1,0.08,1))

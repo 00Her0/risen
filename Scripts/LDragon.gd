@@ -7,6 +7,7 @@ var fireball_scene = preload("res://Scenes/fireball.tscn")
 @onready var muzzle = $Dragon/Muzzle
 var target = null
 var can_shoot = true
+var ultimate_attack = false
 
 func shoot():
 	if can_shoot:
@@ -18,10 +19,15 @@ func shoot():
 		can_shoot = true
 		
 func _process(_delta):
-	if target:
+	if ultimate_attack:
+		position.x -= 64 * _delta
+		position.y += 38 * _delta
+		for i in $Area2D.get_overlapping_areas():
+			if i.is_in_group("enemy"):
+				i.explode()
+	elif target:
 		$Dragon.look_at(target.global_position)
 		shoot()
-
 #	elif !target:
 #		print(target_list)
 #		target = find_closest_target(target_list)
@@ -30,7 +36,6 @@ func _process(_delta):
 func _on_targetting_system_area_entered(area):
 	if area.is_in_group("enemy"):
 		add_target(area)
-		print("target added")
 		if target:
 			if area.position.x > target.position.x:
 				target = area
@@ -46,7 +51,6 @@ func add_target(enemy):
 
 # remove targets on death
 func remove_target(enemy):
-	print(enemy)
 	if target_list.has(enemy):
 		if enemy.state == 1:
 			target_list.remove_at(target_list.find(enemy))
@@ -55,12 +59,7 @@ func remove_target(enemy):
 			else:
 				target = null
 
-#constant cycle to find target nearest to the wall
-#func find_closest_target(possibles):
-#	print(possibles)
-#	var target_1
-#	if !possibles.is_empty():
-#		target_1 = possibles[1]
-#	for target_possible in possibles:
-#		if target_possible.position.x > target_1.position.x:
-#			target = target_possible
+
+func _on_button_pressed():
+	if Spellhandler.current_spell == "ultimate_dragon":
+		ultimate_attack = true

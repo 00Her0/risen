@@ -101,42 +101,16 @@ func _process(_delta):
 
 
 
-
-func _on_soulstealbutton_pressed():
-	Spellhandler.current_spell = "steal"
-
-func _on_soulsteal_cooldown_timeout():
-	Spellhandler.steal_cooldown = false # reset cooldown
-
 func _on_raisebutton_pressed():
-	Spellhandler.current_spell = "raise"
+	if  raise_cooldown.is_stopped():
+		Spellhandler.current_spell = "raise"
 
 func _on_explodebutton_pressed():
-	Spellhandler.current_spell = "explode"
+	if explode_cooldown.is_stopped():
+		Spellhandler.current_spell = "explode"
 
 func _on_explode_cooldown_timeout():
 	Spellhandler.explode_cooldown = false # reset cooldown
-
-#func spell_cursor(): # this code is a little messy but i don't really know how else to do it
-#	$Spellpanel/Infohbox/Soulstealbutton.position.y = 0
-#	$Spellpanel/Infohbox/Raisebutton.position.y = 0
-#	$Spellpanel/Infohbox/Explodebutton.position.y = 0
-#	$Spellpanel/Infohbox/Bonespearbutton.position.y = 0
-#	$Spellpanel/Infohbox/Ironmaindenbutton.position.y = 0
-#	$Spellpanel/Infohbox/Weakenbutton.position.y = 0
-#	match Spellhandler.current_spell:
-#		"steal":
-#			$Spellpanel/Infohbox/Soulstealbutton.position.y = -6
-#		"raise":
-#			$Spellpanel/Infohbox/Raisebutton.position.y = -6
-#		"explode":
-#			$Spellpanel/Infohbox/Explodebutton.position.y = -6
-#		"bone_spear":
-#			$Spellpanel/Infohbox/Bonespearbutton.position.y = -6
-#		"iron_maiden":
-#			$Spellpanel/Infohbox/Ironmaindenbutton.position.y = -6
-#		"weaken":
-#			$Spellpanel/Infohbox/Weakenbutton.position.y = -6
 
 
 func _on_repair_button_pressed():
@@ -148,7 +122,7 @@ func _on_upgradewall_button_pressed():
 
 
 func _on_ultimate_dragon_button_2_pressed():
-	pass # Replace with function body.
+	Spellhandler.current_spell = "ultimate_dragon"
 
 
 func _on_raise_cooldown_timeout():
@@ -156,10 +130,12 @@ func _on_raise_cooldown_timeout():
 
 
 func _on_bonespearbutton_pressed():
-	Spellhandler.current_spell = "bone_spear"
+	if bone_spear_cooldown.is_stopped():
+		Spellhandler.current_spell = "bone_spear"
 
 func _on_ironmaindenbutton_pressed():
-	show_spell_aoe("iron_maiden")
+	if iron_maiden_cooldown.is_stopped():
+		show_spell_aoe("iron_maiden")
 
 func _on_golembutton_pressed():
 	Spellhandler.current_spell = "golem"
@@ -171,7 +147,8 @@ func _on_ironmaidencooldown_timeout():
 	Spellhandler.iron_maiden_cooldown = false
 
 func _on_weakenbutton_pressed():
-	show_spell_aoe("weaken")
+	if weaken_cooldown.is_stopped():
+		show_spell_aoe("weaken")
 
 func show_spell_aoe(spell): #shows area where spell with effect
 	if spell_aoe_node != null:
