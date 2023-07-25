@@ -204,6 +204,7 @@ expand_mode = 1
 layout_mode = 2
 tooltip_text = "[6 Souls]
 Fill a dead body with so many souls it [E]xplodes!"
+toggle_mode = true
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
 

@@ -18,6 +18,7 @@ extends Control
 
 @onready var spell_aoe = preload("res://Scenes/spell_aoe.tscn")
 var spell_aoe_node
+var golem_summoned = false
 
 #NEW UI SETUP
 #tab container setup
@@ -42,7 +43,7 @@ func _ready():
 	soul_count.max_value = 7
 	soul_count.value = Currency.souls
 	$"Wave label/Timetonextwave/Wavetimer".start()
-
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,6 +59,7 @@ func _process(_delta):
 		wave_label.text = "Wave: " + str(Currency.current_wave)
 	# check if we need to start cooldown timers
 	if Spellhandler.explode_cooldown and explode_cooldown.is_stopped():
+		$TabContainer/Soulspellpanel/HBoxContainer/Explodebutton.button_pressed = false
 		explode_cooldown.start()
 	if Spellhandler.raise_cooldown and raise_cooldown.is_stopped():
 		raise_cooldown.start()
@@ -138,7 +140,14 @@ func _on_ironmaindenbutton_pressed():
 		show_spell_aoe("iron_maiden")
 
 func _on_golembutton_pressed():
-	Spellhandler.current_spell = "golem"
+	if golem_summoned == false:
+		golem_summoned = true
+		golem_shade.value = 5
+		var g = get_tree().root.get_node("Main/Golem")
+		var used_souls = Currency.souls
+		Currency.use_soul(used_souls)
+		g.summon(used_souls)
+		g.state = "active"
 
 func _on_bonespearcooldown_timeout():
 	Spellhandler.bone_spear_cooldown = false

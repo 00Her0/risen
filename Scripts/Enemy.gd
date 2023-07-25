@@ -92,12 +92,13 @@ func _on_area_2d_area_entered(area):
 
 func take_damage(damage, risen_state := false):
 	health -= damage * defense_status_multiplier
-	if health <= 0:
-		die()
+
 	if risen_state:
 		anim.play("Attack")
 		attack_delay.start()
 		speed = 0
+	if health <= 0:
+		die()
 
 #  function on death to add to a list of revivable
 func die():

@@ -97,7 +97,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t1a3d"]
-size = Vector2(26, 14)
+size = Vector2(50, 25)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_26gda"]
 radius = 1000.0
@@ -110,6 +110,7 @@ position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_bbry3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 sprite_frames = SubResource("SpriteFrames_xma3w")
 animation = &"Attack"
 autoplay = "Walk"
@@ -125,3 +126,8 @@ shape = SubResource("RectangleShape2D_t1a3d")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Search area"]
 shape = SubResource("CircleShape2D_26gda")
 debug_color = Color(0, 0.6, 0.701961, 0.121569)
+
+[node name="Attack_timer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="Damage area" to="." method="_on_damage_area_area_entered"]
+[connection signal="timeout" from="Attack_timer" to="." method="_on_attack_timer_timeout"]
