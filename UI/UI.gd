@@ -148,7 +148,7 @@ func _on_upgradewall_button_pressed():
 
 
 func _on_ultimate_dragon_button_2_pressed():
-	pass # Replace with function body.
+	Spellhandler.current_spell = "ultimate_dragon"
 
 
 func _on_raise_cooldown_timeout():

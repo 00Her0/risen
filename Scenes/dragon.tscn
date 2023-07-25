@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dh45gqpapy2me"]
+[gd_scene load_steps=9 format=3 uid="uid://dh45gqpapy2me"]
 
 [ext_resource type="Script" path="res://Scripts/LDragon.gd" id="1_pv04f"]
 [ext_resource type="Texture2D" uid="uid://biuysmb3ied04" path="res://assets/Filler graphics/WhiteDragon.png" id="2_niawh"]
@@ -39,6 +39,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_62xr3"]
+size = Vector2(48.1721, 269.815)
+
 [node name="LDragon" type="Area2D"]
 script = ExtResource("1_pv04f")
 
@@ -55,4 +58,19 @@ autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="targetting_system"]
 
+[node name="Button" type="Button" parent="."]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+flat = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1.90735e-06, 0)
+rotation = -0.607791
+shape = SubResource("RectangleShape2D_62xr3")
+
 [connection signal="area_entered" from="targetting_system" to="." method="_on_targetting_system_area_entered"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
