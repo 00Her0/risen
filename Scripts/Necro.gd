@@ -17,8 +17,9 @@ func _process(_delta):
 	#Fire the bone spear
 	if Input.is_action_just_pressed("left click") and Spellhandler.current_spell == "bone_spear":
 		if Spellhandler.bone_spear_cooldown == false:
-			shoot(Spellhandler.mouse_pos)
-			Spellhandler.bone_spear_cooldown = true
+			if Spellhandler.mouse_pos.x > 285 or Spellhandler.mouse_pos.y > 155:
+				shoot(Spellhandler.mouse_pos)
+				Spellhandler.bone_spear_cooldown = true
 	if Input.is_action_just_pressed("left click") and Spellhandler.current_spell == "iron_maiden":
 		Spellhandler.iron_maiden_cooldown = true
 	if Input.is_action_just_pressed("left click") and Spellhandler.current_spell == "weaken":
