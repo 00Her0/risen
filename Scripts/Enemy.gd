@@ -74,6 +74,8 @@ func move(t, delta):
 
 func _on_hit_cooldown_timeout():
 	if state != STATES.DEAD:
+		if targeted is String:
+			return
 		if targeted.is_in_group("wall"):
 			targeted.take_damage(attack_power * attack_status_multiplier)
 		elif targeted.is_in_group("enemy"):
