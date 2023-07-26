@@ -50,13 +50,14 @@ func _process(delta):
 			find_target()
 
 func set_type(unit):
+	print(unit)
 	match unit:
 		"SP":
 			unit_type = "Spearman"
 		"SW":
 			unit_type = "Swordman"
 		"KN":
-			unit_type = "Archer"
+			unit_type = "Knight"
 		"AR":
 			unit_type = "Archer"
 		_:
@@ -111,6 +112,10 @@ func die():
 	remove_from_group("enemy")
 	i_died.emit(self)
 	anim.play("Dead")
+	if $Weakenemitter.emitting == true:
+		$Weakenemitter.emitting = false
+	if $Ironmaidenemitter.emitting == true:
+		$Ironmaidenemitter.emitting = false
 	temp_attack_power = attack_power
 	temp_speed = speed
 	attack_power = 0
@@ -167,14 +172,19 @@ func _on_risen_damage_timeout():
 		queue_free()
 
 func assign_stats(): #Assign stats for the unit and swap sprites for the appropriate unit
-	health = unit_stats[unit_type]["Health"]
-	attack_power = unit_stats[unit_type]["Attack"]
+	health = difficulty_mod(unit_stats[unit_type]["Health"])
+	attack_power = difficulty_mod(unit_stats[unit_type]["Attack"])
 	speed = unit_stats[unit_type]["Speed"]
 	get_node(unit_type).visible = true
 	anim = get_node(unit_type)
 	if unit_type == "Archer":
 		$Area2D/CollisionShape2D.disabled = true
 		$Area2D/Archer_attack.disabled = false
+
+func difficulty_mod(stat, mod := Gamestate.difficulty):
+	var temp_stat = ((stat * mod)*0.25)
+	print(temp_stat)
+	return temp_stat
 
 func _on_area_entered(area):
 	if "Fireball" in area.name and state == STATES.ALIVE:

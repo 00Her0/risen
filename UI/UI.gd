@@ -55,6 +55,8 @@ func _process(_delta):
 	weaken_shade.value = weaken_cooldown.time_left
 	wall_hp.value = Currency.wall_hp
 	soul_count.value = Currency.souls
+	soul_count.tooltip_text = "Current souls: " + str(Currency.souls)
+	wall_hp.tooltip_text = "Lair HP: " + str(Currency.wall_hp) + "/" + str(Currency.wall_max_hp)
 	if Currency.current_wave != 0 and Currency.current_wave != null:
 		wave_label.text = "Wave: " + str(Currency.current_wave)
 	# check if we need to start cooldown timers
@@ -62,12 +64,16 @@ func _process(_delta):
 		$TabContainer/Soulspellpanel/HBoxContainer/Explodebutton.button_pressed = false
 		explode_cooldown.start()
 	if Spellhandler.raise_cooldown and raise_cooldown.is_stopped():
+		$TabContainer/Soulspellpanel/HBoxContainer/Raisebutton.button_pressed = false
 		raise_cooldown.start()
 	if Spellhandler.bone_spear_cooldown and bone_spear_cooldown.is_stopped():
+		$TabContainer/Necrospellpanel/HBoxContainer/Bonespearbutton.button_pressed = false
 		bone_spear_cooldown.start()
 	if Spellhandler.iron_maiden_cooldown and iron_maiden_cooldown.is_stopped():
+		$TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton.button_pressed = false
 		iron_maiden_cooldown.start()
 	if Spellhandler.weaken_cooldown and weaken_cooldown.is_stopped():
+		$TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton.button_pressed = false
 		weaken_cooldown.start()
 	#New GUI wave timer
 	time_to_next_wave.text = "Next wave in: " + str(round(next_wave_timer.time_left))
@@ -85,21 +91,34 @@ func _process(_delta):
 
 	# Hot keys!!
 	if Input.is_action_just_pressed("raise"):
+		tab_bar.current_tab = 1
+		tab_container.current_tab = 1
+		$TabContainer/Soulspellpanel/HBoxContainer/Raisebutton.button_pressed = true
 		Spellhandler.current_spell = "raise"
-	if Input.is_action_just_pressed("siphon"):
-		Spellhandler.current_spell = "steal"
 	if Input.is_action_just_pressed("explode"):
+		tab_bar.current_tab = 1
+		tab_container.current_tab = 1
+		$TabContainer/Soulspellpanel/HBoxContainer/Explodebutton.button_pressed = true
 		Spellhandler.current_spell = "explode"
 	if Input.is_action_just_pressed("bone_spear"):
+		tab_bar.current_tab = 0
+		tab_container.current_tab = 0
+		$TabContainer/Necrospellpanel/HBoxContainer/Bonespearbutton.button_pressed = true
 		Spellhandler.current_spell = "bone_spear"
 	if Input.is_action_just_pressed("iron_maiden"):
+		tab_bar.current_tab = 0
+		tab_container.current_tab = 0
+		$TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton.button_pressed = true
 		Spellhandler.current_spell = "iron_maiden"
 		show_spell_aoe("iron_maiden")
 	if Input.is_action_just_pressed("weaken"):
+		tab_bar.current_tab = 0
+		tab_container.current_tab = 0
+		$TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton.button_pressed = true
 		Spellhandler.current_spell = "weaken"
 		show_spell_aoe("weaken")
 	if Input.is_action_just_pressed("golem"):
-		Spellhandler.current_spell = "golem"
+		_on_golembutton_pressed()
 
 
 
@@ -141,6 +160,7 @@ func _on_ironmaindenbutton_pressed():
 
 func _on_golembutton_pressed():
 	if golem_summoned == false:
+		$TabContainer/Soulspellpanel/HBoxContainer/Golembutton.disabled = true
 		golem_summoned = true
 		golem_shade.value = 5
 		var g = get_tree().root.get_node("Main/Golem")

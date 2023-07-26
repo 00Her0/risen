@@ -49,6 +49,7 @@ offset_bottom = 40.0
 
 [node name="Ironmaindenbutton" type="TextureButton" parent="TabContainer/Necrospellpanel/HBoxContainer"]
 layout_mode = 2
+toggle_mode = true
 shortcut = SubResource("Shortcut_xtgvv")
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
@@ -85,6 +86,7 @@ one_shot = true
 
 [node name="Bonespearbutton" type="TextureButton" parent="TabContainer/Necrospellpanel/HBoxContainer"]
 layout_mode = 2
+toggle_mode = true
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
 
@@ -120,6 +122,7 @@ one_shot = true
 
 [node name="Weakenbutton" type="TextureButton" parent="TabContainer/Necrospellpanel/HBoxContainer"]
 layout_mode = 2
+toggle_mode = true
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
 
@@ -166,6 +169,7 @@ offset_bottom = 40.0
 layout_mode = 2
 tooltip_text = "[2 Souls]
 Use a captured souls to [R]aise a dead body"
+toggle_mode = true
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
 

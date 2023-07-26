@@ -8,7 +8,7 @@ var wall_hp = 200
 var wall_max_hp = 200
 var wall_repair_bool = false
 var wall_upgrade_bool = false
-var current_wave
+var current_wave = 1
 var time_to_next_wave
 
 func add_soul(amount):
