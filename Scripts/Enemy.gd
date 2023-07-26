@@ -142,10 +142,11 @@ func find_target():
 			elif position.distance_to(i.position) < position.distance_to(targeted.position):
 				targeted = i
 	for i in  $Area2D.get_overlapping_areas():
-		if i == targeted:
-			anim.play("Attack")
-			attack_delay.start()
-			speed = 0
+		if not targeted is String:
+			if i == targeted:
+				anim.play("Attack")
+				attack_delay.start()
+				speed = 0
 
 
 func explode(): #spawn an explosion (then get rid of my body)
