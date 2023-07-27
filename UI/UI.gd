@@ -76,7 +76,10 @@ func _process(_delta):
 		$TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton.button_pressed = false
 		weaken_cooldown.start()
 	#New GUI wave timer
-	time_to_next_wave.text = "Next wave in: " + str(round(Currency.time_to_next_wave))
+	if Currency.time_to_next_wave == 0:
+		time_to_next_wave.text = ""
+	else:
+		time_to_next_wave.text = "Next wave in: " + str(round(Currency.time_to_next_wave))
 
 #	spell_cursor()
 	#code to handle moving the spell area indicator

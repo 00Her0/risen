@@ -22,16 +22,13 @@ func _ready():
 
 func _process(_delta):
 	print(get_tree().get_nodes_in_group("enemy").size())
-	if get_tree().get_nodes_in_group("enemy").size() <=0 and waiting == false:
-	
+	if enemies_alive <= 0 and $spawn_cooldown.is_stopped():
 		$spawn_cooldown.start(10)
-		waiting = true
 	Currency.time_to_next_wave = $spawn_cooldown.time_left
 
 
 func _on_spawn_cooldown_timeout():
 	set_wave_array()
-	waiting = false
 #	if current_wave_comp.is_empty():
 #		current_wave_comp = load_current_wave()
 #	else:
@@ -69,10 +66,12 @@ func _on_spawn_cooldown_timeout():
 #	return temp_comp
 
 func spawn(type):
+	enemies_alive += 1
 	var e = enemy_unit.instantiate()
 	var spawn_pos = find_spawn_loc()
 	e.position = spawn_pos
 	e.set_type(type)
+	e.i_died.connect(enemy_died)
 	add_child(e)
 
 func find_spawn_loc():
@@ -111,3 +110,7 @@ func find_max_stats():
 	var temp_max = (Currency.current_wave + ((Currency.current_wave ** Gamestate.difficulty) + 50))
 	max_stats = temp_max
 	print(temp_max)
+
+func enemy_died(_enemy):
+	print("enemy died")
+	enemies_alive -= 1
