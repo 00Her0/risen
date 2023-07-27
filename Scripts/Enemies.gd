@@ -5,7 +5,7 @@ extends Node2D
 @onready var enemies_alive = 0
 @onready var current_wave = 0
 @onready var rng = RandomNumberGenerator.new()
-@onready var spawning_bool = false
+@onready var waiting = false
 
 
 var wave_array = []
@@ -17,15 +17,21 @@ var content # variable to hold all wave data gets loaded on ready
 var current_wave_comp #holds current wave composition as array
 
 func _ready():
-	Currency.time_to_next_wave = 10
-#	load_wave_file()
+
 	set_wave_array()
 
-
+func _process(_delta):
+	print(get_tree().get_nodes_in_group("enemy").size())
+	if get_tree().get_nodes_in_group("enemy").size() <=0 and waiting == false:
+	
+		$spawn_cooldown.start(10)
+		waiting = true
+	Currency.time_to_next_wave = $spawn_cooldown.time_left
 
 
 func _on_spawn_cooldown_timeout():
 	set_wave_array()
+	waiting = false
 #	if current_wave_comp.is_empty():
 #		current_wave_comp = load_current_wave()
 #	else:
@@ -45,9 +51,7 @@ func _on_spawn_cooldown_timeout():
 		for unit in wave_array:
 			spawn(unit)
 	Currency.current_wave = current_wave + 1
-	Currency.time_to_next_wave = wave_array.size() * 2
 	current_wave += 1
-	$spawn_cooldown.start(wave_array.size() * 2)
 
 
 #func load_wave_file():
@@ -69,7 +73,6 @@ func spawn(type):
 	var spawn_pos = find_spawn_loc()
 	e.position = spawn_pos
 	e.set_type(type)
-#	e.health *= (wave_multiplier * max(current_wave,1))
 	add_child(e)
 
 func find_spawn_loc():

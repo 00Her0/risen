@@ -1,8 +1,8 @@
 extends Area2D
 
 #stats for the base golem these will get buffed by a percentage from souls
-@export var health = 300
-@export var attack = 5
+@export var health = 100
+@export var attack = 3
 @export var damage_reduction = .99
 @export var speed = 25
 @export var life_steal = 0.1
@@ -30,6 +30,9 @@ func _process(delta):
 				speed = 20
 		if targeted != null:
 			move(targeted, delta)
+	if get_tree().get_nodes_in_group("enemy").size() <= 0:
+		position.x = move_toward(position.x, 473, speed * delta)
+		position.y = move_toward(position.y, 303, speed * delta)
 
 
 

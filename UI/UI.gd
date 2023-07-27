@@ -42,7 +42,7 @@ func _ready():
 	wall_hp.value = Currency.wall_hp
 	soul_count.max_value = 7
 	soul_count.value = Currency.souls
-	$"Wave label/Timetonextwave/Wavetimer".start()
+
 	
 
 
@@ -76,7 +76,7 @@ func _process(_delta):
 		$TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton.button_pressed = false
 		weaken_cooldown.start()
 	#New GUI wave timer
-	time_to_next_wave.text = "Next wave in: " + str(round(next_wave_timer.time_left))
+	time_to_next_wave.text = "Next wave in: " + str(round(Currency.time_to_next_wave))
 
 #	spell_cursor()
 	#code to handle moving the spell area indicator
