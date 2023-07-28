@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://n0fykqjdbduo"
+path="res://.godot/imported/Raise.wav-6c54605c3abed79d773cf8a9d3a32b3b.sample"
+
+[deps]
+
+source_file="res://assets/Music and sounds/Raise.wav"
+dest_files=["res://.godot/imported/Raise.wav-6c54605c3abed79d773cf8a9d3a32b3b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
