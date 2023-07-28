@@ -39,13 +39,14 @@ func pick_saying():
 	var saying = sayings_list.pick_random()
 	match saying:
 		"Raise":
-			sayings.stream = "res://assets/Music and sounds/Raise.wav"
+			sayings.stream = load("res://assets/Music and sounds/Raise.wav")
 		"Rally":
-			sayings.stream = "res://assets/Music and sounds/Rally.wav"
+			sayings.stream = load("res://assets/Music and sounds/Rally.wav")
 		"Recycle":
-			sayings.stream = "res://assets/Music and sounds/Recycle.wav"
+			sayings.stream = load("res://assets/Music and sounds/Recycle.wav")
 		"Once":
-			sayings.stream = "res://assets/Music and sounds/Once.wav"
+			sayings.stream = load("res://assets/Music and sounds/Once Twice.wav")
 		"Bone":
-			sayings.stream = "res://assets/Music and sounds/Bone.wav"
-	sayings.play()
+			sayings.stream = load("res://assets/Music and sounds/Bone.wav")
+	if Currency.sound == true:
+		sayings.play()
