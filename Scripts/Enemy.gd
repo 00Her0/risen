@@ -121,7 +121,7 @@ func die():
 	temp_attack_power = attack_power
 	temp_speed = speed
 	attack_power = 0
-	if Tutorial.state == 0:
+	if Tutorial.state == 1 and Tutorial.popup_open == false:
 		popup = Spellhandler.make_popup(position, "dead enemy", "right click to harvest their soul")
 
 func raise():

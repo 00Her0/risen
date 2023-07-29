@@ -14,7 +14,9 @@ func pop_up(where, title, text):
 	$PanelContainer/BoxContainer/RichTextLabel.text = title
 	$PanelContainer/BoxContainer/RichTextLabel2.text = text
 	$Arrow.position = where
-	Tutorial.popup_made()
+	if title == "dead enemy":
+		Tutorial.popup_made()
 
 func _on_button_pressed():
+	Tutorial.popup_closed()
 	queue_free()
