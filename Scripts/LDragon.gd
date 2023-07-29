@@ -62,4 +62,5 @@ func remove_target(enemy):
 
 func _on_button_pressed():
 	if Spellhandler.current_spell == "ultimate_dragon":
+		$"Ultimate attack".emitting = true
 		ultimate_attack = true
