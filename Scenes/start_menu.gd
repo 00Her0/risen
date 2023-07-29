@@ -4,6 +4,7 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AudioStreamPlayer.playing = true
+	Gamestate.difficulty =  $Options/HSlider.value
 
 func _process(delta):
 	if Currency.sound == false:
@@ -127,3 +128,7 @@ func _on_exit_button_mouse_entered():
 func _on_options_button_mouse_entered():
 	if Currency.sound == true:
 		$Hover.play()
+
+
+func _on_h_slider_value_changed(value):
+	Gamestate.difficulty = value

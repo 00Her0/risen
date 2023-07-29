@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://58r2tljqdl0u"
+path="res://.godot/imported/Once Twice.wav-83f821e4182e93d08f6a8c2d0949c969.sample"
+
+[deps]
+
+source_file="res://assets/Music and sounds/Once Twice.wav"
+dest_files=["res://.godot/imported/Once Twice.wav-83f821e4182e93d08f6a8c2d0949c969.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

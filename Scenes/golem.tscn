@@ -1,0 +1,133 @@
+[gd_scene load_steps=18 format=3 uid="uid://cxmgldbhb6dx6"]
+
+[ext_resource type="Script" path="res://Scripts/Golem.gd" id="1_gokxe"]
+[ext_resource type="Texture2D" uid="uid://vnaj1fgeh7jd" path="res://assets/Filler graphics/ArmouredRedDemon.png" id="2_ruoad"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bbry3"]
+size = Vector2(6, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wb7ru"]
+atlas = ExtResource("2_ruoad")
+region = Rect2(0, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3krdn"]
+atlas = ExtResource("2_ruoad")
+region = Rect2(16, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_of2h1"]
+atlas = ExtResource("2_ruoad")
+region = Rect2(32, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v15pw"]
+atlas = ExtResource("2_ruoad")
+region = Rect2(48, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_et50g"]
+atlas = ExtResource("2_ruoad")
+region = Rect2(64, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukra0"]
+atlas = ExtResource("2_ruoad")
+region = Rect2(80, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_obc0l"]
+atlas = ExtResource("2_ruoad")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_of4ay"]
+atlas = ExtResource("2_ruoad")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtt6p"]
+atlas = ExtResource("2_ruoad")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0efnh"]
+atlas = ExtResource("2_ruoad")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tk1w1"]
+atlas = ExtResource("2_ruoad")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xma3w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wb7ru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3krdn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_of2h1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v15pw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_et50g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukra0")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_obc0l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_of4ay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jtt6p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0efnh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tk1w1")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t1a3d"]
+size = Vector2(50, 25)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_26gda"]
+radius = 1000.0
+
+[node name="Golem" type="Area2D"]
+script = ExtResource("1_gokxe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_bbry3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_xma3w")
+animation = &"Attack"
+autoplay = "Walk"
+
+[node name="Damage area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage area"]
+position = Vector2(10, 0)
+shape = SubResource("RectangleShape2D_t1a3d")
+
+[node name="Search area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Search area"]
+shape = SubResource("CircleShape2D_26gda")
+debug_color = Color(0, 0.6, 0.701961, 0.121569)
+
+[node name="Attack_timer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="Damage area" to="." method="_on_damage_area_area_entered"]
+[connection signal="timeout" from="Attack_timer" to="." method="_on_attack_timer_timeout"]

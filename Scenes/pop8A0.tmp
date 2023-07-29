@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://bo4h1ilsntjwk" path="res://assets/Final graphics/Menu/Label theme.tres" id="2_eakfk"]
 [ext_resource type="FontFile" uid="uid://dppx2nkibkbd1" path="res://assets/Final graphics/Menu/Retro Gaming.ttf" id="3_qvvqr"]
 [ext_resource type="Theme" uid="uid://crw1vbknyu534" path="res://assets/Final graphics/Menu/button_default.tres" id="4_xuw82"]
-[ext_resource type="Texture2D" uid="uid://ckqf3xey5qso" path="res://assets/Final graphics/arrow.png" id="5_ux01j"]
+[ext_resource type="Texture2D" uid="uid://ckqf3xey5qso" path="res://assets/Final graphics/arrow.png" id="5_l6c8x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ol1i2"]
 bg_color = Color(0.290196, 0.6, 0.6, 0.443137)
@@ -53,7 +53,8 @@ text = "close
 vertical_icon_alignment = 0
 
 [node name="Arrow" type="Sprite2D" parent="."]
-position = Vector2(32, 32)
-texture = ExtResource("5_ux01j")
+position = Vector2(480, 272)
+rotation = 1.57079
+texture = ExtResource("5_l6c8x")
 
 [connection signal="pressed" from="PanelContainer/BoxContainer/button" to="." method="_on_button_pressed"]

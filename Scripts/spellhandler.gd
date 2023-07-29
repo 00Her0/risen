@@ -1,5 +1,6 @@
 extends Node
 
+@onready var popup = preload("res://Scenes/pop_up.tscn")
 var current_spell = "steal"
 var explode_cooldown = false # is explode spell on cooldown
 var steal_cooldown = false # same for steal spell
@@ -28,6 +29,12 @@ func target(enemy,):
 			enemy.raise()
 		else:
 			pass # not enough $ popup
+
+func make_popup(where, title, text):
+	var temp = popup.instantiate()
+	temp.pop_up(where, title, text)
+	add_child(temp)
+	return temp
 
 func soul_siphon(enemy):
 	enemy.soul_particle()

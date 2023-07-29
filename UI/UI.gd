@@ -18,6 +18,7 @@ extends Control
 
 @onready var spell_aoe = preload("res://Scenes/spell_aoe.tscn")
 var spell_aoe_node
+var golem_summoned = false
 
 #NEW UI SETUP
 #tab container setup
@@ -41,8 +42,8 @@ func _ready():
 	wall_hp.value = Currency.wall_hp
 	soul_count.max_value = 7
 	soul_count.value = Currency.souls
-	$"Wave label/Timetonextwave/Wavetimer".start()
 
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -54,21 +55,31 @@ func _process(_delta):
 	weaken_shade.value = weaken_cooldown.time_left
 	wall_hp.value = Currency.wall_hp
 	soul_count.value = Currency.souls
+	soul_count.tooltip_text = "Current souls: " + str(Currency.souls)
+	wall_hp.tooltip_text = "Lair HP: " + str(Currency.wall_hp) + "/" + str(Currency.wall_max_hp)
 	if Currency.current_wave != 0 and Currency.current_wave != null:
 		wave_label.text = "Wave: " + str(Currency.current_wave)
 	# check if we need to start cooldown timers
 	if Spellhandler.explode_cooldown and explode_cooldown.is_stopped():
+		$TabContainer/Soulspellpanel/HBoxContainer/Explodebutton.button_pressed = false
 		explode_cooldown.start()
 	if Spellhandler.raise_cooldown and raise_cooldown.is_stopped():
+		$TabContainer/Soulspellpanel/HBoxContainer/Raisebutton.button_pressed = false
 		raise_cooldown.start()
 	if Spellhandler.bone_spear_cooldown and bone_spear_cooldown.is_stopped():
+		$TabContainer/Necrospellpanel/HBoxContainer/Bonespearbutton.button_pressed = false
 		bone_spear_cooldown.start()
 	if Spellhandler.iron_maiden_cooldown and iron_maiden_cooldown.is_stopped():
+		$TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton.button_pressed = false
 		iron_maiden_cooldown.start()
 	if Spellhandler.weaken_cooldown and weaken_cooldown.is_stopped():
+		$TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton.button_pressed = false
 		weaken_cooldown.start()
 	#New GUI wave timer
-	time_to_next_wave.text = "Next wave in: " + str(round(next_wave_timer.time_left))
+	if Currency.time_to_next_wave == 0:
+		time_to_next_wave.text = ""
+	else:
+		time_to_next_wave.text = "Next wave in: " + str(round(Currency.time_to_next_wave))
 
 #	spell_cursor()
 	#code to handle moving the spell area indicator
@@ -83,60 +94,47 @@ func _process(_delta):
 
 	# Hot keys!!
 	if Input.is_action_just_pressed("raise"):
+		tab_bar.current_tab = 1
+		tab_container.current_tab = 1
+		$TabContainer/Soulspellpanel/HBoxContainer/Raisebutton.button_pressed = true
 		Spellhandler.current_spell = "raise"
-	if Input.is_action_just_pressed("siphon"):
-		Spellhandler.current_spell = "steal"
 	if Input.is_action_just_pressed("explode"):
+		tab_bar.current_tab = 1
+		tab_container.current_tab = 1
+		$TabContainer/Soulspellpanel/HBoxContainer/Explodebutton.button_pressed = true
 		Spellhandler.current_spell = "explode"
 	if Input.is_action_just_pressed("bone_spear"):
+		tab_bar.current_tab = 0
+		tab_container.current_tab = 0
+		$TabContainer/Necrospellpanel/HBoxContainer/Bonespearbutton.button_pressed = true
 		Spellhandler.current_spell = "bone_spear"
 	if Input.is_action_just_pressed("iron_maiden"):
+		tab_bar.current_tab = 0
+		tab_container.current_tab = 0
+		$TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton.button_pressed = true
 		Spellhandler.current_spell = "iron_maiden"
 		show_spell_aoe("iron_maiden")
 	if Input.is_action_just_pressed("weaken"):
+		tab_bar.current_tab = 0
+		tab_container.current_tab = 0
+		$TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton.button_pressed = true
 		Spellhandler.current_spell = "weaken"
 		show_spell_aoe("weaken")
 	if Input.is_action_just_pressed("golem"):
-		Spellhandler.current_spell = "golem"
+		_on_golembutton_pressed()
 
 
-
-
-func _on_soulstealbutton_pressed():
-	Spellhandler.current_spell = "steal"
-
-func _on_soulsteal_cooldown_timeout():
-	Spellhandler.steal_cooldown = false # reset cooldown
 
 func _on_raisebutton_pressed():
-	Spellhandler.current_spell = "raise"
+	if  raise_cooldown.is_stopped():
+		Spellhandler.current_spell = "raise"
 
 func _on_explodebutton_pressed():
-	Spellhandler.current_spell = "explode"
+	if explode_cooldown.is_stopped():
+		Spellhandler.current_spell = "explode"
 
 func _on_explode_cooldown_timeout():
 	Spellhandler.explode_cooldown = false # reset cooldown
-
-#func spell_cursor(): # this code is a little messy but i don't really know how else to do it
-#	$Spellpanel/Infohbox/Soulstealbutton.position.y = 0
-#	$Spellpanel/Infohbox/Raisebutton.position.y = 0
-#	$Spellpanel/Infohbox/Explodebutton.position.y = 0
-#	$Spellpanel/Infohbox/Bonespearbutton.position.y = 0
-#	$Spellpanel/Infohbox/Ironmaindenbutton.position.y = 0
-#	$Spellpanel/Infohbox/Weakenbutton.position.y = 0
-#	match Spellhandler.current_spell:
-#		"steal":
-#			$Spellpanel/Infohbox/Soulstealbutton.position.y = -6
-#		"raise":
-#			$Spellpanel/Infohbox/Raisebutton.position.y = -6
-#		"explode":
-#			$Spellpanel/Infohbox/Explodebutton.position.y = -6
-#		"bone_spear":
-#			$Spellpanel/Infohbox/Bonespearbutton.position.y = -6
-#		"iron_maiden":
-#			$Spellpanel/Infohbox/Ironmaindenbutton.position.y = -6
-#		"weaken":
-#			$Spellpanel/Infohbox/Weakenbutton.position.y = -6
 
 
 func _on_repair_button_pressed():
@@ -148,7 +146,7 @@ func _on_upgradewall_button_pressed():
 
 
 func _on_ultimate_dragon_button_2_pressed():
-	pass # Replace with function body.
+	Spellhandler.current_spell = "ultimate_dragon"
 
 
 func _on_raise_cooldown_timeout():
@@ -156,13 +154,23 @@ func _on_raise_cooldown_timeout():
 
 
 func _on_bonespearbutton_pressed():
-	Spellhandler.current_spell = "bone_spear"
+	if bone_spear_cooldown.is_stopped():
+		Spellhandler.current_spell = "bone_spear"
 
 func _on_ironmaindenbutton_pressed():
-	show_spell_aoe("iron_maiden")
+	if iron_maiden_cooldown.is_stopped():
+		show_spell_aoe("iron_maiden")
 
 func _on_golembutton_pressed():
-	Spellhandler.current_spell = "golem"
+	if golem_summoned == false:
+		$TabContainer/Soulspellpanel/HBoxContainer/Golembutton.disabled = true
+		golem_summoned = true
+		golem_shade.value = 5
+		var g = get_tree().root.get_node("Main/Golem")
+		var used_souls = Currency.souls
+		Currency.use_soul(used_souls)
+		g.summon(used_souls)
+		g.state = "active"
 
 func _on_bonespearcooldown_timeout():
 	Spellhandler.bone_spear_cooldown = false
@@ -171,7 +179,8 @@ func _on_ironmaidencooldown_timeout():
 	Spellhandler.iron_maiden_cooldown = false
 
 func _on_weakenbutton_pressed():
-	show_spell_aoe("weaken")
+	if weaken_cooldown.is_stopped():
+		show_spell_aoe("weaken")
 
 func show_spell_aoe(spell): #shows area where spell with effect
 	if spell_aoe_node != null:

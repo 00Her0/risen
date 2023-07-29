@@ -25,6 +25,7 @@ signal i_died(enemy_node)
 var temp_attack_power
 var temp_health
 var temp_speed
+var popup
 
 func _ready():
 	assign_stats()
@@ -49,6 +50,7 @@ func _process(delta):
 			find_target()
 
 func set_type(unit):
+	print(unit)
 	match unit:
 		"SP":
 			unit_type = "Spearman"
@@ -58,6 +60,8 @@ func set_type(unit):
 			unit_type = "Knight"
 		"AR":
 			unit_type = "Archer"
+		_:
+			unit_type = "Spearman"
 
 func move(t, delta):
 	if t is String: # sanity check
@@ -70,10 +74,12 @@ func move(t, delta):
 
 func _on_hit_cooldown_timeout():
 	if state != STATES.DEAD:
+		if targeted is String:
+			return
 		if targeted.is_in_group("wall"):
 			targeted.take_damage(attack_power * attack_status_multiplier)
 		elif targeted.is_in_group("enemy"):
-			targeted.take_damage(attack_power * attack_status_multiplier)
+			targeted.take_damage(attack_power * attack_status_multiplier, true)
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("wall") and state != STATES.RISEN:
@@ -87,9 +93,13 @@ func _on_area_2d_area_entered(area):
 		attack_delay.start()
 		speed = 0
 
-func take_damage(damage):
+func take_damage(damage, risen_state := false):
 	health -= damage * defense_status_multiplier
-	
+
+	if risen_state:
+		anim.play("Attack")
+		attack_delay.start()
+		speed = 0
 	if health <= 0:
 		die()
 
@@ -104,9 +114,15 @@ func die():
 	remove_from_group("enemy")
 	i_died.emit(self)
 	anim.play("Dead")
+	if $Weakenemitter.emitting == true:
+		$Weakenemitter.emitting = false
+	if $Ironmaidenemitter.emitting == true:
+		$Ironmaidenemitter.emitting = false
 	temp_attack_power = attack_power
 	temp_speed = speed
 	attack_power = 0
+	if Tutorial.state == 0:
+		popup = Spellhandler.make_popup(position, "dead enemy", "right click to harvest their soul")
 
 func raise():
 	state = STATES.RISEN
@@ -133,10 +149,11 @@ func find_target():
 			elif position.distance_to(i.position) < position.distance_to(targeted.position):
 				targeted = i
 	for i in  $Area2D.get_overlapping_areas():
-		if i == targeted:
-			anim.play("Attack")
-			attack_delay.start()
-			speed = 0
+		if not targeted is String:
+			if i == targeted:
+				anim.play("Attack")
+				attack_delay.start()
+				speed = 0
 
 
 func explode(): #spawn an explosion (then get rid of my body)
@@ -152,21 +169,25 @@ func soul_particle(): # emite particles for soul steal and dissapear after!
 	await get_tree().create_timer(2.25).timeout
 	queue_free()
 
-
 func _on_risen_damage_timeout():
 	health -= 5
 	if health <= 0:
 		queue_free()
 
 func assign_stats(): #Assign stats for the unit and swap sprites for the appropriate unit
-	health = unit_stats[unit_type]["Health"]
-	attack_power = unit_stats[unit_type]["Attack"]
+	health = difficulty_mod(unit_stats[unit_type]["Health"])
+	attack_power = difficulty_mod(unit_stats[unit_type]["Attack"])
 	speed = unit_stats[unit_type]["Speed"]
 	get_node(unit_type).visible = true
 	anim = get_node(unit_type)
 	if unit_type == "Archer":
 		$Area2D/CollisionShape2D.disabled = true
 		$Area2D/Archer_attack.disabled = false
+
+func difficulty_mod(stat, mod := Gamestate.difficulty):
+	var temp_stat = ((stat * mod)*0.25)
+	print(temp_stat)
+	return temp_stat
 
 func _on_area_entered(area):
 	if "Fireball" in area.name and state == STATES.ALIVE:

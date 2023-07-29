@@ -2,6 +2,7 @@ extends Node
 
 var state
 var wall
+var difficulty : float = 2.5
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state = "running"
