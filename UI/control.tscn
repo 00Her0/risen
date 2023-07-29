@@ -49,7 +49,6 @@ offset_bottom = 40.0
 
 [node name="Ironmaindenbutton" type="TextureButton" parent="TabContainer/Necrospellpanel/HBoxContainer"]
 layout_mode = 2
-toggle_mode = true
 shortcut = SubResource("Shortcut_xtgvv")
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
@@ -86,7 +85,6 @@ one_shot = true
 
 [node name="Bonespearbutton" type="TextureButton" parent="TabContainer/Necrospellpanel/HBoxContainer"]
 layout_mode = 2
-toggle_mode = true
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
 
@@ -122,7 +120,6 @@ one_shot = true
 
 [node name="Weakenbutton" type="TextureButton" parent="TabContainer/Necrospellpanel/HBoxContainer"]
 layout_mode = 2
-toggle_mode = true
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
 
@@ -169,7 +166,6 @@ offset_bottom = 40.0
 layout_mode = 2
 tooltip_text = "[2 Souls]
 Use a captured souls to [R]aise a dead body"
-toggle_mode = true
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
 
@@ -208,7 +204,6 @@ expand_mode = 1
 layout_mode = 2
 tooltip_text = "[6 Souls]
 Fill a dead body with so many souls it [E]xplodes!"
-toggle_mode = true
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
 
@@ -245,6 +240,8 @@ expand_mode = 1
 
 [node name="Golembutton" type="TextureButton" parent="TabContainer/Soulspellpanel/HBoxContainer"]
 layout_mode = 2
+tooltip_text = "[All Available Souls]
+Summon a golem to fight for your army!"
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
 
