@@ -311,7 +311,8 @@ texture = ExtResource("11_71rgy")
 
 [node name="UltimateDragonButton2" type="TextureButton" parent="TabContainer/Baseupgradepanel/Upgradebox"]
 layout_mode = 2
-tooltip_text = "dragon ultimate attack, currently not working"
+tooltip_text = "Dragon Ultimate Attack
+Send one of the dragons to fly through the battlefield wiping out tons of enemies."
 texture_normal = ExtResource("7_66tx0")
 
 [node name="TabBar" type="TabBar" parent="."]
