@@ -14,7 +14,7 @@ extends Control
 @onready var weaken_shade = $TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton/CooldownShade
 @onready var golem_shade = $TabContainer/Soulspellpanel/HBoxContainer/Golembutton/CooldownShade
 @onready var wall_hp = $Healthprogressbar
-@onready var soul_count = $SoulsProgressBar
+@onready var soul_count = $"Souls Label"
 
 @onready var spell_aoe = preload("res://Scenes/spell_aoe.tscn")
 var spell_aoe_node
@@ -40,8 +40,7 @@ func _ready():
 	weaken_shade.max_value = weaken_cooldown.wait_time
 	wall_hp.max_value = Currency.wall_max_hp
 	wall_hp.value = Currency.wall_hp
-	soul_count.max_value = 7
-	soul_count.value = Currency.souls
+
 
 	
 
@@ -54,8 +53,7 @@ func _process(_delta):
 	iron_maiden_shade.value = iron_maiden_cooldown.time_left
 	weaken_shade.value = weaken_cooldown.time_left
 	wall_hp.value = Currency.wall_hp
-	soul_count.value = Currency.souls
-	soul_count.tooltip_text = "Current souls: " + str(Currency.souls)
+	soul_count.text = "Current souls: " + str(Currency.souls)
 	wall_hp.tooltip_text = "Lair HP: " + str(Currency.wall_hp) + "/" + str(Currency.wall_max_hp)
 	if Currency.current_wave != 0 and Currency.current_wave != null:
 		wave_label.text = "Wave: " + str(Currency.current_wave)

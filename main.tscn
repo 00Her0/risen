@@ -95,7 +95,6 @@ rotation = 3.14159
 [node name="Sayings" type="AudioStreamPlayer" parent="Necro"]
 
 [node name="Golem" parent="." instance=ExtResource("11_blr6e")]
-visible = false
 position = Vector2(475, 303)
 
 [connection signal="timeout" from="Enemies/spawn_cooldown" to="Enemies" method="_on_spawn_cooldown_timeout"]

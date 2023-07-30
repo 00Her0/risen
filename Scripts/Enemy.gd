@@ -57,7 +57,7 @@ func set_type(unit):
 		"SW":
 			unit_type = "Swordman"
 		"KN":
-			unit_type = "Knight"
+			unit_type = "Swordman"
 		"AR":
 			unit_type = "Archer"
 		_:
@@ -186,7 +186,6 @@ func assign_stats(): #Assign stats for the unit and swap sprites for the appropr
 
 func difficulty_mod(stat, mod := Gamestate.difficulty):
 	var temp_stat = ((stat * mod)*0.25)
-	print(temp_stat)
 	return temp_stat
 
 func _on_area_entered(area):

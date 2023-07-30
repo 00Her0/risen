@@ -21,7 +21,7 @@ func _ready():
 	set_wave_array()
 
 func _process(_delta):
-	print(get_tree().get_nodes_in_group("enemy").size())
+#	print(get_tree().get_nodes_in_group("enemy").size())
 	if enemies_alive <= 0 and $spawn_cooldown.is_stopped():
 		$spawn_cooldown.start(10)
 	Currency.time_to_next_wave = $spawn_cooldown.time_left
@@ -103,8 +103,8 @@ func set_wave_array():
 			temp_max_stats -= 15
 		elif unit_value < 85 and unit_value <=100:
 			wave_array.append("KN") # adds knight at 15% chance
-			temp_max_stats -= 29
-	print(wave_array)
+			temp_max_stats -= 18
+#	print(wave_array)
 
 func find_max_stats():
 	var temp_max = (Currency.current_wave + ((Currency.current_wave ** Gamestate.difficulty) + 50))
@@ -112,5 +112,5 @@ func find_max_stats():
 	print(temp_max)
 
 func enemy_died(_enemy):
-	print("enemy died")
+#	print("enemy died")
 	enemies_alive -= 1

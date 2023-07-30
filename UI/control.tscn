@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dx1okvfblqpxj"]
+[gd_scene load_steps=20 format=3 uid="uid://dx1okvfblqpxj"]
 
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_oal40"]
 [ext_resource type="Texture2D" uid="uid://bfot4op4e0xca" path="res://assets/Filler graphics/whiteshader.png" id="4_pfv82"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cvoioo6vksukd" path="res://assets/Final graphics/hp_bar fill.png" id="17_uc6ie"]
 [ext_resource type="Texture2D" uid="uid://bvcred8s1gfg5" path="res://assets/weaken.png" id="18_2oigf"]
 [ext_resource type="Texture2D" uid="uid://c4y7cyeso304x" path="res://assets/Final graphics/Health_Bar_02.png" id="18_m4es4"]
+[ext_resource type="Theme" uid="uid://bo4h1ilsntjwk" path="res://assets/Final graphics/Menu/Label theme.tres" id="18_snp06"]
 [ext_resource type="Texture2D" uid="uid://dhsgj7g8v57qh" path="res://assets/Raise-export.png" id="19_i5yik"]
 [ext_resource type="Texture2D" uid="uid://cidmpryl6endt" path="res://assets/Final graphics/soul_bar fill 2.png" id="19_o0fxg"]
 [ext_resource type="Texture2D" uid="uid://pcnn3kt440n1" path="res://assets/Explode-export.png" id="20_h1yqs"]
@@ -25,6 +26,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -56.0
+offset_right = 10.0
+offset_bottom = -56.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_oal40")
@@ -79,7 +84,7 @@ tint_under = Color(0.231373, 0.231373, 0.231373, 0)
 tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
 [node name="Ironmaidencooldown" type="Timer" parent="TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton"]
-wait_time = 15.0
+wait_time = 10.0
 one_shot = true
 
 [node name="Bonespearbutton" type="TextureButton" parent="TabContainer/Necrospellpanel/HBoxContainer"]
@@ -151,7 +156,7 @@ tint_under = Color(0.231373, 0.231373, 0.231373, 0)
 tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
 [node name="Weakencooldown" type="Timer" parent="TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton"]
-wait_time = 15.0
+wait_time = 10.0
 one_shot = true
 
 [node name="Soulspellpanel" type="Panel" parent="TabContainer"]
@@ -377,6 +382,7 @@ texture_under = ExtResource("23_l6bsb")
 texture_progress = ExtResource("17_uc6ie")
 
 [node name="SoulsProgressBar" type="TextureProgressBar" parent="."]
+visible = false
 layout_mode = 0
 offset_top = 128.0
 offset_right = 286.0
@@ -388,6 +394,16 @@ stretch_margin_left = 9
 stretch_margin_right = 9
 texture_under = ExtResource("18_m4es4")
 texture_progress = ExtResource("19_o0fxg")
+
+[node name="Souls Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 139.0
+offset_right = 65.0
+offset_bottom = 163.0
+theme = ExtResource("18_snp06")
+text = "Souls
+"
 
 [connection signal="pressed" from="TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton" to="." method="_on_ironmaindenbutton_pressed"]
 [connection signal="timeout" from="TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton/Ironmaidencooldown" to="." method="_on_ironmaidencooldown_timeout"]

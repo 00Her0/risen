@@ -5,7 +5,7 @@ extends Area2D
 @export var attack = 3
 @export var damage_reduction = .99
 @export var speed = 25
-@export var life_steal = 0.1
+@export var life_steal = 0.01
 var max_health
 var soul_hp_mod = .05
 var soul_attack_mod = .1
@@ -42,15 +42,22 @@ func move(t, delta):
 	else:
 		position.x = move_toward(position.x, t.position.x, (speed * 1.75) * delta)
 		position.y = move_toward(position.y, t.position.y, speed * delta)
+	if t.position.x < position.x:
+		$AnimatedSprite2D.flip_h = true
+	else:
+		$AnimatedSprite2D.flip_h = false
 
 
 func summon(souls_used):
 	calc_stats(souls_used)
 	$AnimatedSprite2D.visible = true
+	$"Hp Bar".visible = true
 
 
 func calc_stats(amount):
 	max_health = health + (health*(soul_hp_mod*amount))
+	$"Hp Bar".max_value = max_health
+	$"Hp Bar".value = max_health
 	health = max_health
 	attack = attack + (attack*(soul_attack_mod*amount))
 	damage_reduction = damage_reduction - ((soul_damage_reduction_mod*(soul_damage_reduction_mod*amount))/100)
@@ -63,7 +70,8 @@ func take_damage(amount):
 		
 func calc_damage():
 	var temp_damage = attack
-	health += temp_damage * life_steal
+	if health < max_health:
+		health += max(temp_damage * life_steal, (max_health - health))
 	return temp_damage
 
 func _on_attack_timer_timeout():
