@@ -79,7 +79,7 @@ tint_under = Color(0.231373, 0.231373, 0.231373, 0)
 tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
 [node name="Ironmaidencooldown" type="Timer" parent="TabContainer/Necrospellpanel/HBoxContainer/Ironmaindenbutton"]
-wait_time = 10.0
+wait_time = 15.0
 one_shot = true
 
 [node name="Bonespearbutton" type="TextureButton" parent="TabContainer/Necrospellpanel/HBoxContainer"]
@@ -151,7 +151,7 @@ tint_under = Color(0.231373, 0.231373, 0.231373, 0)
 tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
 [node name="Weakencooldown" type="Timer" parent="TabContainer/Necrospellpanel/HBoxContainer/Weakenbutton"]
-wait_time = 10.0
+wait_time = 15.0
 one_shot = true
 
 [node name="Soulspellpanel" type="Panel" parent="TabContainer"]
