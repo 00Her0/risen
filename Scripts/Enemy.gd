@@ -170,7 +170,7 @@ func soul_particle(): # emite particles for soul steal and dissapear after!
 	queue_free()
 
 func _on_risen_damage_timeout():
-	health -= 5
+	health -= 0.025 * hp_bar.max_value
 	if health <= 0:
 		queue_free()
 

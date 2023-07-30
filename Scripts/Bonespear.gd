@@ -2,7 +2,7 @@ extends Area2D
 
 
 @export var speed = 350
-@export var damage := 10
+@export var damage := 50
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
 
