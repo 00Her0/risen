@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://donecacfvxfvl"]
+[gd_scene load_steps=16 format=3 uid="uid://donecacfvxfvl"]
 
 [ext_resource type="Texture2D" uid="uid://dsgqailqhr6vo" path="res://assets/Final graphics/game_field.png" id="1_32h5w"]
 [ext_resource type="Script" path="res://Scripts/Enemies.gd" id="1_hiq61"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_skyei"]
 [ext_resource type="PackedScene" uid="uid://dh45gqpapy2me" path="res://Scenes/dragon.tscn" id="3_3pd6f"]
 [ext_resource type="PackedScene" uid="uid://dx1okvfblqpxj" path="res://UI/control.tscn" id="4_s24bf"]
 [ext_resource type="Script" path="res://Wall.gd" id="5_hmxq2"]
@@ -22,6 +23,7 @@ radius = 550.0
 size = Vector2(41.0414, 9.18769)
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_skyei")
 
 [node name="BackgroundSketch" type="Sprite2D" parent="."]
 position = Vector2(480, 270)
@@ -68,7 +70,6 @@ debug_color = Color(0.956863, 0, 0.52549, 0.419608)
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_pu4hy")
 volume_db = -15.0
-autoplay = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("7_t3g4j")
