@@ -1,9 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://dx1okvfblqpxj"]
+[gd_scene load_steps=19 format=3 uid="uid://dx1okvfblqpxj"]
 
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_oal40"]
 [ext_resource type="Texture2D" uid="uid://bfot4op4e0xca" path="res://assets/Filler graphics/whiteshader.png" id="4_pfv82"]
-[ext_resource type="Texture2D" uid="uid://xs8tw6d4lkwk" path="res://assets/Filler graphics/tile_0054.png" id="6_be0pe"]
-[ext_resource type="Texture2D" uid="uid://d1ucjj6fpjiqe" path="res://assets/Filler graphics/tile_0081.png" id="7_66tx0"]
 [ext_resource type="Texture2D" uid="uid://cydqi7rn6x8oj" path="res://assets/hammer.png" id="9_wvfj3"]
 [ext_resource type="Texture2D" uid="uid://w40hnls33i2d" path="res://assets/Wall powerup.png" id="11_71rgy"]
 [ext_resource type="Texture2D" uid="uid://dspwntj5kwdlo" path="res://assets/Final graphics/Inventory_9slices_06.png" id="14_aojxv"]
@@ -68,7 +66,8 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 40.0
 offset_bottom = 40.0
-tooltip_text = "Frighten your enemies so much they drop their guard
+tooltip_text = "Iron Maiden
+Frighten your enemies so much they drop their guard
 causes enemies in the area to take double damage!
 Hotkey: I"
 max_value = 5.0
@@ -103,7 +102,8 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 40.0
 offset_bottom = 40.0
-tooltip_text = "Launch a bone spear at the location
+tooltip_text = "Bone spear
+Launch a bone spear at the location
 Impales enemies in its path inflicting damage
 Hotkey: B"
 max_value = 5.0
@@ -138,7 +138,8 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 40.0
 offset_bottom = 40.0
-tooltip_text = "strike fear into the hearts of men!
+tooltip_text = "Weaken
+Strike fear into the hearts of men!
 reduce the targets attack power
 Hotkey: W"
 max_value = 5.0
@@ -169,13 +170,23 @@ Use a captured souls to [R]aise a dead body"
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
 
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Soulspellpanel/HBoxContainer/Raisebutton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 15.0
+offset_right = 33.0
+offset_bottom = 34.0
+texture = ExtResource("19_i5yik")
+expand_mode = 1
+
 [node name="CooldownShade" type="TextureProgressBar" parent="TabContainer/Soulspellpanel/HBoxContainer/Raisebutton"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 40.0
 offset_bottom = 40.0
-tooltip_text = "Use a captured souls to Raise a dead body
+tooltip_text = "Raise
+Use a captured souls to Raise a dead body
 Requires 2 souls to use
 use on a gravestone
 Hotkey: R"
@@ -191,15 +202,6 @@ tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 wait_time = 6.0
 one_shot = true
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Soulspellpanel/HBoxContainer/Raisebutton"]
-layout_mode = 0
-offset_left = 14.0
-offset_top = 15.0
-offset_right = 33.0
-offset_bottom = 34.0
-texture = ExtResource("19_i5yik")
-expand_mode = 1
-
 [node name="Explodebutton" type="TextureButton" parent="TabContainer/Soulspellpanel/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "[6 Souls]
@@ -207,13 +209,23 @@ Fill a dead body with so many souls it [E]xplodes!"
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
 
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Soulspellpanel/HBoxContainer/Explodebutton"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 34.0
+offset_bottom = 34.0
+texture = ExtResource("20_h1yqs")
+expand_mode = 1
+
 [node name="CooldownShade" type="TextureProgressBar" parent="TabContainer/Soulspellpanel/HBoxContainer/Explodebutton"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 40.0
 offset_bottom = 40.0
-tooltip_text = "Fill a dead body with so many souls it explodes!
+tooltip_text = "Corpse explosion
+Fill a dead body with so many souls it explodes!
 use on a gravestone
 Requires 6 souls
 Hotkey: E"
@@ -229,21 +241,22 @@ tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 wait_time = 10.0
 one_shot = true
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Soulspellpanel/HBoxContainer/Explodebutton"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 15.0
-offset_right = 34.0
-offset_bottom = 34.0
-texture = ExtResource("20_h1yqs")
-expand_mode = 1
-
 [node name="Golembutton" type="TextureButton" parent="TabContainer/Soulspellpanel/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "[All Available Souls]
 Summon a golem to fight for your army!"
 texture_normal = ExtResource("14_aojxv")
 texture_pressed = ExtResource("15_qh80b")
+
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Soulspellpanel/HBoxContainer/Golembutton"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 33.0
+offset_bottom = 33.0
+texture = ExtResource("21_gw312")
+expand_mode = 1
+flip_h = true
 
 [node name="CooldownShade" type="TextureProgressBar" parent="TabContainer/Soulspellpanel/HBoxContainer/Golembutton"]
 layout_mode = 0
@@ -262,16 +275,6 @@ texture_progress = ExtResource("4_pfv82")
 tint_under = Color(0.231373, 0.231373, 0.231373, 0)
 tint_progress = Color(0.231373, 0.231373, 0.231373, 0.588235)
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Soulspellpanel/HBoxContainer/Golembutton"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 15.0
-offset_right = 33.0
-offset_bottom = 33.0
-texture = ExtResource("21_gw312")
-expand_mode = 1
-flip_h = true
-
 [node name="Baseupgradepanel" type="Panel" parent="TabContainer"]
 visible = false
 layout_mode = 2
@@ -285,35 +288,44 @@ offset_bottom = -30.0
 
 [node name="RepairButton" type="TextureButton" parent="TabContainer/Baseupgradepanel/Upgradebox"]
 layout_mode = 2
-texture_normal = ExtResource("6_be0pe")
+texture_normal = ExtResource("14_aojxv")
+texture_pressed = ExtResource("15_qh80b")
 
 [node name="TextureRect" type="TextureRect" parent="TabContainer/Baseupgradepanel/Upgradebox/RepairButton"]
 layout_mode = 0
-offset_right = 32.0
-offset_bottom = 32.0
+offset_left = 15.0
+offset_top = 14.0
+offset_right = 34.0
+offset_bottom = 33.0
 tooltip_text = "Repair your walls using collected souls
 You can only muster the power to do this once
 Uses all souls available to repair"
 texture = ExtResource("9_wvfj3")
+expand_mode = 1
 
 [node name="UpgradewallButton" type="TextureButton" parent="TabContainer/Baseupgradepanel/Upgradebox"]
 layout_mode = 2
-texture_normal = ExtResource("7_66tx0")
+texture_normal = ExtResource("14_aojxv")
+texture_pressed = ExtResource("15_qh80b")
 
 [node name="TextureRect" type="TextureRect" parent="TabContainer/Baseupgradepanel/Upgradebox/UpgradewallButton"]
 layout_mode = 0
-offset_right = 32.0
-offset_bottom = 32.0
+offset_left = 15.0
+offset_top = 14.0
+offset_right = 33.0
+offset_bottom = 33.0
 tooltip_text = "Upgrade your walls using souls to bolster them
 you only have the strength to do this once
 Uses all available souls"
 texture = ExtResource("11_71rgy")
+expand_mode = 1
 
 [node name="UltimateDragonButton2" type="TextureButton" parent="TabContainer/Baseupgradepanel/Upgradebox"]
 layout_mode = 2
 tooltip_text = "Dragon Ultimate Attack
 Send one of the dragons to fly through the battlefield wiping out tons of enemies."
-texture_normal = ExtResource("7_66tx0")
+texture_normal = ExtResource("14_aojxv")
+texture_pressed = ExtResource("15_qh80b")
 
 [node name="TabBar" type="TabBar" parent="."]
 layout_mode = 2

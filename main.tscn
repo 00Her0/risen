@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://donecacfvxfvl"]
 
+[ext_resource type="Texture2D" uid="uid://dsgqailqhr6vo" path="res://assets/Final graphics/game_field.png" id="1_32h5w"]
 [ext_resource type="Script" path="res://Scripts/Enemies.gd" id="1_hiq61"]
-[ext_resource type="Texture2D" uid="uid://dj25bfds34fwl" path="res://assets/Filler graphics/landscape_01.png" id="1_y1w1b"]
 [ext_resource type="PackedScene" uid="uid://dh45gqpapy2me" path="res://Scenes/dragon.tscn" id="3_3pd6f"]
 [ext_resource type="PackedScene" uid="uid://dx1okvfblqpxj" path="res://UI/control.tscn" id="4_s24bf"]
 [ext_resource type="Script" path="res://Wall.gd" id="5_hmxq2"]
@@ -19,13 +19,13 @@ radius = 400.0
 radius = 550.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l213k"]
-size = Vector2(98.8138, 20)
+size = Vector2(41.0414, 9.18769)
 
 [node name="Main" type="Node2D"]
 
 [node name="BackgroundSketch" type="Sprite2D" parent="."]
 position = Vector2(480, 270)
-texture = ExtResource("1_y1w1b")
+texture = ExtResource("1_32h5w")
 
 [node name="Enemies" type="Node2D" parent="."]
 script = ExtResource("1_hiq61")
@@ -38,24 +38,29 @@ autostart = true
 [node name="Dragons" type="Node2D" parent="."]
 
 [node name="LDragon" parent="Dragons" instance=ExtResource("3_3pd6f")]
-position = Vector2(554, 113)
+position = Vector2(584, 84)
+
+[node name="targetting_system" parent="Dragons/LDragon" index="2"]
+visible = false
 
 [node name="CollisionShape2D" parent="Dragons/LDragon/targetting_system" index="0"]
 shape = SubResource("CircleShape2D_h3kj1")
 
 [node name="LDragon2" parent="Dragons" instance=ExtResource("3_3pd6f")]
-position = Vector2(800, 257)
+position = Vector2(801, 208)
+
+[node name="targetting_system" parent="Dragons/LDragon2" index="2"]
+visible = false
 
 [node name="CollisionShape2D" parent="Dragons/LDragon2/targetting_system" index="0"]
 shape = SubResource("CircleShape2D_lq0pk")
 
 [node name="Wall" type="Area2D" parent="." groups=["wall"]]
-visible = false
 script = ExtResource("5_hmxq2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
-position = Vector2(670.81, 205.664)
-rotation = 0.663225
+position = Vector2(646.24, 243.162)
+rotation = 0.593412
 scale = Vector2(9.21818, 8.36703)
 shape = SubResource("RectangleShape2D_l213k")
 debug_color = Color(0.956863, 0, 0.52549, 0.419608)
@@ -89,6 +94,7 @@ rotation = 3.14159
 [node name="Sayings" type="AudioStreamPlayer" parent="Necro"]
 
 [node name="Golem" parent="." instance=ExtResource("11_blr6e")]
+visible = false
 position = Vector2(475, 303)
 
 [connection signal="timeout" from="Enemies/spawn_cooldown" to="Enemies" method="_on_spawn_cooldown_timeout"]

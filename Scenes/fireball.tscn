@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://cv5iib51qgmd7"]
+[gd_scene load_steps=17 format=3 uid="uid://cv5iib51qgmd7"]
 
 [ext_resource type="Script" path="res://Scripts/fireball.gd" id="1_hinsk"]
 [ext_resource type="Texture2D" uid="uid://ouy0uytnpoeg" path="res://assets/Fireball.png" id="2_5w18c"]
 [ext_resource type="AudioStream" uid="uid://scoqods1ib87" path="res://assets/Music and sounds/Bluezone_BC0290_demolisher_debris_rubble_texture_004.wav" id="3_0pf76"]
-[ext_resource type="Material" uid="uid://jt4bw3bx3d73" path="res://Scenes/fireball.tres" id="5_quyoh"]
 [ext_resource type="Texture2D" uid="uid://bfot4op4e0xca" path="res://assets/Filler graphics/whiteshader.png" id="6_svq7k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vloog"]
@@ -72,6 +71,14 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Curve" id="Curve_t6chx"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.464, 0.05), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_6cdn2"]
+offsets = PackedFloat32Array(0.481481, 1)
+colors = PackedColorArray(0.992157, 0.145098, 0, 1, 1, 1, 0.0117647, 1)
+
 [node name="Fireball" type="Area2D"]
 script = ExtResource("1_hinsk")
 
@@ -91,10 +98,19 @@ frame_progress = 0.019832
 stream = ExtResource("3_0pf76")
 volume_db = -20.0
 
-[node name="Trailemitter" type="GPUParticles2D" parent="."]
+[node name="Trailemitter" type="CPUParticles2D" parent="."]
 amount = 50
-process_material = ExtResource("5_quyoh")
+lifetime_randomness = 0.81
+fixed_fps = 30
+draw_order = 1
 texture = ExtResource("6_svq7k")
+emission_shape = 1
+emission_sphere_radius = 2.88
+spread = 180.0
+gravity = Vector2(0, 0)
+damping_max = 10.29
+scale_amount_curve = SubResource("Curve_t6chx")
+color_ramp = SubResource("Gradient_6cdn2")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

@@ -109,7 +109,7 @@ func die():
 	if state == STATES.RISEN:
 		queue_free()
 	state = STATES.DEAD
-	$Deathsound.play()
+
 	hp_bar.visible = false
 	remove_from_group("enemy")
 	i_died.emit(self)
