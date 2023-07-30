@@ -185,8 +185,7 @@ func assign_stats(): #Assign stats for the unit and swap sprites for the appropr
 		$Area2D/Archer_attack.disabled = false
 
 func difficulty_mod(stat, mod := Gamestate.difficulty):
-	var temp_stat = ((stat * mod)*0.25)
-	print(temp_stat)
+	var temp_stat = ((stat * mod)*0.25) + (2 * (Currency.current_wave + 1))
 	return temp_stat
 
 func _on_area_entered(area):
