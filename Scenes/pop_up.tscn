@@ -10,6 +10,7 @@
 bg_color = Color(0.290196, 0.6, 0.6, 0.443137)
 
 [node name="Pop-Up" type="Control"]
+process_mode = 2
 z_index = 10
 layout_mode = 3
 anchors_preset = 15
@@ -21,9 +22,10 @@ script = ExtResource("1_164j4")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_left = 712.0
-offset_right = 960.0
-offset_bottom = 96.0
+offset_left = 344.0
+offset_top = 230.0
+offset_right = 592.0
+offset_bottom = 326.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ol1i2")
 
 [node name="BoxContainer" type="BoxContainer" parent="PanelContainer"]

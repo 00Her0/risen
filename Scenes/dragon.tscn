@@ -1,38 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://dh45gqpapy2me"]
+[gd_scene load_steps=9 format=3 uid="uid://dh45gqpapy2me"]
 
 [ext_resource type="Script" path="res://Scripts/LDragon.gd" id="1_pv04f"]
-[ext_resource type="Texture2D" uid="uid://biuysmb3ied04" path="res://assets/Filler graphics/WhiteDragon.png" id="2_niawh"]
+[ext_resource type="Texture2D" uid="uid://bl5q0vdl8uoc4" path="res://assets/Final graphics/dragon1.png" id="2_epeif"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f6cme"]
-atlas = ExtResource("2_niawh")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4e3l0"]
-atlas = ExtResource("2_niawh")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xju2k"]
-atlas = ExtResource("2_niawh")
-region = Rect2(64, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gegtw"]
-atlas = ExtResource("2_niawh")
-region = Rect2(96, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kadx"]
+atlas = ExtResource("2_epeif")
+region = Rect2(0, 0, 96, 96)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1374g"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f6cme")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4e3l0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xju2k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gegtw")
+"texture": SubResource("AtlasTexture_0kadx")
 }],
 "loop": true,
 "name": &"Idle",
@@ -86,6 +65,7 @@ rotation = -0.607791
 shape = SubResource("RectangleShape2D_62xr3")
 
 [node name="Ultimate attack" type="CPUParticles2D" parent="."]
+position = Vector2(-29, -9)
 emitting = false
 amount = 1000
 lifetime = 1.3

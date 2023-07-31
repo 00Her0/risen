@@ -97,6 +97,11 @@ animations = [{
 "loop": true,
 "name": &"Walk",
 "speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t1a3d"]
@@ -119,10 +124,12 @@ sprite_frames = SubResource("SpriteFrames_xma3w")
 animation = &"Attack"
 autoplay = "Walk"
 
-[node name="Damage area" type="Area2D" parent="."]
+[node name="Damage area" type="Area2D" parent="AnimatedSprite2D"]
+scale = Vector2(0.5, 0.5)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage area"]
-position = Vector2(10, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Damage area"]
+position = Vector2(18, 0)
+rotation = 3.14159
 shape = SubResource("RectangleShape2D_t1a3d")
 
 [node name="Search area" type="Area2D" parent="."]
@@ -132,6 +139,7 @@ shape = SubResource("CircleShape2D_26gda")
 debug_color = Color(0, 0.6, 0.701961, 0.121569)
 
 [node name="Attack_timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Hp Bar" type="TextureProgressBar" parent="."]
 visible = false
@@ -144,5 +152,5 @@ texture_under = ExtResource("3_ur5jt")
 texture_over = ExtResource("4_lb7k2")
 texture_progress = ExtResource("5_evjif")
 
-[connection signal="area_entered" from="Damage area" to="." method="_on_damage_area_area_entered"]
+[connection signal="area_entered" from="AnimatedSprite2D/Damage area" to="." method="_on_damage_area_area_entered"]
 [connection signal="timeout" from="Attack_timer" to="." method="_on_attack_timer_timeout"]

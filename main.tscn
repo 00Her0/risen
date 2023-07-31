@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://donecacfvxfvl"]
+[gd_scene load_steps=15 format=3 uid="uid://donecacfvxfvl"]
 
 [ext_resource type="Texture2D" uid="uid://dsgqailqhr6vo" path="res://assets/Final graphics/game_field.png" id="1_32h5w"]
 [ext_resource type="Script" path="res://Scripts/Enemies.gd" id="1_hiq61"]
@@ -10,14 +10,13 @@
 [ext_resource type="Environment" uid="uid://but8j18gg0p" path="res://Scenes/Glowup.tres" id="7_t3g4j"]
 [ext_resource type="PackedScene" uid="uid://d32ftunw48c02" path="res://UI/pause_menu.tscn" id="8_ldvve"]
 [ext_resource type="PackedScene" uid="uid://cxmgldbhb6dx6" path="res://Scenes/golem.tscn" id="11_blr6e"]
-[ext_resource type="Texture2D" uid="uid://ct1u8lcnwt2we" path="res://assets/Filler graphics/Necromancer.png" id="11_tnavo"]
-[ext_resource type="Script" path="res://Scripts/Necro.gd" id="12_s5djt"]
+[ext_resource type="PackedScene" uid="uid://lmy45kivp065" path="res://Scenes/necro.tscn" id="11_wdpqs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h3kj1"]
-radius = 400.0
+radius = 525.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lq0pk"]
-radius = 550.0
+radius = 600.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l213k"]
 size = Vector2(41.0414, 9.18769)
@@ -40,19 +39,13 @@ autostart = true
 [node name="Dragons" type="Node2D" parent="."]
 
 [node name="LDragon" parent="Dragons" instance=ExtResource("3_3pd6f")]
-position = Vector2(584, 84)
-
-[node name="targetting_system" parent="Dragons/LDragon" index="2"]
-visible = false
+position = Vector2(592, 53)
 
 [node name="CollisionShape2D" parent="Dragons/LDragon/targetting_system" index="0"]
 shape = SubResource("CircleShape2D_h3kj1")
 
 [node name="LDragon2" parent="Dragons" instance=ExtResource("3_3pd6f")]
-position = Vector2(801, 208)
-
-[node name="targetting_system" parent="Dragons/LDragon2" index="2"]
-visible = false
+position = Vector2(792, 184)
 
 [node name="CollisionShape2D" parent="Dragons/LDragon2/targetting_system" index="0"]
 shape = SubResource("CircleShape2D_lq0pk")
@@ -68,6 +61,7 @@ shape = SubResource("RectangleShape2D_l213k")
 debug_color = Color(0.956863, 0, 0.52549, 0.419608)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("6_pu4hy")
 volume_db = -15.0
 
@@ -81,21 +75,11 @@ offset_bottom = 2.0
 [node name="PauseMenu" parent="." instance=ExtResource("8_ldvve")]
 visible = false
 
-[node name="Necro" type="Sprite2D" parent="."]
-position = Vector2(759, 144)
-texture = ExtResource("11_tnavo")
-hframes = 6
-vframes = 8
-frame = 19
-script = ExtResource("12_s5djt")
-
-[node name="Muzzle" type="Marker2D" parent="Necro"]
-rotation = 3.14159
-
-[node name="Sayings" type="AudioStreamPlayer" parent="Necro"]
-
 [node name="Golem" parent="." instance=ExtResource("11_blr6e")]
-position = Vector2(475, 303)
+position = Vector2(483, 313)
+
+[node name="Necro" parent="." instance=ExtResource("11_wdpqs")]
+position = Vector2(766, 110)
 
 [connection signal="timeout" from="Enemies/spawn_cooldown" to="Enemies" method="_on_spawn_cooldown_timeout"]
 

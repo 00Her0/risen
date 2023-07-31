@@ -11,6 +11,7 @@ func _process(delta):
 	pass
 
 func pop_up(where, title, text):
+	
 	$PanelContainer/BoxContainer/RichTextLabel.text = title
 	$PanelContainer/BoxContainer/RichTextLabel2.text = text
 	$Arrow.position = where

@@ -10,7 +10,7 @@ extends Area2D
 @onready var hp_bar = $"Hp bar"
 @onready var explosion = preload("res://Scenes/explosion.tscn")
 @onready var target = "none"
-var unit_stats = {"Spearman": {"Health":100, "Attack": 5, "Speed": 15,},"Archer": {"Health":50, "Attack": 8, "Speed": 25,}, "Knight": {"Health":100, "Attack": 10, "Speed": 30,}, "Swordman": {"Health":150, "Attack": 5, "Speed": 5,}}
+var unit_stats = {"Spearman": {"Health":100, "Attack": 5, "Speed": 35,},"Archer": {"Health":50, "Attack": 8, "Speed": 25,}, "Knight": {"Health":100, "Attack": 10, "Speed": 30,}, "Swordman": {"Health":150, "Attack": 5, "Speed": 30,}}
 var unit_list = ["Spearman","Archer","Knight","Swordman"]
 var unit_type
 enum STATES {ALIVE, DEAD, RISEN}
@@ -122,6 +122,7 @@ func die():
 	temp_speed = speed
 	attack_power = 0
 	if Tutorial.state == 1 and Tutorial.popup_open == false:
+		get_tree().paused = true
 		popup = Spellhandler.make_popup(position, "dead enemy", "right click to harvest their soul")
 
 func raise():

@@ -25,7 +25,8 @@ func _process(_delta):
 	if enemies_alive <= 0 and $spawn_cooldown.is_stopped():
 		$spawn_cooldown.start(10)
 	Currency.time_to_next_wave = $spawn_cooldown.time_left
-
+#	if (current_wave%2) == 0 and enemies_alive == 0 and current_wave != 0:
+#		Gamestate.state = "10th"
 
 func _on_spawn_cooldown_timeout():
 	set_wave_array()

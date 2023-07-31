@@ -5,3 +5,4 @@ extends Node2D
 func _ready():
 	if Currency.music == true:
 		$AudioStreamPlayer.play()
+	Gamestate.playing = true

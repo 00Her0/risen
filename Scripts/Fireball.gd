@@ -6,6 +6,8 @@ var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
 
 func start(transform):
+	$Sprite2D.set_self_modulate(Color(0.09,1,0.08,1))
+	$Trailemitter.set_self_modulate(Color(0.09,1,0.08,1))
 	global_transform = transform
 	velocity = transform.x * speed
 

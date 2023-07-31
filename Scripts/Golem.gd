@@ -23,7 +23,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+
 	if state == "active":
+		$"Hp Bar".value = health
 		if targeted == null or targeted.state == 1:
 			targeted = get_closest_enemy()
 			if speed == 0:
@@ -44,8 +46,10 @@ func move(t, delta):
 		position.y = move_toward(position.y, t.position.y, speed * delta)
 	if t.position.x < position.x:
 		$AnimatedSprite2D.flip_h = true
+		$"AnimatedSprite2D/Damage area/CollisionShape2D".position.x = -18
 	else:
 		$AnimatedSprite2D.flip_h = false
+		$"AnimatedSprite2D/Damage area/CollisionShape2D".position.x = 18
 
 
 func summon(souls_used):
@@ -71,12 +75,14 @@ func take_damage(amount):
 func calc_damage():
 	var temp_damage = attack
 	if health < max_health:
-		health += max(temp_damage * life_steal, (max_health - health))
+		health += min(temp_damage * life_steal, (max_health - health))
 	return temp_damage
 
 func _on_attack_timer_timeout():
 	if targeted != null:
 		targeted.take_damage(calc_damage(), true)
+		take_damage(5)
+		$Attack_timer.start()
 
 func sort_closest(a, b):
 	return a.position < b.position
@@ -92,7 +98,7 @@ func get_closest_enemy():
 
 
 func _on_damage_area_area_entered(area):
-	if area.is_in_group("enemy") and area.state == 0:
+	if area.is_in_group("enemy") and area.state == 0 and state == "active":
 		targeted = area
 		$Attack_timer.start()
 		speed = 0

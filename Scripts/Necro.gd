@@ -6,6 +6,7 @@ extends Sprite2D
 @onready var sayings = $Sayings
 var sayings_list = ["Raise", "Rally", "Once", "Recycle", "Bone"]
 var target = null
+var is_playing = false
 
 
 func shoot(target):
@@ -48,5 +49,11 @@ func pick_saying():
 			sayings.stream = load("res://assets/Music and sounds/Once Twice.wav")
 		"Bone":
 			sayings.stream = load("res://assets/Music and sounds/Bone.wav")
-	if Currency.sound == true:
+	if Currency.sound == true and is_playing == false:
+		is_playing = true
 		sayings.play()
+		
+
+
+func _on_sayings_finished():
+	is_playing = false

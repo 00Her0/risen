@@ -5,6 +5,7 @@ extends Control
 func _ready():
 	$AudioStreamPlayer.playing = true
 	Gamestate.difficulty =  $Options/HSlider.value
+	Gamestate.playing = false
 
 func _process(delta):
 	if Currency.sound == false:

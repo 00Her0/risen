@@ -2,7 +2,7 @@ extends Node
 
 var sound = true
 var music = true
-var souls := 7 # CHANGED FOR TESTING
+var souls := 0 # CHANGED FOR TESTING
 var soul_list = []
 var wall_hp = 200
 var wall_max_hp = 200
